@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一只快乐的小怪兽" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    centos7下配置Hadoop全分布式环境 |  iMonster
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="iMonster" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-centos7下配置Hadoop全分布式环境"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  centos7下配置Hadoop全分布式环境
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/05/29/centos7%E4%B8%8B%E9%85%8D%E7%BD%AEHadoop%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83/" class="article-date">
+  <time datetime="2019-05-29T09:19:29.000Z" itemprop="datePublished">2019-05-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">工具环境搭建</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>title: centos7下配置Hadoop全分布式环境<br>categories: hadoop<br>tags:</p>
+<ul>
+<li>hadoop<br>abbrlink: 29774<br>date: 2018-02-22 00:00:00</li>
+</ul>
+<hr>
+<h1 id="centos7下配置Hadoop全分布式环境"><a href="#centos7下配置Hadoop全分布式环境" class="headerlink" title=" centos7下配置Hadoop全分布式环境 "></a><a href="/qq_37279279/article/details/78480206"> centos7下配置Hadoop全分布式环境 </a></h1><hr>
+<h1 id="配置Hadoop全分布式环境"><a href="#配置Hadoop全分布式环境" class="headerlink" title="配置Hadoop全分布式环境"></a>配置Hadoop全分布式环境</h1><h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><a id="more"></a>
+<h3 id="准备三台虚机并保证能相互ping通"><a href="#准备三台虚机并保证能相互ping通" class="headerlink" title="准备三台虚机并保证能相互ping通"></a>准备三台虚机并保证能相互ping通</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>IP地址</th>
+<th>主机名</th>
+<th>类型</th>
+<th>用户名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>192.168.162.177</td>
+<td>Master.Hadoop</td>
+<td>NameNode</td>
+<td>root</td>
+</tr>
+<tr>
+<td>2</td>
+<td>192.168.162.155</td>
+<td>Slave1.Hadoop</td>
+<td>DataNode</td>
+<td>root</td>
+</tr>
+<tr>
+<td>3</td>
+<td>192.168.162.166</td>
+<td>Slave2.Hadoop</td>
+<td>DataNode</td>
+<td>root</td>
+</tr>
+</tbody></table>
+<h3 id="主机名的修改："><a href="#主机名的修改：" class="headerlink" title="主机名的修改："></a>主机名的修改：</h3><pre><code>vim /etc/hostname</code></pre><p>按照一定的格式修改三台机器的主机名。</p>
+<h3 id="配置Hosts"><a href="#配置Hosts" class="headerlink" title="配置Hosts"></a>配置Hosts</h3><pre><code>vim /etc/hosts</code></pre><h3 id="添加映射到hosts文件"><a href="#添加映射到hosts文件" class="headerlink" title="添加映射到hosts文件"></a>添加映射到hosts文件</h3><pre><code>192.168.162.177 Master.Hadoop
+192.168.162.155 Slave1.Hadoop
+192.168.162.166 Slave2.Hadoop</code></pre><p>三台机器配置相同的hosts</p>
+<h2 id="二、关闭防火墙"><a href="#二、关闭防火墙" class="headerlink" title="二、关闭防火墙"></a>二、关闭防火墙</h2><ol>
+<li><h3 id="查看防火墙状态"><a href="#查看防火墙状态" class="headerlink" title="查看防火墙状态"></a>查看防火墙状态</h3></li>
+</ol>
+<pre><code>systemctl status firewalld</code></pre><ol>
+<li><h3 id="查看开机是否启动防火墙服务"><a href="#查看开机是否启动防火墙服务" class="headerlink" title="查看开机是否启动防火墙服务"></a>查看开机是否启动防火墙服务</h3></li>
+</ol>
+<pre><code>systemctl is-enabled firewalld</code></pre><ol>
+<li><h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3></li>
+</ol>
+<pre><code>systemctl stop firewalld
+systemctl status firewalld</code></pre><ol>
+<li><h3 id="警用防火墙（系统启动时不启动防火墙）"><a href="#警用防火墙（系统启动时不启动防火墙）" class="headerlink" title="警用防火墙（系统启动时不启动防火墙）"></a>警用防火墙（系统启动时不启动防火墙）</h3></li>
+</ol>
+<pre><code>systemctl disable firewalld
+systemctl is-enabled firewalld</code></pre><ol>
+<li><h3 id="确保setlinux关闭"><a href="#确保setlinux关闭" class="headerlink" title="确保setlinux关闭"></a>确保setlinux关闭</h3></li>
+</ol>
+<pre><code>setenforce 0</code></pre><h2 id="三、免密登录"><a href="#三、免密登录" class="headerlink" title="三、免密登录"></a>三、免密登录</h2><p>首先虚机需要安装ssh如果没有安装，可以通过yum进行安装</p>
+<pre><code>yum install openssh-server
+yum install openssh-clients</code></pre><blockquote>
+<p>为什么要免密登录？</p>
+</blockquote>
+<p>因为我们的nameNode与dataNode是在不同的主机上，我们需要主机间做互信，nameNode可以不用密码登录到dataNode。</p>
+<h3 id="Master-Hadoop"><a href="#Master-Hadoop" class="headerlink" title="Master.Hadoop"></a>Master.Hadoop</h3><p>在master主机输入生成秘钥</p>
+<pre><code>ssh-keygen -t dsa -P &apos;&apos; -f ~/.ssh/id_dsa</code></pre><p>将秘钥追加到authorized_keys</p>
+<pre><code>cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre><p>然后利用scp将其复制到两个slave主机上</p>
+<h3 id="Slave1"><a href="#Slave1" class="headerlink" title="Slave1"></a>Slave1</h3><p>在Slave1主机上输入</p>
+<pre><code>scp root@Master.Hadoop:~/.ssh/id_dsa.pub ~/.ssh/master_dsa.pub
+
+cat ~/.ssh/master_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre><h3 id="Slave2"><a href="#Slave2" class="headerlink" title="Slave2"></a>Slave2</h3><p>在Slave2主机输入</p>
+<pre><code>scp root@Master.Hadoop:~/.ssh/id_dsa.pub ~/.ssh/master_dsa.pub
+
+cat ~/.ssh/master_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>在master主机上连接两个主机，如果不需要密码，说明免密成功</p>
+<pre><code>ssh Stave1.Hadoop
+exit
+ssh Stave2.Hadoop
+exit</code></pre><h2 id="四、配置JDK"><a href="#四、配置JDK" class="headerlink" title="四、配置JDK"></a>四、配置JDK</h2><blockquote>
+<p>在master主机上配置jdk，然后scp到其他两台主机即可。</p>
+</blockquote>
+<h3 id="官网下载jdk-1-8"><a href="#官网下载jdk-1-8" class="headerlink" title="官网下载jdk 1.8"></a>官网下载jdk 1.8</h3><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<p>下载jdk-8u151-linux-x64.tar.gz并复制到 /usr/lib目录下</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><pre><code>tar -zxvf jdk-8u151-linux-x64.tar.gz</code></pre><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><pre><code>vim /etc/profile</code></pre><p>添加如下内容</p>
+<pre><code>#set java enviroenment
+export JAVA_HOME=/usr/lib/jdk1.8.0_151
+export PATH=$JAVA_HOME/bin:$PATH</code></pre><p>使环境变量生效</p>
+<pre><code>. /etc/profile</code></pre><h3 id="验证jdk"><a href="#验证jdk" class="headerlink" title="验证jdk"></a>验证jdk</h3><pre><code>[root@shirukai ~]# java -version
+java version &quot;1.8.0_151&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)</code></pre><h3 id="将jdk目录发送到两台Slave主机"><a href="#将jdk目录发送到两台Slave主机" class="headerlink" title="将jdk目录发送到两台Slave主机"></a>将jdk目录发送到两台Slave主机</h3><pre><code>scp -r /usr/lib/java-1.8.0_151 root@Slave1.Hadoop:/usr/lib/
+scp -r /usr/lib/java-1.8.0_151 root@Slave2.Hadoop:/usr/lib/</code></pre><p>配置环境变量就不要统一发送了，每台机子单独配置，方法跟master一样。</p>
+<h2 id="五、下载Hadoop-master主机"><a href="#五、下载Hadoop-master主机" class="headerlink" title="五、下载Hadoop(master主机)"></a>五、下载Hadoop(master主机)</h2><blockquote>
+<p>注意：这里同样只在master主机下载，并配置，然后利用scp发送到其他两台slave主机上</p>
+</blockquote>
+<h3 id="在usr目录下创建hadoop目录"><a href="#在usr目录下创建hadoop目录" class="headerlink" title="在usr目录下创建hadoop目录"></a>在usr目录下创建hadoop目录</h3><pre><code>cd /usr
+mkdir hadoop
+cd hadoop</code></pre><h3 id="下载hadoop"><a href="#下载hadoop" class="headerlink" title="下载hadoop"></a>下载hadoop</h3><pre><code>wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz</code></pre><p>地址：</p>
+<p><a href="http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.7.4/hadoop-2.7.4.tar.gz</a></p>
+<p>解压hadoop-2.7.4.tar.gz</p>
+<pre><code>tar -zxvf hadoop-2.7.4.tar.gz</code></pre><h3 id="在-hadoop目录下创建目录"><a href="#在-hadoop目录下创建目录" class="headerlink" title="在 hadoop目录下创建目录"></a>在 hadoop目录下创建目录</h3><pre><code>mkdir /usr/hadoop/tmp 
+mkdir /usr/hadoop/hdfs 
+mkdir /usr/hadoop/hdfs/data 
+mkdir /usr/hadoop/hdfs/name</code></pre><h2 id="六、配置Hadoop"><a href="#六、配置Hadoop" class="headerlink" title="六、配置Hadoop"></a>六、配置Hadoop</h2><h3 id="1-配置系统环境变量"><a href="#1-配置系统环境变量" class="headerlink" title="1.配置系统环境变量"></a>1.配置系统环境变量</h3><pre><code>vim /etc/profile</code></pre><p>添加内容</p>
+<pre><code>#set hadoop path
+export HADOOP_HOME=/usr/hadoop/hadoop-2.7.4
+export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h3 id="2-配置hadoop-env-sh"><a href="#2-配置hadoop-env-sh" class="headerlink" title="2.配置hadoop-env.sh"></a>2.配置hadoop-env.sh</h3><p>将java的环境变量配置到里面指定位置(大约在25行)</p>
+<pre><code># The java implementation to use.
+export JAVA_HOME=/usr/lib/jdk1.8.0_151</code></pre><h3 id="3-配置yarn-env-sh"><a href="#3-配置yarn-env-sh" class="headerlink" title="3.配置yarn-env.sh"></a>3.配置yarn-env.sh</h3><p>在大约26行位置</p>
+<pre><code>25   echo &quot;run java in $JAVA_HOME&quot;
+26   JAVA_HOME=$JAVA_HOME</code></pre><h3 id="4-配置core-site-xml"><a href="#4-配置core-site-xml" class="headerlink" title="4.配置core-site.xml"></a>4.配置core-site.xml</h3><pre><code>&lt;configuration&gt;
+ &lt;property&gt;
+    &lt;name&gt;fs.default.name&lt;/name&gt;
+    &lt;value&gt;hdfs://Master.Hadoop:9000&lt;/value&gt;
+    &lt;description&gt;HDFS的URI，文件系统://namenode标识:端口号&lt;/description&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+    &lt;value&gt;/usr/hadoop/tmp&lt;/value&gt;
+    &lt;description&gt;namenode上本地的hadoop临时文件夹&lt;/description&gt;
+&lt;/property&gt;
+&lt;property&gt;
+   &lt;name&gt;io.file.buffer.size&lt;/name&gt;
+   &lt;value&gt;131073&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;</code></pre><h3 id="5-配置hdfs-site-xml"><a href="#5-配置hdfs-site-xml" class="headerlink" title="5.配置hdfs-site.xml"></a>5.配置hdfs-site.xml</h3><pre><code>&lt;configuration&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.name.dir&lt;/name&gt;
+    &lt;value&gt;file:/usr/hadoop/hdfs/name&lt;/value&gt;
+    &lt;description&gt;namenode上存储hdfs名字空间元数据 &lt;/description&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;dfs.data.dir&lt;/name&gt;
+    &lt;value&gt;file:/usr/hadoop/hdfs/data&lt;/value&gt;
+    &lt;description&gt;datanode上数据块的物理存储位置&lt;/description&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+    &lt;value&gt;master.hadoop:9001&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.replication&lt;/name&gt;
+    &lt;value&gt;2&lt;/value&gt;
+    &lt;description&gt;副本个数，配置默认是3,应小于datanode机器数量&lt;/description&gt;
+&lt;/property&gt;
+    &lt;property&gt;
+         &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;
+         &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+         &lt;name&gt;dfs.permissions&lt;/name&gt;
+         &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;</code></pre><h3 id="6-配置mapred-site-xml-这个文件没有需要创建"><a href="#6-配置mapred-site-xml-这个文件没有需要创建" class="headerlink" title="6.配置mapred-site.xml(这个文件没有需要创建)"></a>6.配置mapred-site.xml(这个文件没有需要创建)</h3><pre><code>&lt;configuration&gt;
+&lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+          &lt;property&gt;
+                  &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+                  &lt;value&gt;Master.Hadoop:10020&lt;/value&gt;
+          &lt;/property&gt;
+          &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+                &lt;value&gt;Master.Hadoop:19888&lt;/value&gt;
+       &lt;/property&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;</code></pre><h3 id="7-配置yarn-site-xml"><a href="#7-配置yarn-site-xml" class="headerlink" title="7.配置yarn-site.xml"></a>7.配置yarn-site.xml</h3><pre><code>&lt;configuration&gt;
+
+&lt;!-- Site specific YARN configuration properties --&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18040&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18030&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18088&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18025&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18141&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+  &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+  &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+&lt;/property&gt;</code></pre><h3 id="8-添加-masters文件"><a href="#8-添加-masters文件" class="headerlink" title="8.添加 masters文件"></a>8.添加 masters文件</h3><pre><code>192.168.162.177</code></pre><h3 id="9-修改slaves"><a href="#9-修改slaves" class="headerlink" title="9.修改slaves"></a>9.修改slaves</h3><pre><code>192.168.162.155
+192.168.162.166</code></pre><h3 id="10-将配置后的hadoop利用scp发送到两台slave主机上"><a href="#10-将配置后的hadoop利用scp发送到两台slave主机上" class="headerlink" title="10.将配置后的hadoop利用scp发送到两台slave主机上"></a>10.将配置后的hadoop利用scp发送到两台slave主机上</h3><h4 id="发送给slave1"><a href="#发送给slave1" class="headerlink" title="发送给slave1"></a>发送给slave1</h4><pre><code>scp -r /usr/hadoop root@Slave1.Hadoop:/usr/</code></pre><h4 id="发送给slave2"><a href="#发送给slave2" class="headerlink" title="发送给slave2"></a>发送给slave2</h4><pre><code>scp -r /usr/hadoop root@Slave2.Hadoop:/usr/</code></pre><h3 id="11-配置另外两台slave的Hadoop环境变量"><a href="#11-配置另外两台slave的Hadoop环境变量" class="headerlink" title="11.配置另外两台slave的Hadoop环境变量"></a>11.配置另外两台slave的Hadoop环境变量</h3><p>分别编辑vim /etc/profile然后添加如下内容：</p>
+<pre><code>#set hadoop path
+export HADOOP_HOME=/usr/hadoop/hadoop-2.7.4
+export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、启动服务"><a href="#七、启动服务" class="headerlink" title="七、启动服务"></a>七、启动服务</h2><p>只在master主机上启动服务即可</p>
+<h3 id="1-格式化namenode"><a href="#1-格式化namenode" class="headerlink" title="1.格式化namenode"></a>1.格式化namenode</h3><pre><code>hdfs namenode -format</code></pre><h3 id="2-启动namenode和datanode守护进程"><a href="#2-启动namenode和datanode守护进程" class="headerlink" title="2.启动namenode和datanode守护进程"></a>2.启动namenode和datanode守护进程</h3><pre><code>start-dfs.sh</code></pre><h3 id="3-启动Resourcemanager和NodeManager守护进程"><a href="#3-启动Resourcemanager和NodeManager守护进程" class="headerlink" title="3.启动Resourcemanager和NodeManager守护进程"></a>3.启动Resourcemanager和NodeManager守护进程</h3><pre><code>start-yarn.sh</code></pre><h2 id="八、测试服务"><a href="#八、测试服务" class="headerlink" title="八、测试服务"></a>八、测试服务</h2><h3 id="在master主机输入jps查看进程"><a href="#在master主机输入jps查看进程" class="headerlink" title="在master主机输入jps查看进程"></a>在master主机输入jps查看进程</h3><pre><code>[root@Master ~]# jps
+1328 SecondaryNameNode
+1141 NameNode
+1813 Jps
+1478 ResourceManager</code></pre><h3 id="在slave1主机输入jps"><a href="#在slave1主机输入jps" class="headerlink" title="在slave1主机输入jps"></a>在slave1主机输入jps</h3><pre><code>[root@Slave1 ~]# jps
+2500 NodeManager
+2392 DataNode
+2634 Jps</code></pre><h3 id="在slave2-主机输入jps"><a href="#在slave2-主机输入jps" class="headerlink" title="在slave2 主机输入jps"></a>在slave2 主机输入jps</h3><pre><code>[root@Slave2 ~]# jps
+2583 NodeManager
+2473 DataNode
+2715 Jps</code></pre><h3 id="访问Master-Hadoop：50070即-192-168-162-177-50070查看集群状况"><a href="#访问Master-Hadoop：50070即-192-168-162-177-50070查看集群状况" class="headerlink" title="访问Master.Hadoop：50070即 192.168.162.177:50070查看集群状况"></a>访问Master.Hadoop：50070即 192.168.162.177:50070查看集群状况</h3> 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2019/05/29/centos7%E4%B8%8B%E9%85%8D%E7%BD%AEHadoop%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">工具环境搭建</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/05/29/ajax%E6%93%8D%E4%BD%9C%E4%BB%A3%E7%A0%81/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            ajax操作代码
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/29/csdn%E6%96%87%E7%AB%A0%E8%BD%AC%E8%BD%BD/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">csdn文章转载</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "P8UW8TGMAGhyQQwHvEapAIFU-gzGzoHsz",
+    app_key: "5DrCaQB8SC2oKR5zUFbNSGUs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2018-2020
+        <i class="ri-heart-fill heart_icon"></i> 丁振莹
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://v1.cnzz.com/z_stat.php?id=1279045202&amp;web_id=1279045202'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="iMonster"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Subtitle -->
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  } catch (err) {
+    console.log(err)
+  }
+</script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

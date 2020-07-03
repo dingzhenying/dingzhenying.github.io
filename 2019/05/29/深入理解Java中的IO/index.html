@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一只快乐的小怪兽" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    深入理解Java中的IO |  iMonster
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="iMonster" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-深入理解Java中的IO"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  深入理解Java中的IO
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/05/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E4%B8%AD%E7%9A%84IO/" class="article-date">
+  <time datetime="2019-05-29T09:19:30.000Z" itemprop="datePublished">2019-05-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">22 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>title: 深入理解Java中的IO<br>categories: java IO流<br>tags:</p>
+<ul>
+<li>java IO流<br>abbrlink: 19278<br>date: 2018-02-22 00:00:00</li>
+</ul>
+<hr>
+<h1 id="深入理解Java中的IO"><a href="#深入理解Java中的IO" class="headerlink" title=" 深入理解Java中的IO "></a><a href="/qq_37279279/article/details/79319317"> 深入理解Java中的IO </a></h1><h2 id="深入理解-Java-中的-IO"><a href="#深入理解-Java-中的-IO" class="headerlink" title="深入理解  Java  中的  IO"></a>深入理解  Java  中的  IO</h2><h2 id="引言："><a href="#引言：" class="headerlink" title="引言："></a>引言：</h2><h2 id="对程序语言的设计者来说，创建一个好的输入-输出-I-O-系统是一项艰难的任务-lt-Thinking-in-Java-gt"><a href="#对程序语言的设计者来说，创建一个好的输入-输出-I-O-系统是一项艰难的任务-lt-Thinking-in-Java-gt" class="headerlink" title="对程序语言的设计者来说，创建一个好的输入/输出(I/O)系统是一项艰难的任务 &lt; Thinking in Java &gt;"></a>对程序语言的设计者来说，创建一个好的输入/输出(I/O)系统是一项艰难的任务 &lt; Thinking in Java &gt;</h2><a id="more"></a>
+<p>##</p>
+<h2 id="本文的目录视图如下："><a href="#本文的目录视图如下：" class="headerlink" title="本文的目录视图如下："></a>本文的目录视图如下：</h2><h2 id="Java-IO概要"><a href="#Java-IO概要" class="headerlink" title="Java IO概要"></a>Java IO概要</h2><h2 id="a-Java-IO中常用的类"><a href="#a-Java-IO中常用的类" class="headerlink" title="a.Java IO中常用的类"></a>a.Java IO中常用的类</h2><h2 id="b-Java流类的类结构图"><a href="#b-Java流类的类结构图" class="headerlink" title="b.Java流类的类结构图"></a>b.Java流类的类结构图</h2><h2 id="1-流的概念和作用"><a href="#1-流的概念和作用" class="headerlink" title="1.流的概念和作用"></a>1.流的概念和作用</h2><h2 id="2-Java-IO所采用的模型"><a href="#2-Java-IO所采用的模型" class="headerlink" title="2.Java IO所采用的模型 :"></a>2.Java IO所采用的模型 :</h2><h2 id="3-IO流的分类"><a href="#3-IO流的分类" class="headerlink" title="3.IO流的分类"></a>3.IO流的分类</h2><h2 id="4-Java-IO流对象"><a href="#4-Java-IO流对象" class="headerlink" title="4.Java IO流对象"></a>4.Java IO流对象</h2><p>1.输入字节流InputStream</p>
+<h2 id="2-输出字节流OutputStream"><a href="#2-输出字节流OutputStream" class="headerlink" title="2.输出字节流OutputStream"></a>2.输出字节流OutputStream</h2><h2 id="3-字符输入流Reader"><a href="#3-字符输入流Reader" class="headerlink" title="3.字符输入流Reader"></a>3.字符输入流Reader</h2><h2 id="4-字符输出流Writer"><a href="#4-字符输出流Writer" class="headerlink" title="4.字符输出流Writer"></a>4.字符输出流Writer</h2><h2 id="5-字符流的输入与输出的对应"><a href="#5-字符流的输入与输出的对应" class="headerlink" title="5.字符流的输入与输出的对应"></a>5.字符流的输入与输出的对应</h2><h2 id="6-字符流与字节流转换"><a href="#6-字符流与字节流转换" class="headerlink" title="6.字符流与字节流转换"></a>6.字符流与字节流转换</h2><h2 id="7-字节流和字符流的区别"><a href="#7-字节流和字符流的区别" class="headerlink" title="7.  字节流和字符流的区别"></a>7.  字节流和字符流的区别</h2><h2 id="8-File类"><a href="#8-File类" class="headerlink" title="8.File类"></a>8.File类</h2><h2 id="9-RandomAccessFile类"><a href="#9-RandomAccessFile类" class="headerlink" title="9.RandomAccessFile类"></a>9.RandomAccessFile类</h2><p>##</p>
+<h2 id="Java-IO概要-1"><a href="#Java-IO概要-1" class="headerlink" title="Java IO概要"></a>Java IO概要</h2><h2 id="为了方便理解与阐述，先引入两张图："><a href="#为了方便理解与阐述，先引入两张图：" class="headerlink" title="为了方便理解与阐述，先引入两张图："></a>为了方便理解与阐述，先引入两张图：</h2><h2 id="a-、-Java-IO-中常用的类"><a href="#a-、-Java-IO-中常用的类" class="headerlink" title="a  、  Java IO  中常用的类"></a>a  、  Java IO  中常用的类</h2><p><img src="http://img.blog.csdn.net/20160421004103005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>在整个  Java.io  包中最重要的就是  5  个类和一个接口。  5  个类指的是  File  、  OutputStream  、<br>InputStream  、  Writer  、  Reader  ；一个接口指的是  Serializable.  掌握了这些  IO<br>的核心操作那么对于  Java  中的  IO  体系也就有了一个初步的认识了</p>
+<p>Java I/O  主要包括如下几个层次，  包含三个部分：</p>
+<p>1.  流式部分  ――IO  的主体部分；</p>
+<p>2.  非流式部分  ――主要包含一些辅助流式部分的类，如：File  类、RandomAccessFile类和FileDescriptor等类；</p>
+<p>3.  其他类  --  文件读取部分的与安全相关的类，如：SerializablePermission<br>类，以及与本地操作系统相关的文件系统的类，如：FileSystem类和Win32FileSystem类和WinNTFileSystem类。</p>
+<p>主要的类如下：</p>
+<p>1. File  （文件特征与管理）：用于文件或者目录的描述信息，例如生成新目录，修改文件名，删除文件，判断文件所在路径等。</p>
+<p>2. InputStream  （二进制格式操作）：抽象类，基于字节的输入操作，是所有输入流的父类。定义了所有输入流都具有的共同特征。</p>
+<p>3. OutputStream  （二进制格式操作）：抽象类。基于字节的输出操作。是所有输出流的父类。定义了所有输出流都具有的共同特征。</p>
+<p>4.Reader  （文件格式操作）：抽象类，基于字符的输入操作。</p>
+<p>5. Writer  （文件格式操作）  ：抽象类，基于字符的输出操作。</p>
+<p>6. RandomAccessFile  （随机文件操作）：一个独立的类，直接继承至  Object.  它的功能丰富，<br>可以从文件的任意位置进行存取（输入输出）操作  。</p>
+<p>Java  中  IO  流的体系结构  如图：</p>
+<p>##<br><img src="http://img.blog.csdn.net/20160421004203974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>##</p>
+<h2 id="b-、-Java-流类的类结构图："><a href="#b-、-Java-流类的类结构图：" class="headerlink" title="b  、  Java  流类的类结构图："></a>b  、  Java  流类的类结构图：</h2><p>##<br><img src="http://img.blog.csdn.net/20160421004327228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<h2 id="1-、流的概念和作用"><a href="#1-、流的概念和作用" class="headerlink" title="1  、流的概念和作用"></a>1  、流的概念和作用</h2><h2 id="流：代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象"><a href="#流：代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象" class="headerlink" title="流：代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象"></a>流：代表任何有能力产出数据的数据源对象或者是有能力接受数据的接收端对象<Thinking in Java></h2><h2 id="流的本质-数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。"><a href="#流的本质-数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。" class="headerlink" title="流的本质  :  数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。"></a>流的本质  :  数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。</h2><p>流的作用：为数据源和目的地建立一个输送通道。</p>
+<p>Java<br>中将输入输出抽象称为流，就好像水管，将两个容器连接起来。流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流.</p>
+<p>2  、  Java IO  所采用的模型</p>
+<p>Java  的IO模型设计非常优秀，它使用Decorator(装饰者)模式，按功能划分Stream，您可以动态装配这些Stream，以便获得您需要的功能。</p>
+<p>例如，您需要一个具有缓冲的文件输入流，则应当组合使用  FileInputStream  和  BufferedInputStream  。</p>
+<h2 id="3-、-IO-流的分类"><a href="#3-、-IO-流的分类" class="headerlink" title="3  、  IO  流的分类"></a>3  、  IO  流的分类</h2><p>·  根据处理数据类型的不同分为：字符流和字节流</p>
+<p>·  根据数据流向不同分为：输入流和输出流</p>
+<p>·  按数据来源（去向）分类：</p>
+<p>1  、  File  （文件）：  FileInputStream, FileOutputStream, FileReader, FileWriter<br>2  、byte[]：ByteArrayInputStream, ByteArrayOutputStream<br>3  、Char[]: CharArrayReader,CharArrayWriter<br>4  、String:StringBufferInputStream, StringReader, StringWriter<br>5  、网络数据流：InputStream,OutputStream, Reader, Writer</p>
+<h3 id="字符流和字节流"><a href="#字符流和字节流" class="headerlink" title="字符流和字节流"></a>字符流和字节流</h3><p>流序列中的数据既可以是未经加工的原始二进制数据，也可以是经一定编码处理后符合某种格式规定的特定数据。因此  Java  中的流分为两种：</p>
+<p>1)  字节流：  数据流中最小的数据单元是字节<br>2)  字符流：  数据流中最小的数据单元是字符， Java  中的字符是Unicode编码，一个字符占用两个字节。</p>
+<p>字符流的由来：  Java  中字符是采用  Unicode  标准，一个字符是  16  位，即一个字符使用两个字节来表示。为此，  JAVA<br>中引入了处理字符的流。  因为数据编码的不同，而有了对字符进行高效操作的流对象。本质其实就是基于字节流读取时，去查了指定的码表。</p>
+<h3 id="输入流和输出流"><a href="#输入流和输出流" class="headerlink" title="输入流和输出流"></a>输入流和输出流</h3><p>根据数据的输入、输出方向的不同对而将流分为输入流和输出流。</p>
+<h3 id="1-输入流"><a href="#1-输入流" class="headerlink" title="1)  输入流"></a>1)  输入流</h3><p>程序从输入流读取数据源。数据源包括外界  (  键盘、文件、网络  …)  ，即是将数据源读入到程序的通信通道</p>
+<p><img src="http://img.blog.csdn.net/20160421004522335?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h3 id="2-输出流"><a href="#2-输出流" class="headerlink" title="2)  输出流"></a>2)  输出流</h3><p>程序向输出流写入数据。将程序中的数据输出到外界（显示器、打印机、文件、网络  …  ）的通信通道。</p>
+<p><img src="http://img.blog.csdn.net/20160421004605951?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>采用数据流的目的就是使得输出输入独立于设备。</p>
+<p>输入流  ( Input Stream )  不关心数据源来自何种设备（键盘，文件，网络）。<br>输出流  ( Output Stream )  不关心数据的目的是何种设备（键盘，文件，网络）。</p>
+<h3 id="3-）特性"><a href="#3-）特性" class="headerlink" title="3  ）特性"></a>3  ）特性</h3><p>相对于程序来说，输出流是往存储介质或数据通道写入数据，而输入流是从存储介质或数据通道中读取数据，一般来说关于流的特性有下面几点：</p>
+<p>1  、先进先出，最先写入输出流的数据最先被输入流读取到。</p>
+<p>2  、顺序存取，可以一个接一个地往流中写入一串字节，读出时也将按写入顺序读取一串字节，不能随机访问中间的数据。（  RandomAccessFile<br>可以从文件的任意位置进行存取（输入输出）操作  ）</p>
+<p>3<br>、只读或只写，每个流只能是输入流或输出流的一种，不能同时具备两个功能，输入流只能进行读操作，对输出流只能进行写操作。在一个数据传输通道中，如果既要写入数据，又要读取数据，则要分别提供两个流。</p>
+<h2 id="4-、-Java-IO-流对象"><a href="#4-、-Java-IO-流对象" class="headerlink" title="4  、  Java IO  流对象"></a>4  、  Java IO  流对象</h2><p>1.  输入字节流  InputStream</p>
+<p><img src="http://img.blog.csdn.net/20160421004733383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>IO  中输入字节流的继承图可见上图，可以看出：</p>
+<p>1.  InputStream  是所有的输入字节流的父类，它是一个抽象类。</p>
+<p>2.  ByteArrayInputStream  、  StringBufferInputStream(  上图的<br>StreamBufferInputStream)  、  FileInputStream  是三种基本的介质流，它们分别从  Byte  数组、<br>StringBuffer  、和本地文件中读取数据。</p>
+<p>3.  PipedInputStream  是从与其它线程共用的  管道  中读取数据  .</p>
+<p>4.  ObjectInputStream  和所有  FilterInputStream  的子类都是装饰流（装饰器模式的主角）。</p>
+<p><img src="http://img.blog.csdn.net/20160421004839055?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>InputStream  中的三个基本的读方法<br>abstract int read()  ：读取一个字节数据，并返回读到的数据，如果返回  -1  ，表示读到了输入流的末尾。<br>intread(byte[]?b)  ：将数据读入一个字节数组，同时返回实际读取的字节数。如果返回  -1  ，表示读到了输入流的末尾。<br>intread(byte[]?b, int?off, int?len)  ：将数据读入一个字节数组，同时返回实际读取的字节数。如果返回  -1<br>，表示读到了输入流的末尾。  off  指定在数组  b  中存放数据的起始偏移位置；  len  指定读取的最大字节数。</p>
+<p>流结束的判断：方法  read()  的返回值为  -1  时；  readLine()  的返回值为  null  时。  </p>
+<p>其它方法<br>long skip(long?n)  ：在输入流中跳过  n  个字节，并返回实际跳过的字节数。<br>int available()  ：返回在不发生阻塞的情况下，可读取的字节数。<br>void close()  ：关闭输入流，释放和这个流相关的系统资源。<br>voidmark(int?readlimit)  ：在输入流的当前位置放置一个标记，如果读取的字节数多于  readlimit<br>设置的值，则流忽略这个标记。<br>void reset()  ：返回到上一个标记。<br>booleanmarkSupported()  ：测试当前流是否支持  mark  和  reset  方法。如果支持，返回  true  ，否则返回<br>false  。</p>
+<h3 id="2-输出字节流-OutputStream"><a href="#2-输出字节流-OutputStream" class="headerlink" title="2.  输出字节流  OutputStream"></a>2.  输出字节流  OutputStream</h3><p><img src="http://img.blog.csdn.net/20160421004936555?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>IO  中输出字节流的继承图可见上图，可以看出：</p>
+<p>1.  OutputStream  是所有的输出字节流的父类，它是一个抽象类。</p>
+<p>2.  ByteArrayOutputStream  、  FileOutputStream  是两种基本的介质流，它们分别向  Byte<br>数组、和本地文件中写入数据。  PipedOutputStream  是向与其它线程共用的管道中写入数据。</p>
+<p>3.  ObjectOutputStream  和所有  FilterOutputStream  的子类都是装饰流。</p>
+<p><img src="http://img.blog.csdn.net/20160421005135582?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h2 id="outputStream-中的三个基本的写方法"><a href="#outputStream-中的三个基本的写方法" class="headerlink" title="outputStream  中的三个基本的写方法"></a>outputStream  中的三个基本的写方法</h2><p>abstract void write(int?b)  ：往输出流中写入一个字节。<br>void write(byte[]?b)  ：往输出流中写入数组  b  中的所有字节。<br>void write(byte[]?b, int?off, int?len)  ：往输出流中写入数组  b  中从偏移量  off  开始的  len<br>个字节的数据。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>其它方法<br>void flush()  ：刷新输出流，强制缓冲区中的输出字节被写出。<br>void close()  ：关闭输出流，释放和这个流相关的系统资源。  </p>
+<h3 id="3-字符输入流-Reader"><a href="#3-字符输入流-Reader" class="headerlink" title="3.  字符输入流  Reader"></a>3.  字符输入流  Reader</h3><p><img src="http://img.blog.csdn.net/20160421005211916?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>在上面的继承关系图中可以看出：</p>
+<p>1.  Reader  是所有的输入字符流的父类，它是一个抽象类。</p>
+<p>2.  CharReader  、  StringReader  是两种基本的介质流，它们分别将  Char  数组、  String  中读取数据。<br>PipedReader  是从与其它线程共用的管道中读取数据。</p>
+<p>3.  BufferedReader  很明显就是一个装饰器，它和其子类负责装饰其它  Reader  对象。</p>
+<p>4.  FilterReader  是所有自定义具体装饰流的父类，其子类  PushbackReader  对  Reader<br>对象进行装饰，会增加一个行号。</p>
+<p>5.  InputStreamReader  是一个连接字节流和字符流的桥梁，它将字节流转变为字符流。  FileReader<br>可以说是一个达到此功能、常用的工具类，在其源代码中明显使用了将  FileInputStream  转变为  Reader<br>的方法。我们可以从这个类中得到一定的技巧。  Reader  中各个类的用途和使用方法基本和  InputStream  中的类使用一致。后面会有<br>Reader  与  InputStream  的对应关系。</p>
+<p><img src="http://img.blog.csdn.net/20160421005305178?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>主要方法：</p>
+<p>(1) public int read() throws IOException; //  读取一个字符，返回值为读取的字符</p>
+<p>(2) public int read(char cbuf[]) throws IOException; /*  读取一系列字符到数组  cbuf[]<br>中，返回值为实际读取的字符的数量  <em>/<br>(3) public abstract int read(char cbuf[],int off,int len) throws IOException;<br>/</em>  读取  len  个字符，从数组  cbuf[]  的下标  off  处开始存放，返回值为实际读取的字符数量，该方法必须由子类实现  */</p>
+<h3 id="4-字符输出流-Writer"><a href="#4-字符输出流-Writer" class="headerlink" title="4.  字符输出流  Writer"></a>4.  字符输出流  Writer</h3><p><img src="http://img.blog.csdn.net/20160421005336445?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>在上面的关系图中可以看出：</p>
+<p>1.  Writer  是所有的输出字符流的父类，它是一个抽象类。</p>
+<p>2.  CharArrayWriter  、  StringWriter  是两种基本的介质流，它们分别向  Char  数组、  String<br>中写入数据。  PipedWriter  是向与其它线程共用的管道中写入数据，</p>
+<p>3.  BufferedWriter  是一个装饰器为  Writer  提供缓冲功能。</p>
+<p>4.  PrintWriter  和  PrintStream  极其类似，功能和使用也非常相似。</p>
+<p>5.  OutputStreamWriter  是  OutputStream  到  Writer  转换的桥梁，它的子类  FileWriter<br>其实就是一个实现此功能的具体类（具体可以研究一  SourceCode  ）。功能和使用和  OutputStream  极其类似  .</p>
+<p><img src="http://img.blog.csdn.net/20160421005423165?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>主要方法：</p>
+<p>(1)  public void write(int c) throws IOException  ；  //  将整型值  c  的低  16<br>位写入输出流<br>(  2)  public void write(char cbuf[]) throws IOException  ；  //  将字符数组  cbuf[]<br>写入输出流<br>(3)  public abstract void write(char cbuf[],int off,int len) throws<br>IOException  ；  //  将字符数组  cbuf[]  中的从索引为  off  的位置处开始的  len  个字符写入输出流<br>(4)  public void write(String str) throws IOException  ；  //  将字符串  str<br>中的字符写入输出流<br>(5)  public void write(String str,int off,int len) throws IOException  ；  //<br>将字符串  str  中从索引  off  开始处的  len  个字符写入输出流</p>
+<h3 id="5-字节流的输入与输出的对应"><a href="#5-字节流的输入与输出的对应" class="headerlink" title="5.  字节流的输入与输出的对应"></a>5.  字节流的输入与输出的对应</h3><p><img src="http://img.blog.csdn.net/20160421005454478?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>图中蓝色的为主要的对应部分，红色的部分就是不对应部分。从上面的图中可以看出  JavaIO  中的字节流是极其对称的。  “  存在及合理  ”<br>我们看看这些字节流中不太对称的几个类吧！</p>
+<p>1.  LineNumberInputStream<br>主要完成从流中读取数据时，会得到相应的行号，至于什么时候分行、在哪里分行是由改类主动确定的，并不是在原始中有这样一个行号。在输出部分没有对应的部分，我们完全可以自己建立一个<br>LineNumberOutputStream<br>，在最初写入时会有一个基准的行号，以后每次遇到换行时会在下一行添加一个行号，看起来也是可以的。好像更不入流了。</p>
+<p>2.  PushbackInputStream  的功能是查看最后一个字节，不满意就放入缓冲区。主要用在编译器的语法、词法分析部分。输出部分的<br>BufferedOutputStream  几乎实现相近的功能。</p>
+<p>3.  StringBufferInputStream  已经被  Deprecated  ，本身就不应该出现在  InputStream<br>部分，主要因为  String  应该属于字符流的范围。已经被废弃了，当然输出部分也没有必要需要它了！还允许它存在只是为了保持版本的向下兼容而已。</p>
+<p>4.  SequenceInputStream  可以认为是一个工具类，将两个或者多个输入流当成一个输入流依次读取。完全可以从  IO<br>包中去除，还完全不影响  IO  包的结构，却让其更  “  纯洁  ”――  纯洁的  Decorator  模式。</p>
+<p>5.  PrintStream  也可以认为是一个辅助工具。主要可以向其他输出流，或者  FileInputStream<br>写入数据，本身内部实现还是带缓冲的。本质上是对其它流的综合运用的一个工具而已。一样可以踢出  IO  包！  System.out  和<br>System.out  就是  PrintStream  的实例！</p>
+<h3 id="字符流的输入与输出的对应"><a href="#字符流的输入与输出的对应" class="headerlink" title="字符流的输入与输出的对应"></a>字符流的输入与输出的对应</h3><p><img src="http://img.blog.csdn.net/20160421005558870?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<h3 id="6-字符流与字节流转换-1"><a href="#6-字符流与字节流转换-1" class="headerlink" title="6.  字符流与字节流转换"></a>6.  字符流与字节流转换</h3><p>转换流的特点：</p>
+<p>1.  其是字符流和字节流之间的桥梁</p>
+<p>2.  可对读取到的字节数据经过指定编码转换成字符</p>
+<p>3.  可对读取到的字符数据经过指定编码转换成字节</p>
+<p>何时使用转换流？</p>
+<p>1.  当字节和字符之间有转换动作时；</p>
+<p>2.  流操作的数据需要编码或解码时。</p>
+<p>具体的对象体现：</p>
+<p>转换流：在  IO  中还存在一类是转换流，将字节流转换为字符流，同时可以将字符流转化为字节流。</p>
+<p>1.  InputStreamReader:  _ 字节到字符的桥梁  _</p>
+<p>_ 2.  _ OutputStreamWriter:  _ 字符到字节的桥梁  _</p>
+<p>_ _</p>
+<p>OutputStreamWriter(OutStreamout):  将字节流以字符流输出。</p>
+<p>InputStreamReader(InputStream in)  ：将字节流以字符流输入。</p>
+<p>这两个流对象是字符体系中的成员，它们有转换作用，本身又是  字符流  ，所以在构造的时候需要传入字节流对象进来。</p>
+<h3 id="7-字节流和字符流的区别（重点）"><a href="#7-字节流和字符流的区别（重点）" class="headerlink" title="7.  字节流和字符流的区别（重点）"></a>7.  字节流和字符流的区别（重点）</h3><p>字节流和字符流的区别  ：  (  详细可以参见  ht<br>tp://blog.csdn.net/qq_25184739/article/details/51203733  )</p>
+<p>节流没有缓冲区，是直接输出的，而字符流是输出到缓冲区的。因此在输出时，字节流不调用  colse()  方法时，信息已经输出了，而字符流只有在调用<br>close()  方法关闭缓冲区时，信息才输出。要想字符流在未关闭时输出信息，则需要手动调用  flush()  方法。</p>
+<p>·  读写单位不同：字节流以字节（  8bit  ）为单位，字符流以字符为单位，根据码表映射字符，一次可能读多个字节。</p>
+<p>·  处理对象不同：字节流能处理所有类型的数据（如图片、  avi  等），而字符流只能处理字符类型的数据。</p>
+<p>结论：只要是处理纯文本数据，就优先考虑使用字符流。  除此之外都使用字节流。</p>
+<h3 id="8-非流式文件类–File-类"><a href="#8-非流式文件类–File-类" class="headerlink" title="8.非流式文件类–File  类"></a>8.非流式文件类–File  类</h3><p><img src="http://img.blog.csdn.net/20160421005706418?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>从定义看，  File  类是  Object  的直接子类，同时它继承了  Comparable  接口可以进行数组的排序。</p>
+<p>File  类的操作包括文件的创建、删除、重命名、得到路径、创建时间等，以下是文件操作常用的函数。</p>
+<p><img src="http://img.blog.csdn.net/20160421005754700?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>File  类是对文件系统中文件以及文件夹进行封装的对象，可以通过对象的思想来操作文件和文件夹。  File<br>类保存文件或目录的各种元数据信息，包括文件名、文件长度、最后修改时间、是否可读、获取当前文件的路径名，判断指定文件是否存在、获得当前目录中的文件列表，创建、删除文件和目录等方法。</p>
+<p>File类共提供了三个不同的构造函数，以不同的参数形式灵活地接收文件和目录名信息。</p>
+<p>构造函数：<br>1）File (String pathname)<br>例:File f1=new File(“FileTest1.txt”); //创建文件对象f1，f1所指的文件是在当前目录下创建的FileTest1.txt<br>2）File (String parent , String child)<br>例:File f2=new File(“D:\\dir1”,”FileTest2.txt”) ;// 注意：D:\\dir1目录事先必须存在，否则异常<br>3）File (File parent , String child)<br>例:File f4=new File(“\\dir3”);<br>File f5=new File(f4,”FileTest5.txt”); //在如果 \\dir3目录不存在使用f4.mkdir()先创建</p>
+<p>一个对应于某磁盘文件或目录的File对象一经创建， 就可以通过调用它的方法来获得文件或目录的属性。<br>1）public boolean exists( ) 判断文件或目录是否存在<br>2）public boolean isFile( ) 判断是文件还是目录<br>3）public boolean isDirectory( ) 判断是文件还是目录<br>4）public String getName( ) 返回文件名或目录名<br>5）public String getPath( ) 返回文件或目录的路径。<br>6）public long length( ) 获取文件的长度<br>7）public String[ ] list ( ) 将目录中所有文件名保存在字符串数组中返回。<br>File类中还定义了一些对文件或目录进行管理、操作的方法，常用的方法有：<br>1） public boolean renameTo( File newFile ); 重命名文件<br>2） public void delete( ); 删除文件<br>3） public boolean mkdir( ); 创建目录  </p>
+<p>例子：</p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>1  .  public  class  FileDemo1 { </li>
+<li>2  .  public  static  void  main(String[] args) { </li>
+<li>3  . File file =  new  File(  “D:”  + File.separator +  “test.txt”  ); </li>
+<li>4  .  if  (file.exists()) { </li>
+<li>5  . file.delete(); </li>
+<li>6  . }  else  { </li>
+<li>7  .  try  { </li>
+<li>8  . file.createNewFile(); </li>
+<li>9  . }  catch  (IOException e) { </li>
+<li>10  .  // TODO Auto-generated catch block </li>
+<li>11  . e.printStackTrace(); </li>
+<li>12  . } </li>
+<li>13  . } </li>
+<li>14  . } </li>
+<li>15  . } </li>
+</ol>
+<h3 id="9-RandomAccessFile-类"><a href="#9-RandomAccessFile-类" class="headerlink" title="9.RandomAccessFile  类"></a>9.RandomAccessFile  类</h3><p><img src="http://img.blog.csdn.net/20160421005857372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>该对象并不是流体系中的一员，其封装了字节流，同时还封装了一个缓冲区（字符数组），通过内部的指针来操作字符数组中的数据。  该对象特点：</p>
+<p><img src="http://img.blog.csdn.net/20160421005936106?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>1.  该对象只能操作文件，所以构造函数接收两种类型的参数：  a.  字符串文件路径；  b.File  对象。</p>
+<p>2.  该对象既可以对文件进行读操作，也能进行写操作，在进行对象实例化时可指定操作模式  (r,rw)</p>
+<p>_ 注意：该对象在实例化时，如果要操作的文件不存在，会自动创建；如果文件存在，写数据未指定位置，会从头开始写，即覆盖原有的内容。  _<br>可以用于多线程下载或多个线程同时写数据到文件。</p>
+<p>10  、  System  类对  IO  的支持<br><img src="http://img.blog.csdn.net/20160421010054372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="">  </p>
+<p>针对一些频繁的设备交互，  Java  语言系统预定了  3  个可以直接使用的流对象，分别是：</p>
+<p>·  System.in  （标准输入），通常代表键盘输入。</p>
+<p>·  System.out  （标准输出）：通常写往显示器。</p>
+<p>·  System.err  （标准错误输出）：通常写往显示器。</p>
+<p>标准I/O<br>Java程序可通过命令行参数与外界进行简短的信息交换，同时，也规定了与标准输入、输出设备，如键盘、显示器进行信息交换的方式。而通过文件可以与外界进行任意数据形式的信息交换。  </p>
+<p>1. 命令行参数  </p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>public  class  TestArgs { </li>
+<li>public  static  void  main(String[] args) { </li>
+<li>for  (  int  i =  0  ; i  &lt; args.length; i++) { </li>
+<li>System.out.println(  “args[“  + i +  “] is &lt;”  + args[i] +  “&gt;”  ); </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+</ol>
+<p>运行命令：java Java C VB  </p>
+<p>运行结果：  </p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>args[  0  ] is  <Java></li>
+<li><ol start="3">
+<li><ol start="4">
+<li>args[  1  ] is <C></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><ol start="6">
+<li><ol start="7">
+<li>args[  2  ] is <VB></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>2. 标准输入，输出数据流</p>
+<p>java系统自带的标准数据流：java.lang.System:  </p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>java.lang.System </li>
+<li>public  final  class  System  extends  Object{ </li>
+<li>static  PrintStream err;  //标准错误流（输出） </li>
+<li>static  InputStream in;  //标准输入(键盘输入流) </li>
+<li>static  PrintStream out;  //标准输出流(显示器输出流) </li>
+<li>} </li>
+</ol>
+<p>注意：<br>（1）System类不能创建对象，只能直接使用它的三个静态成员。<br>（2）每当main方法被执行时,就自动生成上述三个对象。  </p>
+<p>1) 标准输出流 System.out  </p>
+<p>System.out向标准输出设备输出数据，其数据类型为PrintStream。方法：  </p>
+<p>Void print(参数)<br>Void println(参数)<br>2)标准输入流 System.in  </p>
+<p>System.in读取标准输入设备数据（从标准输入获取数据，一般是键盘），其数 据类型为InputStream。方法：  </p>
+<p>int read() //返回ASCII码。若,返回值=-1，说明没有读取到任何字节读取工作结束。<br>int read(byte[] b)//读入多个字节到缓冲区b中返回值是读入的字节数<br>例如：  </p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>import  java.io.*; </li>
+<li>public  class  StandardInputOutput { </li>
+<li>public  static  void  main(String args[]) { </li>
+<li>int  b; </li>
+<li>try  { </li>
+<li>System.out.println(  “please Input:”  ); </li>
+<li>while  ((b = System.in.read()) != -  1  ) { </li>
+<li>System.out.print((  char  ) b); </li>
+<li>} </li>
+<li>}  catch  (IOException e) { </li>
+<li>System.out.println(e.toString()); </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+</ol>
+<p>等待键盘输入，键盘输入什么，就打印出什么：  </p>
+<p>3)标准错误流  </p>
+<p>System.err输出标准错误，其数据类型为PrintStream。可查阅API获得详细说明。  </p>
+<p>标准输出通过System.out调用println方法输出参数并换行，而print方法输出参数但不换行。println或print方法都通<br>过重载实现了输出基本数据类型的多个方法，包括输出参数类型为boolean、char、int、long、float和double。同时，也重载实现<br>了输出参数类型为char[]、String和Object的方法。其中，print（Object）和println（Object）方法在运行时将调<br>用参数Object的toString方法。  </p>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="view plain"> view plain
+</a> <a href="http://blog.csdn.net/qq_25184739/article/details/51205186#" target="_blank" rel="noopener" title="copy"><br>copy </a></p>
+<ol>
+<li>import  java.io.BufferedReader; </li>
+<li>import  java.io.IOException; </li>
+<li>import  java.io.InputStreamReader; </li>
+<li><ol start="5">
+<li>public  class  StandardInputOutput { </li>
+</ol>
+</li>
+<li>public  static  void  main(String args[]) { </li>
+<li>String s; </li>
+<li>// 创建缓冲区阅读器从键盘逐行读入数据 </li>
+<li>InputStreamReader ir =  new  InputStreamReader(System.in); </li>
+<li>BufferedReader in =  new  BufferedReader(ir); </li>
+<li>System.out.println(  “Unix系统: ctrl-d 或 ctrl-c 退出” </li>
+<li>+  “\nWindows系统: ctrl-z 退出”  ); </li>
+<li>try  { </li>
+<li>// 读一行数据，并标准输出至显示器 </li>
+<li>s = in.readLine(); </li>
+<li>// readLine()方法运行时若发生I/O错误，将抛出IOException异常 </li>
+<li>while  (s !=  null  ) { </li>
+<li>System.out.println(  “Read: “  + s); </li>
+<li>s = in.readLine(); </li>
+<li>} </li>
+<li>// 关闭缓冲阅读器 </li>
+<li>in.close(); </li>
+<li>}  catch  (IOException e) {  // Catch any IO exceptions. </li>
+<li>e.printStackTrace(); </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+</ol>
+<p>在  Java  语言中使用字节流和字符流的步骤基本相同，以输入流为例，首先创建一个与数据源相关的流对象，然后利用流对象的方法从流输入数据，最后执行<br>close()  方法关闭流。</p>
+<p>附加：</p>
+<p>IOException异常类的子类<br>1.public class EOFException ：  非正常到达文件尾或输入流尾时，抛出这种类型的异常。</p>
+<p>2.public class FileNotFoundException：  当文件找不到时，抛出的异常。</p>
+<p>3.public class InterruptedIOException：  当I/O操作被中断时，抛出这种类型的异常。</p>
+<p>参考了大量好的博客文章，总结起来留作学习参考。</p>
+<h2 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h2><h2 id="http-ggicci-blog-163-com-blog-static-2103640962012813997493"><a href="#http-ggicci-blog-163-com-blog-static-2103640962012813997493" class="headerlink" title="http://ggicci.blog.163.com/blog/static/2103640962012813997493"></a><a href="http://ggicci.blog.163.com/blog/static/2103640962012813997493" target="_blank" rel="noopener">http://ggicci.blog.163.com/blog/static/2103640962012813997493</a></h2><h2 id="http-www-cnblogs-com-oubo-archive-2012-01-06-2394638-html"><a href="#http-www-cnblogs-com-oubo-archive-2012-01-06-2394638-html" class="headerlink" title="http://www.cnblogs.com/oubo/archive/2012/01/06/2394638.html"></a><a href="http://www.cnblogs.com/oubo/archive/2012/01/06/2394638.html" target="_blank" rel="noopener">http://www.cnblogs.com/oubo/archive/2012/01/06/2394638.html</a></h2><h2 id="http-blog-csdn-net-hguisu-article-details-7418161"><a href="#http-blog-csdn-net-hguisu-article-details-7418161" class="headerlink" title="http://blog.csdn.net/hguisu/article/details/7418161"></a><a href="http://blog.csdn.net/hguisu/article/details/7418161" target="_blank" rel="noopener">http://blog.csdn.net/hguisu/article/details/7418161</a></h2><h2 id="http-blog-csdn-net-taxueyingmei-article-details-7697042"><a href="#http-blog-csdn-net-taxueyingmei-article-details-7697042" class="headerlink" title="http://blog.csdn.net/taxueyingmei/article/details/7697042"></a><a href="http://blog.csdn.net/taxueyingmei/article/details/7697042" target="_blank" rel="noopener">http://blog.csdn.net/taxueyingmei/article/details/7697042</a></h2> 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2019/05/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E4%B8%AD%E7%9A%84IO/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/05/29/%E5%88%A9%E7%94%A8Typora+qiniu-image-tool+Snipaste%E5%BF%AB%E9%80%9F%E4%B9%A6%E5%86%99Markdown/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            利用Typora+qiniu-image-tool+Snipaste快速书写Markdown
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/29/%E8%B0%83%E7%94%A8JAVA%20API%20%E5%AF%B9%20HDFS%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%8F%96%E3%80%81%E5%86%99%E5%85%A5%E3%80%81%E4%B8%8A%E4%BC%A0%E3%80%81%E4%B8%8B%E8%BD%BD%E3%80%81%E5%88%A0%E9%99%A4%E7%AD%89%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "P8UW8TGMAGhyQQwHvEapAIFU-gzGzoHsz",
+    app_key: "5DrCaQB8SC2oKR5zUFbNSGUs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2018-2020
+        <i class="ri-heart-fill heart_icon"></i> 丁振莹
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://v1.cnzz.com/z_stat.php?id=1279045202&amp;web_id=1279045202'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="iMonster"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Subtitle -->
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  } catch (err) {
+    console.log(err)
+  }
+</script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
