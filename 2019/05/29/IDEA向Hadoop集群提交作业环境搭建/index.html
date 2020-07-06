@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一只快乐的小怪兽" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    IDEA向Hadoop集群提交作业环境搭建 |  iMonster
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="iMonster" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-IDEA向Hadoop集群提交作业环境搭建"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  IDEA向Hadoop集群提交作业环境搭建
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/05/29/IDEA%E5%90%91Hadoop%E9%9B%86%E7%BE%A4%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2019-05-29T09:19:30.000Z" itemprop="datePublished">2019-05-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">工具环境搭建</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">17 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>title: IDEA向Hadoop集群提交作业环境搭建<br>categories: hadoop<br>tags:</p>
+<ul>
+<li>hadoop<br>abbrlink: 6648<br>date: 2018-02-22 00:00:00</li>
+</ul>
+<hr>
+<h1 id="IDEA向Hadoop集群提交作业环境搭建"><a href="#IDEA向Hadoop集群提交作业环境搭建" class="headerlink" title=" IDEA向Hadoop集群提交作业环境搭建 "></a><a href="/qq_37279279/article/details/78502018"> IDEA向Hadoop集群提交作业环境搭建 </a></h1><h1 id="IDEA向Hadoop集群提交作业环境搭建-1"><a href="#IDEA向Hadoop集群提交作业环境搭建-1" class="headerlink" title="IDEA向Hadoop集群提交作业环境搭建"></a>IDEA向Hadoop集群提交作业环境搭建</h1><p>windows环境：IntelliJ IDEA 2017.2.3、JRE: 1.8.0_152-release-915-b11<br>、hadoop-2.7.4.tar.gz、hadoop-common-2.2.0-bin-master.rar</p>
+<h2 id="一、windows下配置hadoop环境"><a href="#一、windows下配置hadoop环境" class="headerlink" title="一、windows下配置hadoop环境"></a>一、windows下配置hadoop环境</h2><h3 id="1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录"><a href="#1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录" class="headerlink" title="1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)"></a>1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)</h3><a id="more"></a>
+<p>解压hadoop-2.7.4.tar.gz到C盘，路径为：C:\hadoop-2.7.4</p>
+<p>解压 hadoop-common-2.2.0-bin-master.rar 并复制bin目录下所有的文件到 C:\hadoop-2.7.4\bin目录下</p>
+<p>hadoop-common-2.2.0-bin-master.rar的下载链接：<a href="http://pan.baidu.com/s/1jHHPElg" target="_blank" rel="noopener">http://pan.baidu.com/s/1jHHPElg</a><br>密码：aufd</p>
+<h3 id="2-配置hadoop的环境变量"><a href="#2-配置hadoop的环境变量" class="headerlink" title="2.配置hadoop的环境变量"></a>2.配置hadoop的环境变量</h3><p><img src="http://ov1a6etyz.bkt.clouddn.com//1510112190836ZTGONK2UJN_2~_~GXQFXBOB.png" alt="http://ov1a6etyz.bkt.clouddn.com//1510112190836ZTGONK2UJN_2~_~GXQFXBOB.png"></p>
+<pre><code>变量名：HADOOP_HOME          路径：C:\hadoop-2.7.4
+变量名：HADOOP_BIN_PATH      路径：%HADOOP_HOME%\bin
+变量名：HADOOP_PREFIX        路径：C:\hadoop-2.7.4
+变量名：HADOOP_USER_NAME     路径：root  
+变量名：Path                 添加 %HADOOP_HOME%\bin
+                 %HADOOP_HOME%\sbin</code></pre><p>注意 HADOOP  USER  NAME 是集群中HADOOP用户的名字</p>
+<h3 id="3-配置内网映射"><a href="#3-配置内网映射" class="headerlink" title="3.配置内网映射"></a>3.配置内网映射</h3><p>修改C:\Windows\System32\drivers\etc\hosts文件，添加集群里/etc/hosts相同的主机映射</p>
+<pre><code>192.168.162.177 Master.Hadoop
+192.168.162.155 Slave1.Hadoop
+192.168.162.166 Slave2.Hadoop</code></pre><h2 id="二、搭建项目"><a href="#二、搭建项目" class="headerlink" title="二、搭建项目"></a>二、搭建项目</h2><h3 id="1-IDEA创建Maven项目"><a href="#1-IDEA创建Maven项目" class="headerlink" title="1.IDEA创建Maven项目"></a>1.IDEA创建Maven项目</h3><p><img src="http://ov1a6etyz.bkt.clouddn.com//1510112985864createmavenproject.gif" alt="http://ov1a6etyz.bkt.clouddn.com//1510112985864createmavenproject.gif"></p>
+<h3 id="2-在pom-xml中加入依赖"><a href="#2-在pom-xml中加入依赖" class="headerlink" title="2.在pom.xml中加入依赖"></a>2.在pom.xml中加入依赖</h3><p>加入依赖后需要点击右侧工具栏的maven然后点击刷新。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;testHadoop&lt;/groupId&gt;
+    &lt;artifactId&gt;testHadoop&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+            &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;
+            &lt;version&gt;2.7.4&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+            &lt;artifactId&gt;hadoop-common&lt;/artifactId&gt;
+            &lt;version&gt;2.7.4&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;
+            &lt;artifactId&gt;hadoop-hdfs&lt;/artifactId&gt;
+            &lt;version&gt;2.7.4&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+&lt;/project&gt;</code></pre><h3 id="3-配置项目"><a href="#3-配置项目" class="headerlink" title="3.配置项目"></a>3.配置项目</h3><p>将hadoop集群中的配置文件：core-site.xml、mapred-site.xml、yarn-<br>site.xml、log4j.properties复制到resource目录下。</p>
+<h4 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h4><pre><code>&lt;configuration&gt;
+ &lt;property&gt;
+    &lt;name&gt;fs.default.name&lt;/name&gt;
+    &lt;value&gt;hdfs://Master.Hadoop:9000&lt;/value&gt;
+    &lt;description&gt;HDFS的URI，文件系统://namenode标识:端口号&lt;/description&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+    &lt;value&gt;/usr/hadoop/tmp&lt;/value&gt;
+    &lt;description&gt;namenode上本地的hadoop临时文件夹&lt;/description&gt;
+&lt;/property&gt;
+&lt;property&gt;
+   &lt;name&gt;io.file.buffer.size&lt;/name&gt;
+   &lt;value&gt;131073&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;</code></pre><h4 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h4><pre><code>&lt;configuration&gt;
+&lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+          &lt;property&gt;
+                  &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+                  &lt;value&gt;Master.Hadoop:10020&lt;/value&gt;
+          &lt;/property&gt;
+          &lt;property&gt;
+                &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+                &lt;value&gt;Master.Hadoop:19888&lt;/value&gt;
+       &lt;/property&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;</code></pre><h4 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h4><pre><code>&lt;configuration&gt;
+
+&lt;!-- Site specific YARN configuration properties --&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18040&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18030&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18088&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18025&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+  &lt;value&gt;Master.Hadoop:18141&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+  &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+  &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+  &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+&lt;/property&gt;</code></pre><h4 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h4><pre><code>log4j.rootLogger=INFO, stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} | %-5.5p | %-16.16t | %-32.32c{1} | %-32.32C %4L | %m%n</code></pre><h3 id="4-补全目录"><a href="#4-补全目录" class="headerlink" title="4.补全目录"></a>4.补全目录</h3><p>在java下创建org.hadoop.mrs包用来存放Mapper、Reducer、MR类</p>
+<p>在java下创建org.hadoop.run包用来存放Main方法</p>
+<p><img src="http://ov1a6etyz.bkt.clouddn.com//1510119968249directory2017118134506.png" alt="http://ov1a6etyz.bkt.clouddn.com//1510119968249directory2017118134506.png"></p>
+<h3 id="5-创建静态方法"><a href="#5-创建静态方法" class="headerlink" title="5.创建静态方法"></a>5.创建静态方法</h3><p>在run目录下创建一个RunHadoop类，然后创建一个静态方法</p>
+<pre><code>package org.hadoop.run;
+
+
+public class RunHadoop {
+    public static void main(String[] args){
+        //TODO 这里写运行mapperReduce的方法
+
+    }
+} </code></pre><h3 id="6-导出jar"><a href="#6-导出jar" class="headerlink" title="6.导出jar"></a>6.导出jar</h3><p>配置jar位置，并复制路径。如下图所示</p>
+<p><img src="http://ov1a6etyz.bkt.clouddn.com//1510120931849exportjar.gif" alt="http://ov1a6etyz.bkt.clouddn.com//1510120931849exportjar.gif"></p>
+<p>最终的生成的jar路径为：D:\Repository\testHadoop\out\artifacts\testHadoop_jar\testHadoop.jar</p>
+<h3 id="7-连接配置"><a href="#7-连接配置" class="headerlink" title="7.连接配置"></a>7.连接配置</h3><h5 id="连接类-用于配置与hadoop的连接"><a href="#连接类-用于配置与hadoop的连接" class="headerlink" title="连接类 (用于配置与hadoop的连接)"></a>连接类 (用于配置与hadoop的连接)</h5><p>在org.hadoop包下创建conf包用来编写连接类</p>
+<p>然后在org.hadoop.conf包下创建Conf.java类</p>
+<pre><code>package org.hadoop.conf;
+
+import org.apache.hadoop.conf.Configuration;
+
+/**
+ * 获得hadoop连接配置
+ * Created by shirukai on 2017/11/8.
+ */
+public class Conf {
+    public static Configuration get (){
+        //hdfs的链接地址
+        String hdfsUrl = &quot;hdfs://Master.Hadoop:9000&quot;;
+        //hdfs的名字
+        String hdfsName = &quot;fs.defaultFS&quot;;
+        //jar包文位置(上一个步骤获得的jar路径)
+        String jarPath = &quot; D:\\Repository\\testHadoop\\out\\artifacts\\testHadoop_jar\\testHadoop.jar&quot;;
+
+        Configuration conf = new Configuration();
+        conf.set(hdfsName,hdfsUrl);
+        conf.set(&quot;mapreduce.app-submission.cross-platform&quot;, &quot;true&quot;);
+        conf.set(&quot;mapreduce.job.jar&quot;,jarPath);
+        return conf;
+    }
+}</code></pre><h4 id="文件类-对HDFS文件进行操作"><a href="#文件类-对HDFS文件进行操作" class="headerlink" title="文件类(对HDFS文件进行操作)"></a>文件类(对HDFS文件进行操作)</h4><p>在org.hadoop包下创建files包用来编写文件类</p>
+<p>然后在org.hadoop.files包下创建Files.java类</p>
+<pre><code>package org.hadoop.files;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
+import org.hadoop.conf.Conf;
+
+import java.io.*;
+
+/**
+ * 对HDFS文件操作
+ * Created by shirukai on 2017/11/8.
+ */
+public class Files {
+
+    private static FileSystem getFiles() {
+        //获得连接配置
+        Configuration conf = Conf.get();
+        FileSystem fs = null;
+        try {
+            fs = FileSystem.get(conf);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return fs;
+    }
+
+    /**
+     * 创建文件夹
+     */
+    public static void mkdirFolder(String folderPath) {
+        try {
+            FileSystem fs = getFiles();
+            fs.mkdirs(new Path(folderPath));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * 上传文件到hdfs
+     *
+     * @param localFolderPath 本地目录
+     * @param fileName        文件名
+     * @param hdfsFolderPath  上传到hdfs的目录
+     */
+    public static void uploadFile(String localFolderPath, String fileName, String hdfsFolderPath) {
+        FileSystem fs = getFiles();
+        try {
+            InputStream in = new FileInputStream(localFolderPath + fileName);
+            OutputStream out = fs.create(new Path(hdfsFolderPath + fileName));
+
+            IOUtils.copyBytes(in, out, 4096, true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    /**
+     * 从hdfs获取文件
+     *
+     * @param downloadPath     hdfs的路径
+     * @param downloadFileName hdfs文件名
+     * @param savePath         保存的本地路径
+     */
+    public static void getFileFromHadoop(String downloadPath, String downloadFileName, String savePath) {
+        FileSystem fs = getFiles();
+        try {
+            InputStream in = fs.open(new Path(downloadPath + downloadFileName));
+            OutputStream out = new FileOutputStream(savePath + downloadFileName);
+            IOUtils.copyBytes(in, out, 4096, true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * 删除文件
+     * delete(path,boolean)
+     * boolean如果为true，将进行递归删除，子目录及文件都会删除
+     * false 只删除当前
+
+     */
+    public static void deleteFile(String deleteFilePath) {
+        FileSystem fs = getFiles();
+        //要删除的文件路径
+        try {
+            Boolean deleteResult = fs.delete(new Path(deleteFilePath), true);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre><h4 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h4><p>在RunHadoop的main方法里添加方法：</p>
+<pre><code>public class RunHadoop {
+    public static void main(String[] args){
+        //创建目录 
+        String folderName = &quot;/test&quot;;
+        Files.mkdirFolder(folderName);
+    }
+}</code></pre><p>运行main方法，然后<a href="http://192.168.162.177:50070/explorer.html#/查看是否创建目录" target="_blank" rel="noopener">http://192.168.162.177:50070/explorer.html#/查看是否创建目录</a></p>
+<p>至此一个远程执行Hadoop作业的程序已经完成，下面将一个具体的MapReduce例子来运行这个项目</p>
+<h2 id="三、测试运行wordCount"><a href="#三、测试运行wordCount" class="headerlink" title="三、测试运行wordCount"></a>三、测试运行wordCount</h2><p>接下来我们做一个MapReduce基础案例wordCount。利用MapReduce来统计words.txt文件里，每个单词出现的个数。</p>
+<h3 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h3><p>在org.hadoop.mrs下创建一个wordcount的目录</p>
+<p>在D:\Hadoop\upload创建一个名字为words.txt文本文档，保存格式为utf-8内容如下</p>
+<pre><code>this is a tests
+this is a tests
+this is a tests
+this is a tests
+this is a tests
+this is a tests
+this is a tests
+this is a tests
+this is a tests</code></pre><h3 id="2-编写mapper类"><a href="#2-编写mapper类" class="headerlink" title="2.编写mapper类"></a>2.编写mapper类</h3><p>在org.hadoop.mrs.wordcount目录下出创建WordCountMapper类</p>
+<pre><code>package org.hadoop.mrs.wordcount;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+import java.io.IOException;
+
+/**
+ * LongWritable 行号 类型
+ * Text 输入的value 类型
+ * Text 输出的key 类型
+ * IntWritable 输出的vale类型
+ * Created by shirukai on 2017/11/8.
+ */
+public class WordCountMapper extends Mapper&lt;LongWritable,Text,Text,IntWritable&gt; {
+    /**
+     *
+     * @param key 行号
+     * @param value 第一行的内容 如  this is a tests
+     * @param context 输出
+     * @throws IOException 异常
+     * @throws InterruptedException 异常
+     */
+    @Override
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        String line = value.toString();
+        //以空格分割获取字符串数组
+        String[] words = line.split(&quot; &quot;);
+        for (String word : words) {
+            context.write(new Text(word),new IntWritable(1));
+        }
+    }
+}</code></pre><h3 id="3-编写Reducer类"><a href="#3-编写Reducer类" class="headerlink" title="3.编写Reducer类"></a>3.编写Reducer类</h3><p>在org.hadoop.mrs.wordcount目录下出创建WordCountReducer类</p>
+<pre><code>package org.hadoop.mrs.wordcount;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+
+import java.io.IOException;
+
+/**
+ * Text 输入的key的类型
+ * IntWritable 输入的value的类型
+ * Text 输出的key类型
+ * IntWritable 输出的value类型
+ * Created by shirukai on 2017/11/8.
+ */
+public class WordCountReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+
+    /**
+     *
+     * @param key 输入map的key
+     * @param values 输入map的value
+     * @param context 输出
+     * @throws IOException 异常
+     * @throws InterruptedException 异常
+     */
+    @Override
+    protected void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {
+        int count = 0;
+        for (IntWritable value : values) {
+            count += value.get();
+        }
+        context.write(key, new IntWritable((count)));
+    }
+}</code></pre><h3 id="4-编写-WordCountMR类"><a href="#4-编写-WordCountMR类" class="headerlink" title="4.编写 WordCountMR类"></a>4.编写 WordCountMR类</h3><p>在org.hadoop.mrs.wordcount目录下出创建WordCountMR类</p>
+<pre><code>package org.hadoop.mrs.wordcount;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.hadoop.conf.Conf;
+import org.hadoop.files.Files;
+
+/**
+ *
+ * Created by shirukai on 2017/11/8.
+ */
+public class WordCountMR {
+    //输入文件路径
+    private static String inPath = &quot;/word_input/words.txt&quot;;
+    //输出文件目录
+    private static String outPath = &quot;/word_output/&quot;;
+    public  int run() throws Exception{
+            //获取连接配置
+            Configuration conf = Conf.get();
+            //创建一个job实例
+            Job job = Job.getInstance(conf,&quot;wordCount&quot;);
+
+            //设置job的主类
+            job.setJarByClass(WordCountMR.class);
+            //设置job的mapper类和reducer类
+            job.setMapperClass(WordCountMapper.class);
+            job.setReducerClass(WordCountReducer.class);
+
+            //设置Mapper的输出类型
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(IntWritable.class);
+            //设置Reduce的输出类型
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(IntWritable.class);
+            //设置输入和输出路径
+            FileSystem fs = Files.getFiles();
+            Path inputPath = new Path(inPath);
+            FileInputFormat.addInputPath(job,inputPath);
+            Path outputPath = new Path(outPath);
+            fs.delete(outputPath,true);
+
+            FileOutputFormat.setOutputPath(job,outputPath);
+            return job.waitForCompletion(true)?1:-1;
+    }
+}</code></pre><h3 id="5-编写主方法"><a href="#5-编写主方法" class="headerlink" title="5.编写主方法"></a>5.编写主方法</h3><p>org.hadoop.run先编写RunHadoop的主方法</p>
+<pre><code>package org.hadoop.run;
+
+import org.hadoop.files.Files;
+import org.hadoop.mrs.wordcount.WordCountMR;
+
+/**
+ *
+ * Created by shirukai on 2017/11/8.
+ */
+public class RunHadoop {
+    public static void main(String[] args) {
+        //创建word_input目录
+        String folderName = &quot;/word_input&quot;;
+        Files.mkdirFolder(folderName);
+        System.out.println(&quot;创建&quot; + folderName + &quot;成功&quot;);
+        //创建word_input目录
+        folderName = &quot;/word_output&quot;;
+        Files.mkdirFolder(folderName);
+        System.out.println(&quot;创建&quot; + folderName + &quot;成功&quot;);
+
+        //上传文件
+        String localPath = &quot;D:\\Hadoop\\upload\\&quot;;
+        String fileName = &quot;words.txt&quot;;
+        String hdfsPath = &quot;/word_input/&quot;;
+        Files.uploadFile(localPath, fileName, hdfsPath);
+        System.out.println(&quot;上传&quot; + fileName + &quot;成功&quot;);
+
+        //执行wordcount
+        int result = -1;
+        try{
+            result = new WordCountMR().run();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        if (result == 1) {
+            System.out.println(&quot;&quot;);
+            //成功后下载文件到本地
+            String downPath = &quot;/word_output/&quot;;
+            String downName =&quot;part-r-00000&quot;;
+            String savePath = &quot;D:\\Hadoop\\download\\&quot;;
+            Files.getFileFromHadoop(downPath,downName,savePath);
+            System.out.println(&quot;执行成功并将结果保存到&quot;+savePath);
+        } else {
+            System.out.println(&quot;执行失败&quot;);
+        }
+    }
+}</code></pre><h3 id="6-运行主方法"><a href="#6-运行主方法" class="headerlink" title="6.运行主方法"></a>6.运行主方法</h3><p>运行结果：</p>
+<pre><code>创建/word_input成功
+创建/word_output成功
+上传words.txt成功
+16:54:54,329 | INFO  | main             | RMProxy                          | pache.hadoop.yarn.client.RMProxy   98 | Connecting to ResourceManager at Master.Hadoop/192.168.162.177:18040
+16:54:54,646 | WARN  | main             | JobResourceUploader              | op.mapreduce.JobResourceUploader   64 | Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+16:54:54,712 | INFO  | main             | FileInputFormat                  | reduce.lib.input.FileInputFormat  283 | Total input paths to process : 1
+16:54:54,804 | INFO  | main             | JobSubmitter                     | he.hadoop.mapreduce.JobSubmitter  198 | number of splits:1
+16:54:55,045 | INFO  | main             | JobSubmitter                     | he.hadoop.mapreduce.JobSubmitter  287 | Submitting tokens for job: job_1510123570867_0018
+16:54:55,246 | INFO  | main             | YarnClientImpl                   | n.client.api.impl.YarnClientImpl  273 | Submitted application application_1510123570867_0018
+16:54:55,285 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1294 | The url to track the job: http://Master.Hadoop:18088/proxy/application_1510123570867_0018/
+16:54:55,286 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1339 | Running job: job_1510123570867_0018
+16:55:06,568 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1360 | Job job_1510123570867_0018 running in uber mode : false
+16:55:06,569 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1367 |  map 0% reduce 0%
+16:55:14,751 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1367 |  map 100% reduce 0%
+16:55:23,903 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1367 |  map 100% reduce 100%
+16:55:24,920 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1378 | Job job_1510123570867_0018 completed successfully
+16:55:25,061 | INFO  | main             | Job                              | org.apache.hadoop.mapreduce.Job  1385 | Counters: 49
+    File System Counters
+        FILE: Number of bytes read=366
+        FILE: Number of bytes written=242483
+        FILE: Number of read operations=0
+        FILE: Number of large read operations=0
+        FILE: Number of write operations=0
+        HDFS: Number of bytes read=264
+        HDFS: Number of bytes written=24
+        HDFS: Number of read operations=6
+        HDFS: Number of large read operations=0
+        HDFS: Number of write operations=2
+    Job Counters 
+        Launched map tasks=1
+        Launched reduce tasks=1
+        Data-local map tasks=1
+        Total time spent by all maps in occupied slots (ms)=5709
+        Total time spent by all reduces in occupied slots (ms)=5873
+        Total time spent by all map tasks (ms)=5709
+        Total time spent by all reduce tasks (ms)=5873
+        Total vcore-milliseconds taken by all map tasks=5709
+        Total vcore-milliseconds taken by all reduce tasks=5873
+        Total megabyte-milliseconds taken by all map tasks=5846016
+        Total megabyte-milliseconds taken by all reduce tasks=6013952
+    Map-Reduce Framework
+        Map input records=9
+        Map output records=36
+        Map output bytes=288
+        Map output materialized bytes=366
+        Input split bytes=111
+        Combine input records=0
+        Combine output records=0
+        Reduce input groups=4
+        Reduce shuffle bytes=366
+        Reduce input records=36
+        Reduce output records=4
+        Spilled Records=72
+        Shuffled Maps =1
+        Failed Shuffles=0
+        Merged Map outputs=1
+        GC time elapsed (ms)=193
+        CPU time spent (ms)=1730
+        Physical memory (bytes) snapshot=288419840
+        Virtual memory (bytes) snapshot=4159995904
+        Total committed heap usage (bytes)=140869632
+    Shuffle Errors
+        BAD_ID=0
+        CONNECTION=0
+        IO_ERROR=0
+        WRONG_LENGTH=0
+        WRONG_MAP=0
+        WRONG_REDUCE=0
+    File Input Format Counters 
+        Bytes Read=153
+    File Output Format Counters 
+        Bytes Written=24
+
+执行成功并将结果保存到D:\Hadoop\download\</code></pre> 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2019/05/29/IDEA%E5%90%91Hadoop%E9%9B%86%E7%BE%A4%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">工具环境搭建</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/05/29/Hbase%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Hbase相关配置属性
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/29/JAVA%20IO%E6%B5%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JAVA IO流的基本操作</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "P8UW8TGMAGhyQQwHvEapAIFU-gzGzoHsz",
+    app_key: "5DrCaQB8SC2oKR5zUFbNSGUs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2018-2020
+        <i class="ri-heart-fill heart_icon"></i> 丁振莹
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://v1.cnzz.com/z_stat.php?id=1279045202&amp;web_id=1279045202'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="iMonster"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Subtitle -->
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  } catch (err) {
+    console.log(err)
+  }
+</script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

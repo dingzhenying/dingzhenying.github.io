@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一只快乐的小怪兽" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作 |  iMonster
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="iMonster" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/05/29/%E8%B0%83%E7%94%A8JAVA%20API%20%E5%AF%B9%20HDFS%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%8F%96%E3%80%81%E5%86%99%E5%85%A5%E3%80%81%E4%B8%8A%E4%BC%A0%E3%80%81%E4%B8%8B%E8%BD%BD%E3%80%81%E5%88%A0%E9%99%A4%E7%AD%89%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2019-05-29T09:19:30.000Z" itemprop="datePublished">2019-05-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>title: 调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作<br>categories: java HADOOP<br>tags:</p>
+<ul>
+<li>java HADOOP<br>abbrlink: 18170<br>date: 2018-02-22 00:00:00</li>
+</ul>
+<hr>
+<h1 id="调用JAVA-API-对-HDFS-进行文件的读取、写入、上传、下载、删除等操作"><a href="#调用JAVA-API-对-HDFS-进行文件的读取、写入、上传、下载、删除等操作" class="headerlink" title="[ 调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作"></a>[ 调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作</h1><p>](/qq_37279279/article/details/79291461)</p>
+<p>Hadoop文件系统<br>基本的文件系统命令操作, 通过hadoop fs -help可以获取所有的命令的详细帮助文件。  </p>
+<p>Java抽象类org.apache.hadoop.fs.FileSystem定义了hadoop的一个文件系统接口。该类是一个抽象类，通过以下两种静态工厂方法可以过去FileSystem实例：<br>public static FileSystem.get(Configuration conf) throws IOException<br>public static FileSystem.get(URI uri, Configuration conf) throws IOException  </p>
+<p>具体方法实现：<br>1、public boolean mkdirs(Path f) throws IOException<br>一次性新建所有目录（包括父目录）， f是完整的目录路径。  </p>
+<p>2、public FSOutputStream create(Path f) throws IOException<br>创建指定path对象的一个文件，返回一个用于写入数据的输出流<br>create()有多个重载版本，允许我们指定是否强制覆盖已有的文件、文件备份数量、写入文件缓冲区大小、文件块大小以及文件权限。  </p>
+<p>3、public boolean copyFromLocal(Path src, Path dst) throws IOException<br>将本地文件拷贝到文件系统  </p>
+<p>4、public boolean exists(Path f) throws IOException<br>检查文件或目录是否存在  </p>
+<p>5、public boolean delete(Path f, Boolean recursive)<br>永久性删除指定的文件或目录，如果f是一个空目录或者文件，那么recursive的值就会被忽略。只有recursive＝true时，一个非空目录及其内容才会被删除。  </p>
+<p>6、FileStatus类封装了文件系统中文件和目录的元数据，包括文件长度、块大小、备份、修改时间、所有者以及权限信息。</p>
+<a id="more"></a>
+<p><strong>[java]</strong> <a href="http://blog.csdn.net/DF_XIAO/article/details/50601727?locationNum=6#" title="view
+plain"> view plain
+</a> <a href="http://blog.csdn.net/DF_XIAO/article/details/50601727?locationNum=6#" target="_blank" rel="noopener" title="copy"> copy
+</a></p>
+<ol>
+<li>import  org.apache.hadoop.conf.Configuration; </li>
+<li>import  org.apache.hadoop.fs.*; </li>
+<li>import  org.apache.hadoop.fs.FileSystem; </li>
+<li>import  org.apache.hadoop.io.IOUtils; </li>
+<li><ol start="6">
+<li>import  java.io.*; </li>
+</ol>
+</li>
+<li>import  java.net.URI; </li>
+<li>import  java.net.URISyntaxException; </li>
+<li>import  java.util.ArrayList; </li>
+<li>import  java.util.List; </li>
+<li><ol start="12">
+<li>public  class  HdfsOperate { </li>
+</ol>
+</li>
+<li>ArrayList <HdfsFile> hdfsfiles; </li>
+<li><ol start="15">
+<li>public  HdfsOperate() { </li>
+</ol>
+</li>
+<li>this  .hdfsfiles =  new  ArrayList<HdfsFile>(); </li>
+<li>} </li>
+<li><ol start="19">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>获取hdfs路径下的文件列表 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param srcpath </li>
+</ul>
+</li>
+<li><ul>
+<li>@return </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  String[] getFileList(String srcpath) { </li>
+<li>try  { </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>Path path =  new  Path(srcpath); </li>
+<li>FileSystem fs = path.getFileSystem(conf); </li>
+<li>List<String> files =  new  ArrayList<String>(); </li>
+<li>if  (fs.exists(path) &amp;&amp; fs.isDirectory(path)) { </li>
+<li>for  (FileStatus status : fs.listStatus(path)) { </li>
+<li>files.add(status.getPath().toString()); </li>
+<li>} </li>
+<li>} </li>
+<li>//fs.close(); </li>
+<li>return  files.toArray(  new  String[]{}); </li>
+<li>}  catch  (IOException e) { </li>
+<li>}  catch  (Exception e) { </li>
+<li>} </li>
+<li>return  null  ; </li>
+<li>} </li>
+<li><ol start="44">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>给定文件名和文件内容，创建hdfs文件 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param dst </li>
+</ul>
+</li>
+<li><ul>
+<li>@param contents </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IOException </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  createFile(String dst,  byte  [] contents) </li>
+<li>throws  IOException { </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>Path dstPath =  new  Path(dst); </li>
+<li>FileSystem fs = dstPath.getFileSystem(conf); </li>
+<li><ol start="57">
+<li>FSDataOutputStream outputStream = fs.create(dstPath); </li>
+</ol>
+</li>
+<li>outputStream.write(contents); </li>
+<li>outputStream.close(); </li>
+<li>System.out.println(  “create file “  + dst +  “ success!”  ); </li>
+<li>//fs.close(); </li>
+<li>} </li>
+<li><ol start="64">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>删除hdfs文件 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param filePath </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IOException </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  delete(String filePath)  throws  IOException { </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>Path path =  new  Path(filePath); </li>
+<li>FileSystem fs = path.getFileSystem(conf); </li>
+<li><ol start="75">
+<li>boolean  isok = fs.deleteOnExit(path); </li>
+</ol>
+</li>
+<li>if  (isok) { </li>
+<li>System.out.println(  “delete file “  + filePath +  “ success!”  ); </li>
+<li>}  else  { </li>
+<li>System.out.println(  “delete file “  + filePath +  “ failure”  ); </li>
+<li>} </li>
+<li>//fs.close(); </li>
+<li>} </li>
+<li><ol start="84">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>创建hdfs目录 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param path </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IOException </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  mkdir(String path)  throws  IOException { </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>Path srcPath =  new  Path(path); </li>
+<li>FileSystem fs = srcPath.getFileSystem(conf); </li>
+<li><ol start="95">
+<li>boolean  isok = fs.mkdirs(srcPath); </li>
+</ol>
+</li>
+<li>if  (isok) { </li>
+<li>System.out.println(  “create dir ok!”  ); </li>
+<li>}  else  { </li>
+<li>System.out.println(  “create dir failure”  ); </li>
+<li>} </li>
+<li>//fs.close(); </li>
+<li>} </li>
+<li><ol start="104">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>读取hdfs文件内容，并在控制台打印出来 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param filePath </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws IOException </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  readFile(String filePath)  throws  IOException { </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>Path srcPath =  new  Path(filePath); </li>
+<li>FileSystem fs =  null  ; </li>
+<li>URI uri; </li>
+<li>try  { </li>
+<li>uri =  new  URI(filePath); </li>
+<li>fs = FileSystem.get(uri, conf); </li>
+<li>}  catch  (URISyntaxException e) { </li>
+<li>e.printStackTrace(); </li>
+<li>} </li>
+<li>InputStream in =  null  ; </li>
+<li>try  { </li>
+<li>in = fs.open(srcPath); </li>
+<li>IOUtils.copyBytes(in, System.out,  4096  ,  false  ); </li>
+<li>}  finally  { </li>
+<li>IOUtils.closeStream(in); </li>
+<li>} </li>
+<li>} </li>
+<li><ol start="130">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>下载hdfs文件到本地目录 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param dstPath </li>
+</ul>
+</li>
+<li><ul>
+<li>@param srcPath </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws Exception </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  downloadFile(String dstPath, String srcPath)  throws  Exception { </li>
+<li>Path path =  new  Path(srcPath); </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>FileSystem hdfs = path.getFileSystem(conf); </li>
+<li><ol start="142">
+<li>File rootfile =  new  File(dstPath); </li>
+</ol>
+</li>
+<li>if  (!rootfile.exists()) { </li>
+<li>rootfile.mkdirs(); </li>
+<li>} </li>
+<li><ol start="147">
+<li>if  (hdfs.isFile(path)) { </li>
+</ol>
+</li>
+<li>//只下载非txt文件 </li>
+<li>String fileName = path.getName(); </li>
+<li>if  (!fileName.toLowerCase().endsWith(  “txt”  )) { </li>
+<li>FSDataInputStream in =  null  ; </li>
+<li>FileOutputStream out =  null  ; </li>
+<li>try  { </li>
+<li>in = hdfs.open(path); </li>
+<li>File srcfile =  new  File(rootfile, path.getName()); </li>
+<li>if  (!srcfile.exists()) srcfile.createNewFile(); </li>
+<li>out =  new  FileOutputStream(srcfile); </li>
+<li>IOUtils.copyBytes(in, out,  4096  ,  false  ); </li>
+<li>}  finally  { </li>
+<li>IOUtils.closeStream(in); </li>
+<li>IOUtils.closeStream(out); </li>
+<li>} </li>
+<li>//下载完后，在hdfs上将原文件删除 </li>
+<li>this  .delete(path.toString()); </li>
+<li>} </li>
+<li>}  else  if  (hdfs.isDirectory(path)) { </li>
+<li>File dstDir =  new  File(dstPath); </li>
+<li>if  (!dstDir.exists()) { </li>
+<li>dstDir.mkdirs(); </li>
+<li>} </li>
+<li>//在本地目录上加一层子目录 </li>
+<li>String filePath = path.toString();  //目录 </li>
+<li>String subPath[] = filePath.split(  “/“  ); </li>
+<li>String newdstPath = dstPath + subPath[subPath.length -  1  ] +  “/“  ; </li>
+<li>System.out.println(  “newdstPath=======”  + newdstPath); </li>
+<li>if  (hdfs.exists(path) &amp;&amp; hdfs.isDirectory(path)) { </li>
+<li>FileStatus[] srcFileStatus = hdfs.listStatus(path); </li>
+<li>if  (srcFileStatus !=  null  ) { </li>
+<li>for  (FileStatus status : hdfs.listStatus(path)) { </li>
+<li>//下载子目录下文件 </li>
+<li>downloadFile(newdstPath, status.getPath().toString()); </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+<li><ol start="188">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>下载hdfs文件内容，保存到内存对象中 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param srcPath </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws Exception </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  downloadFileByte(String srcPath)  throws  Exception { </li>
+<li>Path path =  new  Path(srcPath); </li>
+<li>FileSystem hdfs =  null  ; </li>
+<li>Configuration conf =  new  Configuration(); </li>
+<li>hdfs = FileSystem.get(URI.create(srcPath), conf); </li>
+<li>if  (hdfs.exists(path)) { </li>
+<li>if  (hdfs.isFile(path)) { </li>
+<li>//如果是文件 </li>
+<li>FSDataInputStream in =  null  ; </li>
+<li>FileOutputStream out =  null  ; </li>
+<li>try  { </li>
+<li>in = hdfs.open(  new  Path(srcPath)); </li>
+<li>byte  [] t =  new  byte  [in.available()]; </li>
+<li>in.read(t); </li>
+<li>hdfsfiles.add(  new  HdfsFile(path.getName(), srcPath, t)); </li>
+<li>}  finally  { </li>
+<li>IOUtils.closeStream(in); </li>
+<li>IOUtils.closeStream(out); </li>
+<li>} </li>
+<li>}  else  { </li>
+<li>//如果是目录 </li>
+<li>FileStatus[] srcFileStatus = hdfs.listStatus(  new  Path(srcPath)); </li>
+<li>for  (  int  i =  0  ; i &lt; srcFileStatus.length; i++) { </li>
+<li>String srcFile = srcFileStatus[i].getPath().toString(); </li>
+<li>downloadFileByte(srcFile); </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+<li>} </li>
+<li><ol start="224">
+<li>public  ArrayList<HdfsFile> getHdfsfiles() { </li>
+</ol>
+</li>
+<li>return  hdfsfiles; </li>
+<li>} </li>
+<li><ol start="228">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>将本地目录或文件上传的hdfs </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param localSrc </li>
+</ul>
+</li>
+<li><ul>
+<li>@param dst </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws Exception </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>public  void  uploadFile(String localSrc, String dst)  throws  Exception { </li>
+<li><ol start="237">
+<li>Configuration conf =  new  Configuration(); </li>
+</ol>
+</li>
+<li>File srcFile =  new  File(localSrc); </li>
+<li>if  (srcFile.isDirectory()) { </li>
+<li>copyDirectory(localSrc, dst, conf); </li>
+<li>}  else  { </li>
+<li>copyFile(localSrc, dst, conf); </li>
+<li>} </li>
+<li>} </li>
+<li><ol start="246">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>拷贝本地文件hdfs目录下 </li>
+</ul>
+</li>
+<li>* </li>
+<li><ul>
+<li>@param localSrc </li>
+</ul>
+</li>
+<li><ul>
+<li>@param dst </li>
+</ul>
+</li>
+<li><ul>
+<li>@param conf </li>
+</ul>
+</li>
+<li><ul>
+<li>@return </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws Exception </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>private  boolean  copyFile(String localSrc, String dst, Configuration conf)  throws  Exception { </li>
+<li>File file =  new  File(localSrc); </li>
+<li>dst = dst + file.getName(); </li>
+<li>Path path =  new  Path(dst); </li>
+<li>FileSystem fs = path.getFileSystem(conf);  //FileSystem.get(conf); </li>
+<li>fs.exists(path); </li>
+<li>InputStream in =  new  BufferedInputStream(  new  FileInputStream(file)); </li>
+<li>OutputStream out = fs.create(  new  Path(dst)); </li>
+<li>IOUtils.copyBytes(in, out,  4096  ,  true  ); </li>
+<li>in.close(); </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li><ol start="268">
+<li>/** </li>
+</ol>
+</li>
+<li><ul>
+<li>拷贝本地目录到hdfs </li>
+</ul>
+</li>
+<li><ul>
+<li>@param src </li>
+</ul>
+</li>
+<li><ul>
+<li>@param dst </li>
+</ul>
+</li>
+<li><ul>
+<li>@param conf </li>
+</ul>
+</li>
+<li><ul>
+<li>@return </li>
+</ul>
+</li>
+<li><ul>
+<li>@throws Exception </li>
+</ul>
+</li>
+<li>*/ </li>
+<li>private  boolean  copyDirectory(String src, String dst, Configuration conf)  throws  Exception { </li>
+<li>Path path =  new  Path(dst); </li>
+<li>FileSystem fs = path.getFileSystem(conf); </li>
+<li>if  (!fs.exists(path)) { </li>
+<li>fs.mkdirs(path); </li>
+<li>} </li>
+<li>File file =  new  File(src); </li>
+<li><ol start="284">
+<li>File[] files = file.listFiles(); </li>
+</ol>
+</li>
+<li>for  (  int  i =  0  ; i &lt; files.length; i++) { </li>
+<li>File f = files[i]; </li>
+<li>if  (f.isDirectory()) { </li>
+<li>String fname = f.getName(); </li>
+<li>if  (dst.endsWith(  “/“  )) { </li>
+<li>copyDirectory(f.getPath(), dst + fname +  “/“  , conf); </li>
+<li>}  else  { </li>
+<li>copyDirectory(f.getPath(), dst +  “/“  + fname +  “/“  , conf); </li>
+<li>} </li>
+<li>}  else  { </li>
+<li>copyFile(f.getPath(), dst, conf); </li>
+<li>} </li>
+<li>} </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li>} </li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2019/05/29/%E8%B0%83%E7%94%A8JAVA%20API%20%E5%AF%B9%20HDFS%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%8F%96%E3%80%81%E5%86%99%E5%85%A5%E3%80%81%E4%B8%8A%E4%BC%A0%E3%80%81%E4%B8%8B%E8%BD%BD%E3%80%81%E5%88%A0%E9%99%A4%E7%AD%89%E6%93%8D%E4%BD%9C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/05/29/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E4%B8%AD%E7%9A%84IO/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            深入理解Java中的IO
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/29/Apache%20Hive-2.3.0%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Apache Hive-2.3.0 快速搭建与使用</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "P8UW8TGMAGhyQQwHvEapAIFU-gzGzoHsz",
+    app_key: "5DrCaQB8SC2oKR5zUFbNSGUs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2018-2020
+        <i class="ri-heart-fill heart_icon"></i> 丁振莹
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://v1.cnzz.com/z_stat.php?id=1279045202&amp;web_id=1279045202'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="iMonster"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Subtitle -->
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  } catch (err) {
+    console.log(err)
+  }
+</script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
