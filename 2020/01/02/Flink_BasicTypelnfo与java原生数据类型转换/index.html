@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    flink on K8S简介 |  iMonster
+    Flink_BasicTypelnfo与java原生数据类型转换 |  iMonster
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -58,7 +58,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-flink on K8S简介"
+  id="post-Flink_BasicTypelnfo与java原生数据类型转换"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -69,15 +69,15 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  flink on K8S简介
+  Flink_BasicTypelnfo与java原生数据类型转换
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2019/10/25/flink%20on%20K8S%E7%AE%80%E4%BB%8B/" class="article-date">
-  <time datetime="2019-10-25T01:41:23.000Z" itemprop="datePublished">2019-10-25</time>
+      <a href="/2020/01/02/Flink_BasicTypelnfo%E4%B8%8Ejava%E5%8E%9F%E7%94%9F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2020-01-02T03:19:57.000Z" itemprop="datePublished">2020-01-02</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/flink/">flink</a>
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">17</span>
+            <span class="post-count">189</span>
         </span>
     </span>
 
@@ -104,21 +104,21 @@
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h3><p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20191025094157.png" alt=""></p>
-<h3 id="交互模式："><a href="#交互模式：" class="headerlink" title="交互模式："></a>交互模式：</h3><p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20191025094426.png" alt=""></p>
+  <p>Flink通过实现 BasicTypelnfo数据类型,能够支持任意Java原生基本类型(装箱)<br>或 String类型,例如 Integer、 String、 Double等<br>如以下代码所示,通过从给定的元素集中创建 DataStream数据集。</p>
+<p>//创建Int类型的数据集<br>val instream: DataStream[Int]= env. fromElements(3, 1,2,1,5)</p>
+<p>//创建 string类型的数据集<br>val datastream: DataStream[ String] env fromElements(“hello”,”fink”)</p>
+<p>Flink实现另外一种 TypeInfomation是 Basic Array TypeInfo,对应的是Java基本类<br>型数组(装箱)或 String对象的数组,如下代码通过使用Aray数组和List集合创建<br>DataStream数据集。</p>
 <a id="more"></a>
-<p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20191025094657.png" alt=""></p>
-<p>flink on K8s 相关配置属性</p>
-<p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20191028160320.png" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20191028160536.png" alt=""></p>
+<p>//通过从数组中创建数据集</p>
+<p>val dataStream: DataStream[ Int]= env. fromCollection(Array (3, 1, 2, 1, 5))</p>
+<p>//通过List集合创建数据集</p>
+<p>val dataStream: DataStream[Int] =env. fromCollection(List(3, l,2,1, 5))</p>
  
       <!-- reward -->
       
@@ -185,7 +185,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2019/10/25/flink%20on%20K8S%E7%AE%80%E4%BB%8B/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://imonster.me/2020/01/02/Flink_BasicTypelnfo%E4%B8%8Ejava%E5%8E%9F%E7%94%9F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -198,19 +198,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2019/10/28/Flink%20On%20K8S%20%E9%AB%98%E5%8F%AF%E7%94%A8/" class="article-nav-link">
+      <a href="/2020/02/18/openfaasOnK8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Flink On K8S 高可用
+            openfaasOnK8s安装部署
           
         </div>
       </a>
     
     
-      <a href="/2019/10/24/pod%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
+      <a href="/2019/12/10/K8S%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">pod详解</div>
+        <div class="article-nav-title">K8S常见指令</div>
       </a>
     
   </nav>
