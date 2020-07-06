@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -71,6 +60,42 @@
   
   <div class="archives-wrap">
     <div class="archive-year-wrap">
+      <a href="/archives/2020" class="archive-year">2020</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/07/06/Docker/" class="archive-article-date">
+  <time datetime="2020-07-06T09:05:31.000Z" itemprop="datePublished">07/06</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/07/06/Docker/"
+    >Docker</a> 
+</h2>
+ 
+
+    </header>
+    
+    
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-docker/" rel="tag">工具环境搭建\docker</a></li></ul>
+
+    
+  </div>
+</article>
+      
+  
+  
+  
+  </div>
+  </div>
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
       <a href="/archives/2019" class="archive-year">2019</a>
     </div>
     <div class="archives">
@@ -78,13 +103,13 @@
       <article class="archive-article archive-type-post">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <a href="/2019/11/29/centOS%E5%AE%89%E8%A3%85k8s%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
+      <a href="/2019/11/29/CentOS%E5%AE%89%E8%A3%85k8s%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
   <time datetime="2019-11-29T09:05:20.000Z" itemprop="datePublished">11/29</time>
 </a>
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/11/29/centOS%E5%AE%89%E8%A3%85k8s%E6%9C%8D%E5%8A%A1/"
-    >centOS安装k8s服务</a> 
+  <a class="archive-article-title" href="/2019/11/29/CentOS%E5%AE%89%E8%A3%85k8s%E6%9C%8D%E5%8A%A1/"
+    >CentOS安装k8s服务</a> 
 </h2>
  
 
@@ -160,31 +185,6 @@
 <h2 itemprop="name">
   <a class="archive-article-title" href="/2019/07/24/docker%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
     >docker环境常用指令</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-docker/" rel="tag">工具环境搭建\docker</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/29/Docker/" class="archive-article-date">
-  <time datetime="2019-05-29T09:19:29.000Z" itemprop="datePublished">05/29</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2019/05/29/Docker/"
-    >Docker</a> 
 </h2>
  
 
@@ -289,7 +289,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -302,6 +302,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -324,7 +328,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -354,9 +358,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -493,11 +497,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

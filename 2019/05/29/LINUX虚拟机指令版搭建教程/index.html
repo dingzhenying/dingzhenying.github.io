@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -120,7 +109,6 @@
 <h1 id="LINUX指令版搭建教程"><a href="#LINUX指令版搭建教程" class="headerlink" title=" LINUX指令版搭建教程 "></a><a href="/qq_37279279/article/details/78481440"> LINUX指令版搭建教程 </a></h1><p>1、文件-新建虚拟机<br><img src="http://img.blog.csdn.net/20171108163114116?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="点击文件-
 新建虚拟机"><br>选择典型模式-下一步<br>2、安装程序光盘镜像文件（选择本地下载的镜像）<br><img src="http://img.blog.csdn.net/20171108163340696?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="选择镜像"><br>下一步<br>3、修改虚拟机名称+选择虚拟机安装路径<br><img src="http://img.blog.csdn.net/20171108163857000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="虚拟机名称+选择虚拟机安装路径"><br>写好虚拟机名称、选好安装路径后，选择下一步<br>4、选择磁盘大小（默认）<br><img src="http://img.blog.csdn.net/20171108164131478?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="选择磁盘大小"><br>选择第二个：将虚拟磁盘分成多个文件—点击下一步<br>5、自定义硬件大小（默认）<br><img src="http://img.blog.csdn.net/20171108164534988?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="自定义硬件大小"><br>点击完成<br>6、等待启动安装<br><img src="http://img.blog.csdn.net/20171108164913094?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="启动创建linux"><br>7、选择语言（中文-简体中文（中国））<br><img src="http://img.blog.csdn.net/20171108165222795?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="语言"><br>点击继续<br>8、选择时区<br><img src="http://img.blog.csdn.net/20171108172205430?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="选择时区"><br>9、选择系统的工作空间<br><img src="http://img.blog.csdn.net/20171108172401148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="选择系统的工作空间"><br>10、设置网关（重要）<br><img src="http://img.blog.csdn.net/20171108172557789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="设置网关"><br>1、设置主机名<br>2、开启以太网<br>3、配置网络（10.1）<br>10.1获取虚拟机网关ip<br><img src="http://img.blog.csdn.net/20171108172802851?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="获取网关IP"><br>编辑—虚拟网络编辑器—NAT设置—查看网关IP<br>10.2设置IPV4<br>1.点击方法：手动<br>2.地址：填写根据之前的网关ip（ <strong>192.168.239</strong> .2）填写<br>前三位相同（ <strong>192.168.239</strong> . <em>*</em> ）<br>后三位1-254任选（192.168.239.114）<br>子网掩码：255.255.255.0<br>网关：与之前网关IP相同（192.168.239.2）<br>DNS服务器：与网关ip相同（192.168.239.2）<br>3、其他不用填–点击保存<br><img src="http://img.blog.csdn.net/20171108173114355?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="设置IPV4"><br>11、设置root密码与新建账号<br><img src="http://img.blog.csdn.net/20171108173729073?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="设置账号密码"><br>12、安装完成！—–重启<br><img src="http://img.blog.csdn.net/20171108173905652?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="安装完成"><br>13、尝试登陆<br>安装成功，登陆<br><img src="http://img.blog.csdn.net/20171108174303802?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="安装成功，登陆"><br>14、下载Xshell5用ssh方式登陆<br><img src="http://img.blog.csdn.net/20171108174441557?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Xshell5"><br>主键为之前创建的虚拟机IPV4的地址（192.168.239.114）<br>连接，填写账号密码登陆<br>登陆成功界面：<br><img src="http://img.blog.csdn.net/20171108174759650?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzcyNzkyNzk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="登陆成功"></p>
 <p>*<em><em>若需要创建多台虚拟机，只需将第10步中的主机名和地址设置为不同即可</em> *</em></p>
-<a id="more"></a>
  
       <!-- reward -->
       
@@ -200,11 +188,11 @@
    
   <nav class="article-nav">
     
-      <a href="/2019/05/29/K8S_%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/" class="article-nav-link">
+      <a href="/2019/05/29/Jedis-radis%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            K8S_常见指令
+            Jedis-radis常用操作
           
         </div>
       </a>
@@ -353,7 +341,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -366,6 +354,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -388,7 +380,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -418,9 +410,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -574,11 +566,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

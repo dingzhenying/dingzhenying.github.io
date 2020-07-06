@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -118,7 +107,6 @@
 </ul>
 <hr>
 <h1 id="java多线程"><a href="#java多线程" class="headerlink" title=" java多线程 "></a><a href="/qq_37279279/article/details/78922909"> java多线程 </a></h1><h1 id="java多线程-1"><a href="#java多线程-1" class="headerlink" title="java多线程"></a>java多线程</h1><p>java多线程主要体现在Thread这个类和Runnable这个接口上。他们里面都有一个共同的方法run()</p>
-<a id="more"></a>
 <h3 id="Thread常用方法"><a href="#Thread常用方法" class="headerlink" title="Thread常用方法"></a>Thread常用方法</h3><p><img src="http://ov1a6etyz.bkt.clouddn.com/201711271005_84.png" alt=""></p>
 <p>创建线程的两种方法</p>
 <p>第一个是继承Thread类</p>
@@ -321,19 +309,19 @@ public class Stage extends Thread {
    
   <nav class="article-nav">
     
-      <a href="/2019/05/29/hbase%E8%AF%BB%E5%86%99%E6%B5%81%E7%A8%8B/" class="article-nav-link">
+      <a href="/2019/05/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            hbase读写流程
+            java多线程详解
           
         </div>
       </a>
     
     
-      <a href="/2019/05/29/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
+      <a href="/2019/05/29/jsp%E9%A1%B5%E9%9D%A2%E5%BC%95%E7%94%A8properties%20%E6%96%87%E4%BB%B6/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">java多线程详解</div>
+        <div class="article-nav-title">jsp页面引用properties 文件</div>
       </a>
     
   </nav>
@@ -474,7 +462,7 @@ public class Stage extends Thread {
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -487,6 +475,10 @@ public class Stage extends Thread {
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -509,7 +501,7 @@ public class Stage extends Thread {
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -539,9 +531,9 @@ public class Stage extends Thread {
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -695,11 +687,6 @@ public class Stage extends Thread {
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

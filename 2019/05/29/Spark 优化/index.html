@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -117,7 +106,6 @@
 <li>java的序列化（默认）</li>
 <li>Kryo序列化（内存小/速度快）<br>需要将自定义的类先注册<br><img src="C41F748E46EF4F6E9D5ED282304730C8" alt="image"></li>
 </ol>
-<a id="more"></a>
 <h2 id="内存管理优化"><a href="#内存管理优化" class="headerlink" title="==内存管理优化=="></a>==内存管理优化==</h2><h2 id="广播变量优化"><a href="#广播变量优化" class="headerlink" title="==广播变量优化=="></a>==广播变量优化==</h2><p>广播变量每一个机器一个</p>
 <p>普通变量每一个task一个</p>
 <p>将变量尽量转换为广播变量</p>
@@ -355,7 +343,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -368,6 +356,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -390,7 +382,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -420,9 +412,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -576,11 +568,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

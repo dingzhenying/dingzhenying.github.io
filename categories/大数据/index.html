@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -240,13 +229,13 @@
       <article class="archive-article archive-type-post">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <a href="/2020/02/18/openfaasOnK8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+      <a href="/2020/02/18/openfaas_on_K8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="archive-article-date">
   <time datetime="2020-02-18T04:00:22.000Z" itemprop="datePublished">02/18</time>
 </a>
        
 <h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/02/18/openfaasOnK8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/"
-    >openfaasOnK8s安装部署</a> 
+  <a class="archive-article-title" href="/2020/02/18/openfaas_on_K8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/"
+    >openfaas_on_K8s安装部署</a> 
 </h2>
  
 
@@ -450,7 +439,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -463,6 +452,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -485,7 +478,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -515,9 +508,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -654,11 +647,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -126,7 +115,6 @@
 <p>4、public boolean exists(Path f) throws IOException<br>检查文件或目录是否存在  </p>
 <p>5、public boolean delete(Path f, Boolean recursive)<br>永久性删除指定的文件或目录，如果f是一个空目录或者文件，那么recursive的值就会被忽略。只有recursive＝true时，一个非空目录及其内容才会被删除。  </p>
 <p>6、FileStatus类封装了文件系统中文件和目录的元数据，包括文件长度、块大小、备份、修改时间、所有者以及权限信息。</p>
-<a id="more"></a>
 <p><strong>[java]</strong> <a href="http://blog.csdn.net/DF_XIAO/article/details/50601727?locationNum=6#" title="view
 plain"> view plain
 </a> <a href="http://blog.csdn.net/DF_XIAO/article/details/50601727?locationNum=6#" target="_blank" rel="noopener" title="copy"> copy
@@ -681,9 +669,9 @@ plain"> view plain
       </a>
     
     
-      <a href="/2019/05/29/Apache%20Hive-2.3.0%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-nav-link">
+      <a href="/2019/05/29/3.1FlexGrid/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Apache Hive-2.3.0 快速搭建与使用</div>
+        <div class="article-nav-title">3.1FlexGrid</div>
       </a>
     
   </nav>
@@ -824,7 +812,7 @@ plain"> view plain
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -837,6 +825,10 @@ plain"> view plain
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -859,7 +851,7 @@ plain"> view plain
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -889,9 +881,9 @@ plain"> view plain
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -1045,11 +1037,6 @@ plain"> view plain
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -115,7 +104,6 @@
   <hr>
 <p>原文地址：<a href="http://n3xtchen.github.io/n3xtchen/spark/2017/01/24/spark200-window-function" target="_blank" rel="noopener">http://n3xtchen.github.io/n3xtchen/spark/2017/01/24/spark200-window-function</a></p>
 <h3 id="什么是简单移动平均值"><a href="#什么是简单移动平均值" class="headerlink" title="什么是简单移动平均值"></a>什么是简单移动平均值</h3><p>简单移动平均（英语：Simple Moving Average，SMA）是某变数之前n个数值的未作加权算术平均。例如，收市价的10日简单移动平均指之前10日收市价的平均数。</p>
-<a id="more"></a>
 <h3 id="直接看例子吧"><a href="#直接看例子吧" class="headerlink" title="直接看例子吧"></a>直接看例子吧</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val df &#x3D; List(</span><br><span class="line">  (&quot;站点1&quot;, &quot;2017-01-01&quot;, 50),</span><br><span class="line">  (&quot;站点1&quot;, &quot;2017-01-02&quot;, 45),</span><br><span class="line">  (&quot;站点1&quot;, &quot;2017-01-03&quot;, 55),</span><br><span class="line">  (&quot;站点2&quot;, &quot;2017-01-01&quot;, 25),</span><br><span class="line">  (&quot;站点2&quot;, &quot;2017-01-02&quot;, 29),</span><br><span class="line">  (&quot;站点2&quot;, &quot;2017-01-03&quot;, 27)</span><br><span class="line">).toDF(&quot;site&quot;, &quot;date&quot;, &quot;user_cnt&quot;)</span><br><span class="line"></span><br><span class="line">import org.apache.spark.sql.expressions.Window</span><br><span class="line">import org.apache.spark.sql.functions._</span><br><span class="line"></span><br><span class="line">val wSpec &#x3D; Window.partitionBy(&quot;site&quot;)</span><br><span class="line">  .orderBy(&quot;date&quot;)</span><br><span class="line">  .rowsBetween(-1, 1)</span><br></pre></td></tr></table></figure>
 
 <p>这个 window spec 中，数据根据用户(customer)来分去。每一个用户数据根据时间排序。然后，窗口定义从 -1(前一行)到 1(后一行)    ，每一个滑动的窗口总用有3行</p>
@@ -394,7 +382,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -407,6 +395,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -429,7 +421,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -459,9 +451,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -615,11 +607,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

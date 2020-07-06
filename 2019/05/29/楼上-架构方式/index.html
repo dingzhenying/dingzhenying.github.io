@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -113,7 +102,6 @@
   <p>采取sprinMVC+mybatis的架构方式。通过sprinMVC控制数据的处理及展示，mybatis实现数据的持久化操作。<br>Loushang架构模式基本包括三层：view + controller+dao。对于业务逻辑较为复杂的，使用view + controller+service+dao的层次架构。后台对象的定义及调用，提倡使用spring注解符的方式实现，可以有效的减少代码书写量，提高开发效率。下图为框架的架构图：<br><img src="http://note.youdao.com/yws/api/group/54284770/file/158664659?method=download&inline=true&version=2&shareToken=F0042FA4551A497495EBDDA4C8E50ABD" alt="image"></p>
 <p>框架中spring bean配置文件统一放在WEB-INF/spring目录下，一般将</p>
 <p>controller层、</p>
-<a id="more"></a>
 <p>service层、</p>
 <p>dao层</p>
 <p>对应的配置分别放在</p>
@@ -354,7 +342,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -367,6 +355,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -389,7 +381,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -419,9 +411,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -575,11 +567,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

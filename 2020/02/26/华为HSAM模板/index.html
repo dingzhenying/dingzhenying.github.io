@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">694</span>
+            <span class="post-count">691</span>
         </span>
     </span>
 
@@ -115,7 +104,6 @@
 <p>函数配置文件详解</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">​&#96;&#96;&#96;yaml   </span><br><span class="line">SAMversion: &#39;v1&#39;</span><br><span class="line">Resources:</span><br><span class="line">	#函数名称</span><br><span class="line">   MyFunc1: # Function resource name</span><br><span class="line">    #函数类型（HC::Serverless::Function \ HC::Serverless::FunctionStage）</span><br><span class="line">    Type: &#39;HC::Serverless::Function&#39;</span><br><span class="line">    #Function类型 属性</span><br><span class="line">    Properties:</span><br><span class="line">      #名称</span><br><span class="line">      FuncName: testFunc1 </span><br><span class="line">      #描述</span><br><span class="line">      Description: &quot;This is my Func1&quot; </span><br><span class="line">      #函数执行入口</span><br><span class="line">      Handler: index.handler </span><br><span class="line">      #运行环境</span><br><span class="line">      Runtime: Python2.7</span><br><span class="line">      #函数执行内存使用大小</span><br><span class="line">      MemorySize: 128</span><br><span class="line">      #函数在被终止之前可以运行的最长时间，单位是秒，范围3～900秒，默认为 3 秒。</span><br><span class="line">      Timeout: 180</span><br><span class="line">      #OBS上传文件方式时必填，本地代码文件位置</span><br><span class="line">      CodeUri: &quot;&quot;</span><br><span class="line">      #在线编辑时的函数源码</span><br><span class="line">      Code: |</span><br><span class="line">        # -*- coding:utf-8 -*-</span><br><span class="line">        import json</span><br><span class="line">        def handler (event, context):</span><br><span class="line">            output &#x3D; &#39;Hello message: &#39; + json.dumps(event)</span><br><span class="line">            return output</span><br><span class="line">      #为函数配置委托（普通账号、云账号）。</span><br><span class="line">      Xrole: allService</span><br><span class="line">      #环境变量</span><br><span class="line">      Environment:</span><br><span class="line">        Variables:</span><br><span class="line">          key1: value1</span><br><span class="line">          key2: value2</span><br><span class="line">   #-----事件源类型-----------------------------------</span><br><span class="line">   #OBS 触发器</span><br><span class="line">   ObsEvt1: # OBS event resource name</span><br><span class="line">    Type: OBS</span><br><span class="line">    Properties:</span><br><span class="line">      #OBS桶的名称。</span><br><span class="line">      Bucket: my-photo-bucket</span><br><span class="line">      #OBS触发事件列表</span><br><span class="line">      EventType:</span><br><span class="line">        - ObjectCreated:*</span><br><span class="line">        - ObjectRemoved:*</span><br><span class="line">      #前缀过滤配置。 用来限制对以此关键字开头的对象的通知。</span><br><span class="line">      Prefix: fss</span><br><span class="line">      #后缀过滤配置。 用来限制对以此关键字结尾的对象的通知。</span><br><span class="line">      Suffix: jpg</span><br><span class="line">   #SMN 触发器</span><br><span class="line">   SmnEvt: # SMN event resource name</span><br><span class="line">    Type: SMN</span><br><span class="line">    Properties:</span><br><span class="line">      #订阅的SMN主题名称</span><br><span class="line">      Topic: topic1</span><br><span class="line">      #订阅备注</span><br><span class="line">      Remark: APItest</span><br><span class="line">   #DMS 触发器</span><br><span class="line">   DmsEvt: # DMS event resource name</span><br><span class="line">    Type: DMS</span><br><span class="line">    Properties:</span><br><span class="line">      #ConsumerGroupId</span><br><span class="line">      ConsumerGroupId: g-92777f57-a42a-401e-829d-4151417c639f</span><br><span class="line">      #DMS队列ID</span><br><span class="line">      QueueId: a99e1c82-808a-4d3b-b03a-0e161e514c2c</span><br><span class="line">      #拉取周期为DMS触发器轮询消息的间隔时间</span><br><span class="line">      PollingInterval: 30</span><br><span class="line">   #LTS 触发器</span><br><span class="line">   LtsEvt: # LTS event resource name</span><br><span class="line">    Type: LTS</span><br><span class="line">    Properties:</span><br><span class="line">      #LTS日志组ID</span><br><span class="line">      GroupId: fd537073-7ffb-11e8-b63a-286ed488ce71</span><br><span class="line">      #LTS日志组名称</span><br><span class="line">      GroupName: test-log-group-1</span><br><span class="line">      #LTS日志主题ID</span><br><span class="line">      TopicId: 51acbef6-aa92-11e8-810a-286ed488ce71</span><br><span class="line">      #LTS日志主题名称</span><br><span class="line">      TopicName: lts-topic-aos</span><br><span class="line">   #CTS 触发器</span><br><span class="line">   CtsEvt: # CTS event resource name</span><br><span class="line">    Type: CTS</span><br><span class="line">    Properties:</span><br><span class="line">      #名称</span><br><span class="line">      Name: ctstest</span><br><span class="line">      #支持审计的服务操作</span><br><span class="line">      Operations:</span><br><span class="line">        AOS:</span><br><span class="line">          stack:</span><br><span class="line">            - createStack</span><br><span class="line">            - deleteStack</span><br><span class="line">          quota:</span><br><span class="line">            - updateQuota</span><br><span class="line">        CCE(1.0):</span><br><span class="line">          app:</span><br><span class="line">            - createApp</span><br><span class="line">            - deleteApp</span><br><span class="line">          image:</span><br><span class="line">            - deleteImage</span><br><span class="line">   #DIS 触发器</span><br><span class="line">   DisEvt: # DIS event resource name</span><br><span class="line">    Type: DIS</span><br><span class="line">    Properties:</span><br><span class="line">      #通道名称</span><br><span class="line">      Stream: dis-test</span><br><span class="line">      #批处理大小，有效范围为1到10000</span><br><span class="line">      BatchSize: 100</span><br><span class="line">      #在流中开始读取数据的位置，支持TRIM_HORIZON，LATEST</span><br><span class="line">      ShardIteratorType: TRIM_HORIZON</span><br><span class="line">      #拉取流数据的周期(秒)</span><br><span class="line">      PollingInterval: 30</span><br><span class="line">   #APIG 触发器（）</span><br><span class="line">   ApiEvt: # APIG event resource name</span><br><span class="line">    Type: APIG</span><br><span class="line">    Properties:</span><br><span class="line">      #API的名称</span><br><span class="line">      ApiName: testApi</span><br><span class="line">      #API分组的名称</span><br><span class="line">      ApiGroup: my_apigroup</span><br><span class="line">      #安全认证类型（IAM、APP和NONE）</span><br><span class="line">      Auth: IAM</span><br><span class="line">      #请求类型（HTTP、HTTPS）</span><br><span class="line">      Protocol: HTTPS</span><br><span class="line">      #请求超时时间</span><br><span class="line">      Timeout: 5000</span><br><span class="line">   #定时触发器</span><br><span class="line">   TimerEvt: # TIMER event resource name</span><br><span class="line">     Type: TIMER</span><br><span class="line">     Properties:</span><br><span class="line">       #触发器名称</span><br><span class="line">       Name: my_timer</span><br><span class="line">       #触发间隔</span><br><span class="line">       Schedule: 3m</span><br><span class="line">       #触发类型（Rate&#x2F;Cron）</span><br><span class="line">       ScheduleType: Rate</span><br><span class="line">       #触发时包含的附加信息</span><br><span class="line">       UserEvent: &quot;user data&quot;</span><br><span class="line">   #----------FunctionStage 配置。FunctionStage 资源包含一个函数和若干触发器----------</span><br><span class="line">   MyFuncStage1: # FunctionStage resource name</span><br><span class="line">    Type: &#39;HC::Serverless::FunctionStage&#39;</span><br><span class="line">    Properties:</span><br><span class="line">      #关联函数名称</span><br><span class="line">      Function: MyFunc1</span><br><span class="line">      #关联的触发器</span><br><span class="line">      Events:</span><br><span class="line">        TimerEvt</span><br><span class="line">        LtsEvt</span><br><span class="line">        CtsEvt</span><br><span class="line">        ApiEvt</span><br><span class="line">​</span><br></pre></td></tr></table></figure>
 <pre><code>
-&lt;!--more--&gt;
 
 </code></pre> 
       <!-- reward -->
@@ -349,7 +337,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -362,6 +350,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -384,7 +376,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -414,9 +406,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -570,11 +562,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

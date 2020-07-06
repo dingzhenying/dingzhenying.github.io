@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -137,7 +126,6 @@
 <td>可设项，自定义渲染列。包括三种类型的值：“checkbox”、“radio”、“函数名”</td>
 </tr>
 </tbody></table>
-<a id="more"></a>
 <p>options:</p>
 <p>名称|类型|默认值|功能<br>—|—|—|—|—<br>paging|    boolean|true|    是否开启分页功能<br>ordering|    boolean|true|    是否开启排序功能<br>order|    array|    []|    设置默认的排序列，可为多列，如：[[0, ‘asc’], [ 1, ‘asc’ ]]<br>serverSide|    boolean|    true|    是否开启服务器端模式<br>autoWidth|    boolean|     false|    是否开启列宽度自适应功能<br>info|boolean|true|是否显示左下角记录数信息<br>scrollX|boolean|false|是否显示水平滚动条<br>scrollY|string|“”|设置表格的高度，超过所设置高度则出现垂直滚动条<br>btnDefs| array或function（data）(data为每行的数据对象)|    |自定义每行的操作按钮。array类型用于每行渲染的操作按钮一致的情况;function类型用于每行所需要渲染操作按钮不一致的情况。<br>drawCallback|function||表格重绘时调用<br>initComplete|    function|        |表格初始化完成后调用<br>rowCallback    |function|        |表格每行初始化时调用<br>createRow|    function|    |    表格行被创建时调用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--表格结构的定义--&gt;</span><br><span class="line">&lt;table id&#x3D;&quot;userList&quot; class&#x3D;&quot;table table-bordered table-hover&quot;&gt;</span><br><span class="line">	&lt;thead&gt;</span><br><span class="line">&lt;tr&gt;</span><br><span class="line">		&lt;th width&#x3D;&quot;10%&quot; data-field&#x3D;&quot;userId&quot; data-sortable&#x3D; &quot;false&quot; data-render&#x3D;&quot;rendercheckbox&quot;&gt;</span><br><span class="line">		&lt;&#x2F;th&gt;</span><br><span class="line">		&lt;th width&#x3D;&quot;15%&quot; data-field&#x3D;&quot;userId&quot; data-sortable&#x3D;&quot;false&quot;&gt;账号&lt;&#x2F;th&gt;</span><br><span class="line">		&lt;th width&#x3D;&quot;25%&quot; data-field&#x3D;&quot;userName&quot;&gt;姓名&lt;&#x2F;th&gt;</span><br><span class="line">		&lt;th width&#x3D;&quot;25%&quot; data-field&#x3D;&quot;nickname&quot;&gt;昵称&lt;&#x2F;th&gt;</span><br><span class="line">		&lt;th width&#x3D;&quot;25%&quot; data-field&#x3D;&quot;status&quot; data-render&#x3D;&quot;renderstatus&quot;&gt;账号状态&lt;&#x2F;th&gt;</span><br><span class="line">	  &lt;&#x2F;tr&gt;</span><br><span class="line">	&lt;&#x2F;thead&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br><span class="line">&lt;!--自定义列--&gt;</span><br><span class="line">function rendercheckbox(data, type, full) &#123;</span><br><span class="line">        return &#39;&lt;input type&#x3D;&quot;checkbox&quot; value&#x3D;&quot;&#39; + data + &#39;&quot; title&#x3D;&quot;&#39; + data + &#39;&quot; id&#x3D;&quot;checkbox&quot; name&#x3D;&quot;checkboxlist&quot;&#x2F;&gt;&#39;;</span><br><span class="line">    &#125;;    </span><br><span class="line">    function renderoptions(data, type, full) &#123;</span><br><span class="line">    	var delBtn &#x3D; &quot;&lt;a class&#x3D;\&quot;del\&quot; &gt;删除&lt;&#x2F;a&gt;&quot;;</span><br><span class="line"> 		var editBtn &#x3D; &quot;&lt;a class&#x3D;\&quot;modify\&quot;&gt;编辑&lt;&#x2F;a&gt;&quot;;</span><br><span class="line"> 		</span><br><span class="line"> 		return delBtn + &quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot; + editBtn;</span><br><span class="line">    &#125;</span><br><span class="line">function renderstatus(data,type,full)&#123;</span><br><span class="line">    if(data !&#x3D; &quot;&quot; || data !&#x3D; null)</span><br><span class="line">		&#123;</span><br><span class="line">		  if(data &#x3D;&#x3D; &quot;N&quot;)&#123;</span><br><span class="line">			  data &#x3D; &quot;启用&quot;;</span><br><span class="line">		  &#125;</span><br><span class="line">		  if(data &#x3D;&#x3D; &quot;X&quot;)&#123;</span><br><span class="line">			  data &#x3D; &quot;停用&quot;;</span><br><span class="line">		  &#125;			    		    			  </span><br><span class="line">		&#125;</span><br><span class="line">	return data;</span><br><span class="line">&#125;</span><br><span class="line">2.定义表格对象并初始化表格，定义表格对象时需要传入表格的id及请求数据的url两个参数，代码如下：</span><br><span class="line">var options &#x3D; &#123;</span><br><span class="line">   &lt;!--所需的option--&gt;</span><br><span class="line">&#125;;	   </span><br><span class="line">var url &#x3D; context+&quot;&#x2F;service&#x2F;framework&#x2F;demo&#x2F;user&#x2F;data&quot;;</span><br><span class="line">grid &#x3D; new L.FlexGrid(&quot;userList&quot;,url); </span><br><span class="line">grid.init(options); &#x2F;&#x2F;初始化</span><br></pre></td></tr></table></figure>
@@ -222,19 +210,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2019/05/29/Docker/" class="article-nav-link">
+      <a href="/2019/05/29/%E8%B0%83%E7%94%A8JAVA%20API%20%E5%AF%B9%20HDFS%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%8F%96%E3%80%81%E5%86%99%E5%85%A5%E3%80%81%E4%B8%8A%E4%BC%A0%E3%80%81%E4%B8%8B%E8%BD%BD%E3%80%81%E5%88%A0%E9%99%A4%E7%AD%89%E6%93%8D%E4%BD%9C/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Docker
+            调用JAVA API 对 HDFS 进行文件的读取、写入、上传、下载、删除等操作
           
         </div>
       </a>
     
     
-      <a href="/2019/05/29/Dstream%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+      <a href="/2019/05/29/Apache%20Hive-2.3.0%20%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Dstream常见操作</div>
+        <div class="article-nav-title">Apache Hive-2.3.0 快速搭建与使用</div>
       </a>
     
   </nav>
@@ -375,7 +363,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -388,6 +376,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -410,7 +402,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -440,9 +432,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -596,11 +588,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

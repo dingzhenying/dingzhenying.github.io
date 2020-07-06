@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">411</span>
+            <span class="post-count">415</span>
         </span>
     </span>
 
@@ -110,9 +99,12 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>尽管TaskManager通过增加Deployment的副本可以实现高可用性，但JobManager仍然是单点故障。Flink 借助ZooKeeper和诸如HDFS之类的分布式文件系统提供了<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.8/ops/jobmanager_high_availability.html" target="_blank" rel="noopener">HA解决方案</a>。在独立集群中，将启动多个JobManager，并选择其中一个作为领导者。在YARN或Kubernetes部署中，仅需要一个JobManager实例。群集的元信息存储在ZooKeeper中，检查点数据存储在HDFS中。当JobManager关闭时，Kubernetes将重新启动容器，而新的JobManager将还原最后一个检查点并恢复作业。</p>
+  <p><strong>原理：</strong></p>
+<p>尽管TaskManager通过增加Deployment的副本可以实现高可用性，但JobManager仍然是单点故障。</p>
+<p>Flink 借助ZooKeeper和诸如HDFS之类的分布式文件系统提供了<a href="https://ci.apache.org/projects/flink/flink-docs-release-1.8/ops/jobmanager_high_availability.html" target="_blank" rel="noopener">HA解决方案</a>。在独立集群中，将启动多个JobManager，并选择其中一个作为领导者。</p>
+<p>在YARN或Kubernetes部署中，仅需要一个JobManager实例。群集的元信息存储在ZooKeeper中，检查点数据存储在HDFS中。当JobManager关闭时，Kubernetes将重新启动容器，而新的JobManager将还原最后一个检查点并恢复作业。</p>
+<p><strong>指令：</strong></p>
 <p>要启用JobManager HA，请同时更改JobManager和TaskManager的启动命令：</p>
-<a id="more"></a>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">command:</span> <span class="string">["/opt/flink/bin/standalone-job.sh"]</span></span><br><span class="line"><span class="attr">args:</span> <span class="string">["start-foreground",</span></span><br><span class="line">       <span class="string">"-Djobmanager.rpc.address=$&#123;JOB&#125;-jobmanager"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dparallelism.default=1"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dblob.server.port=6124"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dqueryable-state.server.ports=6125"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability=zookeeper"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability.zookeeper.quorum=192.168.99.1:2181"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability.zookeeper.path.root=/flink"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability.cluster-id=/$&#123;JOB&#125;"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability.storageDir=hdfs://192.168.99.1:9000/flink/recovery"</span><span class="string">,</span></span><br><span class="line">       <span class="string">"-Dhigh-availability.jobmanager.port=6123"</span><span class="string">,</span></span><br><span class="line">       <span class="string">]</span></span><br></pre></td></tr></table></figure>
 
 
@@ -359,7 +351,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -372,6 +364,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -394,7 +390,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -424,9 +420,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -580,11 +576,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">519</span>
+            <span class="post-count">516</span>
         </span>
     </span>
 
@@ -112,64 +101,62 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <ol>
-<li>下载faas中的实例函数</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Git clone https:&#x2F;&#x2F;github.com&#x2F;openfaas&#x2F;faas.git &amp;&amp; cd .&#x2F;faas</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+  <h3 id="1-部署openfaas中的实例函数"><a href="#1-部署openfaas中的实例函数" class="headerlink" title="1.部署openfaas中的实例函数"></a>1.部署openfaas中的实例函数</h3><ol>
+<li><p>git源码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Git clone https:&#x2F;&#x2F;github.com&#x2F;openfaas&#x2F;faas.git &amp;&amp; cd .&#x2F;faas</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>保存登陆凭证</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -n admin | faas-cli login -g http:&#x2F;&#x2F;localhost:31112 -u admin --password-stdin</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -n admin | faas-cli login -g http:&#x2F;&#x2F;localhost:31112 -u admin --password-stdin</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>运行以下<code>faas-cli</code>命令，该命令获取堆栈清单的路径和OpenFaaS服务器的地址：</p>
+<li><p>运行以下<code>faas-cli</code>命令，该命令获取堆栈清单的路径和OpenFaaS服务器的地址</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli deploy -f .&#x2F;faas&#x2F;stack.yml --gateway https:&#x2F;&#x2F;localhost:31112</span><br></pre></td></tr></table></figure>
+<p> <img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20200221113451.jpg" alt=""></p>
+</li>
+<li><p>登陆ui界面查看function函数</p>
+<p> <img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20200221113615.png" alt=""></p>
+<p> 查询部署的function函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:admin -X GET https:&#x2F;&#x2F;localhost：31112&#x2F;system&#x2F;functions | jq</span><br></pre></td></tr></table></figure>
+
+<p> 查看faas组件相关运行情况</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -n openfaas</span><br></pre></td></tr></table></figure>
+
+<p> 查看faas部署的函数pod创建情况</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -n openfaas-fn</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ol>
-<a id="more"></a>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli deploy -f .&#x2F;faas&#x2F;stack.yml --gateway https:&#x2F;&#x2F;localhost:31112</span><br></pre></td></tr></table></figure>
+<h3 id="2-自编译函数部署-python"><a href="#2-自编译函数部署-python" class="headerlink" title="2.自编译函数部署(python)"></a>2.自编译函数部署(python)</h3><ol>
+<li><p>创建函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli new --lang python hello-python</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20200221113451.jpg" alt=""></p>
-<p>3.登陆ui界面查看function函数</p>
-<p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20200221113615.png" alt=""></p>
-<p>查询部署的function函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:admin -X GET https:&#x2F;&#x2F;localhost：31112&#x2F;system&#x2F;functions | jq</span><br></pre></td></tr></table></figure>
+<p> 这将为您创建三个文件：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello-python&#x2F;handler.py</span><br><span class="line">hello-python&#x2F;requirements.txt</span><br><span class="line">hello-python.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑主函数handler.py(vi hello-python/handler.py)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def handle(req):</span><br><span class="line">    print(&quot;Hello! You said: &quot; + req)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑编译的yml文件<code>hello-python.yml</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">provider:</span><br><span class="line">  name: faas</span><br><span class="line">  gateway: http:&#x2F;&#x2F;localhost:8080</span><br><span class="line"></span><br><span class="line">functions:</span><br><span class="line">  hello-python:</span><br><span class="line">    lang: python</span><br><span class="line">    handler: .&#x2F;hello-python</span><br><span class="line">    image: localhost:5000&#x2F;hello-python  &#x2F;&#x2F;镜像存储地址</span><br></pre></td></tr></table></figure>
 
-<p>查看faas组件相关运行情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -n openfaas</span><br></pre></td></tr></table></figure>
+<p> yml文件的相关配置相关介绍</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gateway-在这里，我们可以根据需要指定远程网关，编程语言是什么以及处理程序在文件系统中的位置。</span><br><span class="line"></span><br><span class="line">functions -此块定义了我们堆栈中的函数</span><br><span class="line"></span><br><span class="line">lang: python-即使在后台使用Docker打包功能。除非您愿意，否则不必编写自己的Dockerfile。</span><br><span class="line"></span><br><span class="line">handler -这是您handler.py文件以及您需要的任何其他源代码的文件夹&#x2F;路径</span><br><span class="line"></span><br><span class="line">image-这是Docker映像名称。如果要推送到Docker Hub，请将前缀从hello-python更改为包括您的Docker Hub帐户-即longjie&#x2F;hello-python 并登陆。如果为私库更改为私库地址如：localhost:5000&#x2F;hello-python</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli build -f .&#x2F;hello-python.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>推送函数镜像到注册表</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli push -f .&#x2F;hello-python.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署函数到openfaas服务</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli deploy -f .&#x2F;hello-python.yml --gateway http:&#x2F;&#x2F;localhost:31112</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登陆ui界面查看function函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;localhost:31112&#x2F;ui</span><br></pre></td></tr></table></figure>
 
-<p>查看faas部署的函数pod创建情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods -n openfaas-fn</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-自编译函数部署-python"><a href="#2-自编译函数部署-python" class="headerlink" title="2.自编译函数部署(python)"></a>2.自编译函数部署(python)</h3><p>1.创建函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli new --lang python hello-python</span><br></pre></td></tr></table></figure>
-
-<p>这将为您创建三个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello-python&#x2F;handler.py</span><br><span class="line">hello-python&#x2F;requirements.txt</span><br><span class="line">hello-python.yml</span><br></pre></td></tr></table></figure>
-
-<p>2.编辑主函数handler.py(vi hello-python/handler.py)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def handle(req):</span><br><span class="line">    print(&quot;Hello! You said: &quot; + req)</span><br></pre></td></tr></table></figure>
-
-<p>3.编辑编译的yml文件<code>hello-python.yml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">provider:</span><br><span class="line">  name: faas</span><br><span class="line">  gateway: http:&#x2F;&#x2F;localhost:8080</span><br><span class="line"></span><br><span class="line">functions:</span><br><span class="line">  hello-python:</span><br><span class="line">    lang: python</span><br><span class="line">    handler: .&#x2F;hello-python</span><br><span class="line">    image: localhost:5000&#x2F;hello-python  &#x2F;&#x2F;镜像存储地址</span><br></pre></td></tr></table></figure>
-
-<p>yml文件的相关配置相关介绍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gateway-在这里，我们可以根据需要指定远程网关，编程语言是什么以及处理程序在文件系统中的位置。</span><br><span class="line"></span><br><span class="line">functions -此块定义了我们堆栈中的函数</span><br><span class="line"></span><br><span class="line">lang: python-即使在后台使用Docker打包功能。除非您愿意，否则不必编写自己的Dockerfile。</span><br><span class="line"></span><br><span class="line">handler -这是您handler.py文件以及您需要的任何其他源代码的文件夹&#x2F;路径</span><br><span class="line"></span><br><span class="line">image-这是Docker映像名称。如果要推送到Docker Hub，请将前缀从hello-python更改为包括您的Docker Hub帐户-即longjie&#x2F;hello-python 并登陆。如果为私库更改为私库地址如：localhost:5000&#x2F;hello-python</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>编译函数</li>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli build -f .&#x2F;hello-python.yml</span><br></pre></td></tr></table></figure>
-
-<p>5.推送函数镜像到注册表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli push -f .&#x2F;hello-python.yml</span><br></pre></td></tr></table></figure>
-
-<p>6.部署函数到openfaas服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">faas-cli deploy -f .&#x2F;hello-python.yml --gateway http:&#x2F;&#x2F;localhost:31112</span><br></pre></td></tr></table></figure>
-
-<p>7.登陆ui界面查看function函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;localhost:31112&#x2F;ui</span><br></pre></td></tr></table></figure>
-
  
       <!-- reward -->
       
@@ -259,9 +246,9 @@
       </a>
     
     
-      <a href="/2020/02/18/openfaasOnK8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="article-nav-link">
+      <a href="/2020/02/18/openfaas_on_K8s%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">openfaasOnK8s安装部署</div>
+        <div class="article-nav-title">openfaas_on_K8s安装部署</div>
       </a>
     
   </nav>
@@ -402,7 +389,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -415,6 +402,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -437,7 +428,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -467,9 +458,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -623,11 +614,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

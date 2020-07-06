@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">267</span>
+            <span class="post-count">375</span>
         </span>
     </span>
 
@@ -97,27 +86,61 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> cp k3s &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br><span class="line"> chmod 755 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s</span><br><span class="line"> export INSTALL_K3S_SKIP_DOWNLOAD&#x3D;true</span><br><span class="line"> iptables -F</span><br><span class="line"> </span><br><span class="line">sh install.sh --docker --no-deploy traefik --cluster-init</span><br><span class="line"></span><br><span class="line">curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | INSTALL_K3S_MIRROR&#x3D;cn \sh -s - server --docker --no-deploy traefik --cluster-init --datastore-endpoint&#x3D;&#39;mysql:&#x2F;&#x2F;root:sql_9879@tcp(192.168.66.170:3306)&#x2F;k3s_db&#39;</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">systemctl status k3s.service</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cat &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;k3s.service.env</span><br><span class="line">&#x2F;&#x2F;获取token</span><br><span class="line">cat &#x2F;var&#x2F;lib&#x2F;rancher&#x2F;k3s&#x2F;server&#x2F;node-token</span><br><span class="line"></span><br><span class="line">export K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443</span><br><span class="line">export K3S_TOKEN&#x3D;K109e0f10a21daf265c259cd7bd34f8aeb8fdf776d1afee5eda6ff062496231d23d::server:880a71f084912f7ab3dff7220bcd2ef8</span><br></pre></td></tr></table></figure>
+  <h3 id="server-安装"><a href="#server-安装" class="headerlink" title="server 安装"></a>server 安装</h3><ol>
+<li><p>拷贝K3S执行包到 /usr/local/bin/目录</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp k3s &#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置k3s权限</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置环境变量，将安装模式设置为本地安装包安装</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export INSTALL_K3S_SKIP_DOWNLOAD&#x3D;true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>刷新hosts配置文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -F</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行安装脚本<br> 1) 载的执行脚本</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh install.sh --docker --no-deploy traefik --cluster-init</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;server</span><br><span class="line">sudo curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443 \</span><br><span class="line">K3S_TOKEN&#x3D;K108afe2af5af0affd2d87ed7c5d44ebbec46f78f536fd4f443216dcb20a827b045::server:4526566796c57605c16915f088310c90 INSTALL_K3S_MIRROR&#x3D;cn sh - --docker</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;agent</span><br><span class="line"> sudo curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443 K3S_TOKEN&#x3D;K10eba551ffc2cacd2e0716a57cf916166472b96182ff7dc047cdb6c966a3454463::server:9dc30c997ca2aea4a759b9c0915a1ce3 INSTALL_K3S_MIRROR&#x3D;cn sh -s - agent --docker</span><br></pre></td></tr></table></figure>
+<p> 2) 官方安装脚本</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;server</span><br><span class="line">sudo curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443 \ K3S_TOKEN&#x3D;K108afe2af5af0affd2d87ed7c5d44ebbec46f78f536fd4f443216dcb20a827b045::server:4526566796c57605c16915f088310c90 INSTALL_K3S_MIRROR&#x3D;cn sh - --docker</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;k3s-agent.service</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | INSTALL_K3S_MIRROR&#x3D;cn \sh -s - server --docker --no-deploy traefik --cluster-init --datastore-endpoint&#x3D;&#39;mysql:&#x2F;&#x2F;root:sql_9879@tcp(192.168.66.170:3306)&#x2F;k3s_db&#39;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看部署的k3s 状态</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status k3s.service</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#k3s卸载</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s-uninstall.sh(或 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s-agent-uninstall.sh )</span><br><span class="line">#强制删除和k3s相关的容器服务</span><br><span class="line">docker rm -f  &#96;docker ps -aq --filter name&#x3D;k8s_&#96;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="agent安装"><a href="#agent安装" class="headerlink" title="agent安装"></a>agent安装</h3><ol>
+<li><p>查询master 服务token</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;k3s.service.env</span><br><span class="line">&#x2F;&#x2F;获取token</span><br><span class="line">cat &#x2F;var&#x2F;lib&#x2F;rancher&#x2F;k3s&#x2F;server&#x2F;node-token</span><br></pre></td></tr></table></figure></li>
+<li><p>配置k3s maters server url</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443</span><br><span class="line">export K3S_TOKEN&#x3D;K109e0f10a21daf265c259cd7bd34f8aeb8fdf776d1afee5eda6ff062496231d23d::server:880a71f084912f7ab3dff7220bcd2ef8</span><br></pre></td></tr></table></figure></li>
+<li><p>执行安装脚本</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;agent</span><br><span class="line"> sudo curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | K3S_URL&#x3D;https:&#x2F;&#x2F;192.168.66.193:6443 K3S_TOKEN&#x3D;K10eba551ffc2cacd2e0716a57cf916166472b96182ff7dc047cdb6c966a3454463::server:9dc30c997ca2aea4a759b9c0915a1ce3 INSTALL_K3S_MIRROR&#x3D;cn sh -s - agent --docker</span><br></pre></td></tr></table></figure></li>
+<li><p>调整agent服务相关组件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;k3s-agent.service</span><br></pre></td></tr></table></figure></li>
+<li><p>卸载</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#k3s卸载</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s-uninstall.sh(或 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;k3s-agent-uninstall.sh )</span><br><span class="line">#强制删除和k3s相关的容器服务</span><br><span class="line">docker rm -f  &#96;docker ps -aq --filter name&#x3D;k8s_&#96;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ol>
  
       <!-- reward -->
       
@@ -350,7 +373,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -363,6 +386,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -385,7 +412,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -415,9 +442,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -571,11 +598,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

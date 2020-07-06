@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -127,8 +116,7 @@ http://spark.apache.org/downloads.html
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export SPARK_DIST_CLASSPATH&#x3D;$(&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hadoop classpath)</span><br></pre></td></tr></table></figure>
 <h3 id="三、-切换到spark目录下执行测试程序"><a href="#三、-切换到spark目录下执行测试程序" class="headerlink" title="三、 切换到spark目录下执行测试程序"></a>三、 切换到spark目录下执行测试程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;spark</span><br><span class="line">.&#x2F;bin&#x2F;run-example SparkPi 2&gt;&amp;1 | grep &quot;Pi is roughly&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="四、Spark执行独立的程序"><a href="#四、Spark执行独立的程序" class="headerlink" title="四、Spark执行独立的程序"></a>四、Spark执行独立的程序</h3><h4 id="1-设置环境变量"><a href="#1-设置环境变量" class="headerlink" title="1. 设置环境变量"></a>1. 设置环境变量</h4><a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<h3 id="四、Spark执行独立的程序"><a href="#四、Spark执行独立的程序" class="headerlink" title="四、Spark执行独立的程序"></a>四、Spark执行独立的程序</h3><h4 id="1-设置环境变量"><a href="#1-设置环境变量" class="headerlink" title="1. 设置环境变量"></a>1. 设置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
 
 <p>在最后添加一下代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#spark路径</span><br><span class="line"></span><br><span class="line">export SPARK_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;spark</span><br><span class="line">export PATH&#x3D;$PATH:$SPARK_HOME&#x2F;bin</span><br></pre></td></tr></table></figure>
@@ -365,7 +353,7 @@ http://spark.apache.org/downloads.html
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -378,6 +366,10 @@ http://spark.apache.org/downloads.html
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -400,7 +392,7 @@ http://spark.apache.org/downloads.html
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -430,9 +422,9 @@ http://spark.apache.org/downloads.html
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -586,11 +578,6 @@ http://spark.apache.org/downloads.html
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -120,10 +109,7 @@
 <h1 id="Hadoop集群之Hive安装配置"><a href="#Hadoop集群之Hive安装配置" class="headerlink" title=" Hadoop集群之Hive安装配置 "></a><a href="/qq_37279279/article/details/78918761"> Hadoop集群之Hive安装配置 </a></h1><h1 id="Hadoop集群之Hive安装配置-1"><a href="#Hadoop集群之Hive安装配置-1" class="headerlink" title="Hadoop集群之Hive安装配置"></a>Hadoop集群之Hive安装配置</h1><p>发表于 2017-12-28  | 分类于  <a href="http://yanliu.org/categories/Hadoop/" target="_blank" rel="noopener"> Hadoop  </a> | <a href="http://yanliu.org/2015/08/13/Hadoop%E9%9B%86%E7%BE%A4%E4%B9%8BHive%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/#comments" target="_blank" rel="noopener">
 </a></p>
 <p>Hive是基于Hadoop构建的一套数据仓库分析系统，它提供了丰富的SQL查询方式来分析存储在Hadoop<br>分布式文件系统中的数据。其在Hadoop的架构体系中承担了一个SQL解析的过程，它提供了对外的入口来获取用户的指令然后对指令进行分析，解析出一个MapReduce程序组成可执行计划，并按照该计划生成对应的MapReduce任务提交给Hadoop集群处理，获取最终的结果。元数据——如表模式——存储在名为metastore的数据库中。</p>
-<h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><a id="more"></a>
-
-
-<pre><code>1
+<h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><pre><code>1
 2
 3</code></pre><p>|</p>
 <pre><code>192.168.186.128 hadoop-master
@@ -817,7 +803,7 @@ iptables: Unloading modules: [  OK  ]
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -830,6 +816,10 @@ iptables: Unloading modules: [  OK  ]
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -852,7 +842,7 @@ iptables: Unloading modules: [  OK  ]
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -882,9 +872,9 @@ iptables: Unloading modules: [  OK  ]
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -1038,11 +1028,6 @@ iptables: Unloading modules: [  OK  ]
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

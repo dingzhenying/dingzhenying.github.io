@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -124,13 +113,10 @@
 <p> <strong>-i:</strong>以交互模式运行容器，通常与 -t 同时使用；</p>
 <p> <strong>-d:</strong>后台运行容器，并返回容器ID；</p>
 <p><strong>-t:</strong>为容器重新分配一个伪输入终端，通常与 -i 同时使用；</p>
+<p><strong>–privileged</strong> 容器将拥有访问主机所有设备的权限</p>
+<p>通常情况下 [command] 填下 <strong>/bin/bash</strong> 即可。</p>
+<p>特殊情况下，如需要在centos镜像中使用<strong>systemctl</strong>.  则应添加<strong>–privileged</strong> 并设置[command ]为 <strong>init</strong>。</p>
 </li>
-</ol>
-<a id="more"></a>
-<p>   <strong>–privileged</strong> 容器将拥有访问主机所有设备的权限</p>
-<p>   通常情况下 [command] 填下 <strong>/bin/bash</strong> 即可。</p>
-<p>   特殊情况下，如需要在centos镜像中使用<strong>systemctl</strong>.  则应添加<strong>–privileged</strong> 并设置[command ]为 <strong>init</strong>。</p>
-<ol start="5">
 <li><p>当镜像通过run 启动后，便会载入到一个动态的container(容器)中运行，此时若需要进入终端交互模式：</p>
 <p><strong>sudo docker exec -it [containerID] /bin/bash</strong></p>
 </li>
@@ -392,7 +378,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -405,6 +391,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -427,7 +417,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -457,9 +447,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -613,11 +603,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

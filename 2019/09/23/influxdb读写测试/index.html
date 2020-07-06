@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -114,7 +103,6 @@
        
   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt -o NOAA_data.txt</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> influx -import -path=NOAA_data.txt -precision=s -database=NOAA_water_database</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> influx -precision rfc3339 -database NOAA_water_database</span></span><br><span class="line">Connected to http://localhost:8086 version 1.3.1</span><br><span class="line">InfluxDB shell 1.3.1</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> show measurements</span></span><br><span class="line">name: measurements</span><br><span class="line">name</span><br><span class="line">----</span><br><span class="line">average_temperature</span><br><span class="line">distincts</span><br><span class="line">h2o_feet</span><br><span class="line">h2o_pH</span><br><span class="line">h2o_quality</span><br><span class="line">h2o_temperature</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> show series from h2o_feet;</span></span><br><span class="line">key</span><br><span class="line">---</span><br><span class="line">h2o_feet,location=coyote_creek</span><br><span class="line">h2o_feet,location=santa_monica</span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
 <p>查询时间数据</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> SELECT * FROM <span class="string">"h2o_feet"</span> WHERE time &gt;= <span class="string">'2015-08-17T23:48:00Z'</span> AND time &lt;= <span class="string">'2015-08-18T00:30:00Z'</span></span></span><br><span class="line">name: h2o_feet</span><br><span class="line">time                 level description    location     water_level</span><br><span class="line">----                 -----------------    --------     -----------</span><br><span class="line">2015-08-18T00:00:00Z between 6 and 9 feet coyote_creek 8.12</span><br><span class="line">2015-08-18T00:00:00Z below 3 feet         santa_monica 2.064</span><br><span class="line">2015-08-18T00:06:00Z between 6 and 9 feet coyote_creek 8.005</span><br><span class="line">2015-08-18T00:06:00Z below 3 feet         santa_monica 2.116</span><br><span class="line">2015-08-18T00:12:00Z between 6 and 9 feet coyote_creek 7.887</span><br><span class="line">2015-08-18T00:12:00Z below 3 feet         santa_monica 2.028</span><br><span class="line">2015-08-18T00:18:00Z between 6 and 9 feet coyote_creek 7.762</span><br><span class="line">2015-08-18T00:18:00Z below 3 feet         santa_monica 2.126</span><br><span class="line">2015-08-18T00:24:00Z between 6 and 9 feet coyote_creek 7.635</span><br><span class="line">2015-08-18T00:24:00Z below 3 feet         santa_monica 2.041</span><br><span class="line">2015-08-18T00:30:00Z between 6 and 9 feet coyote_creek 7.5</span><br><span class="line">2015-08-18T00:30:00Z below 3 feet         santa_monica 2.051</span><br></pre></td></tr></table></figure>
 
@@ -354,7 +342,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -367,6 +355,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -389,7 +381,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -419,9 +411,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -575,11 +567,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

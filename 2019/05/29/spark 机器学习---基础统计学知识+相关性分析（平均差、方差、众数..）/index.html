@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">673</span>
+            <span class="post-count">669</span>
         </span>
     </span>
 
@@ -112,7 +101,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; import org.apache.spark.mllib.stat.&#123;MultivariateStatisticalSummary, Statistics&#125;</span><br><span class="line">import org.apache.spark.mllib.stat.&#123;MultivariateStatisticalSummary, Statistics&#125;</span><br><span class="line"></span><br><span class="line">scala&gt; val observations &#x3D; sc.parallelize(</span><br><span class="line">     |   Seq(</span><br><span class="line">     |     Vectors.dense(1.0, 10.0, 100.0),</span><br><span class="line">     |     Vectors.dense(2.0, 20.0, 200.0),</span><br><span class="line">     |     Vectors.dense(3.0, 30.0, 300.0)</span><br><span class="line">     |   )</span><br><span class="line">     | )</span><br><span class="line">observations: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; ParallelCollectionRDD[0] at parallelize at &lt;console&gt;:28</span><br><span class="line"></span><br><span class="line">scala&gt; observations</span><br><span class="line">res8: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; ParallelCollectionRDD[0] at parallelize at &lt;console&gt;:28</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">scala&gt; val summary: MultivariateStatisticalSummary &#x3D; Statistics.colStats(observations)</span><br><span class="line">summary: org.apache.spark.mllib.stat.MultivariateStatisticalSummary &#x3D; org.apache.spark.mllib.stat.MultivariateOnlineSummarizer@197409dd</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.mean)  &#x2F;&#x2F; a dense vector containing the mean value for each column</span><br><span class="line">[2.0,20.0,200.0]</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.variance)  &#x2F;&#x2F; column-wise variance</span><br><span class="line">[1.0,100.0,10000.0]</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.numNonzeros)  &#x2F;&#x2F; number of nonzeros in each column</span><br><span class="line">[3.0,3.0,3.0]</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; import org.apache.spark.mllib.stat.&#123;MultivariateStatisticalSummary, Statistics&#125;</span><br><span class="line">import org.apache.spark.mllib.stat.&#123;MultivariateStatisticalSummary, Statistics&#125;</span><br><span class="line"></span><br><span class="line">scala&gt; val observations &#x3D; sc.parallelize(</span><br><span class="line">     |   Seq(</span><br><span class="line">     |     Vectors.dense(1.0, 10.0, 100.0),</span><br><span class="line">     |     Vectors.dense(2.0, 20.0, 200.0),</span><br><span class="line">     |     Vectors.dense(3.0, 30.0, 300.0)</span><br><span class="line">     |   )</span><br><span class="line">     | )</span><br><span class="line">observations: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; ParallelCollectionRDD[0] at parallelize at &lt;console&gt;:28</span><br><span class="line"></span><br><span class="line">scala&gt; observations</span><br><span class="line">res8: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; ParallelCollectionRDD[0] at parallelize at &lt;console&gt;:28</span><br><span class="line"></span><br><span class="line">scala&gt; val summary: MultivariateStatisticalSummary &#x3D; Statistics.colStats(observations)</span><br><span class="line">summary: org.apache.spark.mllib.stat.MultivariateStatisticalSummary &#x3D; org.apache.spark.mllib.stat.MultivariateOnlineSummarizer@197409dd</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.mean)  &#x2F;&#x2F; a dense vector containing the mean value for each column</span><br><span class="line">[2.0,20.0,200.0]</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.variance)  &#x2F;&#x2F; column-wise variance</span><br><span class="line">[1.0,100.0,10000.0]</span><br><span class="line"></span><br><span class="line">scala&gt; println(summary.numNonzeros)  &#x2F;&#x2F; number of nonzeros in each column</span><br><span class="line">[3.0,3.0,3.0]</span><br></pre></td></tr></table></figure>
 <h2 id="数据装换为-Array-org-apache-spark-mllib-linalg-Vector-，之后通过Statistics-colStats-data-来处理数据进行基本的数据转化"><a href="#数据装换为-Array-org-apache-spark-mllib-linalg-Vector-，之后通过Statistics-colStats-data-来处理数据进行基本的数据转化" class="headerlink" title="数据装换为 Array[org.apache.spark.mllib.linalg.Vector]，之后通过Statistics.colStats(data)来处理数据进行基本的数据转化"></a>数据装换为 Array[org.apache.spark.mllib.linalg.Vector]，之后通过Statistics.colStats(data)来处理数据进行基本的数据转化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; beijing.flatMap(_.split(&quot;,&quot;)).map(values&#x3D;&gt;Vectors.dense(values.toDouble))</span><br><span class="line">res19: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; MapPartitionsRDD[9] at map at &lt;console&gt;:30</span><br><span class="line"></span><br><span class="line">scala&gt; val data &#x3D; beijing.flatMap(_.split(&quot;,&quot;)).map(values&#x3D;&gt;Vectors.dense(values.toDouble))</span><br><span class="line">data: org.apache.spark.rdd.RDD[org.apache.spark.mllib.linalg.Vector] &#x3D; MapPartitionsRDD[11] at map at &lt;console&gt;:29</span><br><span class="line"></span><br><span class="line">scala&gt; data.take(10)</span><br><span class="line">res22: Array[org.apache.spark.mllib.linalg.Vector] &#x3D; Array([718.4], [380.7], [393.2], [544.4], [489.9], [488.8], [721.0], [665.3], [683.9], [673.3])</span><br><span class="line"></span><br><span class="line">scala&gt; Statistics.colStats(data)</span><br><span class="line">res23: org.apache.spark.mllib.stat.MultivariateStatisticalSummary &#x3D; org.apache.spark.mllib.stat.MultivariateOnlineSummarizer@35867f6f</span><br><span class="line"></span><br><span class="line">scala&gt; res23.max</span><br><span class="line">res24: org.apache.spark.mllib.linalg.Vector &#x3D; [813.2]</span><br><span class="line"></span><br><span class="line">scala&gt; res23.count</span><br><span class="line">res25: Long &#x3D; 30</span><br></pre></td></tr></table></figure>
 <h1 id="相关性分析"><a href="#相关性分析" class="headerlink" title="相关性分析"></a>相关性分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">scala&gt; val beijing2 &#x3D;sc.textFile(&quot;file:&#x2F;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;beijing2.txt&quot;)</span><br><span class="line">beijing2: org.apache.spark.rdd.RDD[String] &#x3D; file:&#x2F;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;beijing2.txt MapPartitionsRDD[14] at textFile at &lt;console&gt;:28</span><br><span class="line"></span><br><span class="line">scala&gt; val data&#x3D;beijing2.flatMap(_.split(&quot;,&quot;)).map(_.toDouble)</span><br><span class="line">data: org.apache.spark.rdd.RDD[Double] &#x3D; MapPartitionsRDD[16] at map at &lt;console&gt;:29</span><br><span class="line"></span><br><span class="line">scala&gt; val year &#x3D;data.filter(_&gt;1000)</span><br><span class="line">year: org.apache.spark.rdd.RDD[Double] &#x3D; MapPartitionsRDD[17] at filter at &lt;console&gt;:29</span><br><span class="line"></span><br><span class="line">scala&gt; val values&#x3D;data.filter(_&lt;&#x3D;1000)</span><br><span class="line">values: org.apache.spark.rdd.RDD[Double] &#x3D; MapPartitionsRDD[18] at filter at &lt;console&gt;:29</span><br><span class="line"></span><br><span class="line">scala&gt; beijing2.first</span><br><span class="line">res30: String &#x3D; 1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,718.4,380.7,393.2,544.4,489.9,488.8,721.0,665.3,683.9,673.3,442.2,697.3,747.9,541.5,506.7,813.2,572.5,700.9,430.9,731.7,266.9,371.1,338.9,370.4,444.9,483.5,410.7,318.0,483.9,626.3</span><br><span class="line"></span><br><span class="line">scala&gt; import org.apache.spark.mllib.stat._</span><br><span class="line">import org.apache.spark.mllib.stat._</span><br><span class="line"></span><br><span class="line">scala&gt; Sta</span><br><span class="line">StackOverflowError   StackTraceElement   Statistics</span><br><span class="line"></span><br><span class="line">scala&gt; Statistics.corr(year,va)</span><br><span class="line">values   var_pop   var_samp   variance</span><br><span class="line"></span><br><span class="line">scala&gt; Statistics.corr(year,values)</span><br><span class="line">2018-10-24 17:16:55 WARN  BLAS:61 - Failed to load implementation from: com.github.fommil.netlib.NativeSystemBLAS</span><br><span class="line">2018-10-24 17:16:55 WARN  BLAS:61 - Failed to load implementation from: com.github.fommil.netlib.NativeRefBLAS</span><br><span class="line">res37: Double &#x3D; -0.31536672957986056</span><br></pre></td></tr></table></figure>
  
@@ -347,7 +336,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -360,6 +349,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -382,7 +375,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -412,9 +405,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -568,11 +561,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

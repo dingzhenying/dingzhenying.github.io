@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -118,8 +107,7 @@
 </ul>
 <hr>
 <h1 id="centos7下配置Hadoop全分布式环境"><a href="#centos7下配置Hadoop全分布式环境" class="headerlink" title=" centos7下配置Hadoop全分布式环境 "></a><a href="/qq_37279279/article/details/78480206"> centos7下配置Hadoop全分布式环境 </a></h1><hr>
-<h1 id="配置Hadoop全分布式环境"><a href="#配置Hadoop全分布式环境" class="headerlink" title="配置Hadoop全分布式环境"></a>配置Hadoop全分布式环境</h1><h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><a id="more"></a>
-<h3 id="准备三台虚机并保证能相互ping通"><a href="#准备三台虚机并保证能相互ping通" class="headerlink" title="准备三台虚机并保证能相互ping通"></a>准备三台虚机并保证能相互ping通</h3><table>
+<h1 id="配置Hadoop全分布式环境"><a href="#配置Hadoop全分布式环境" class="headerlink" title="配置Hadoop全分布式环境"></a>配置Hadoop全分布式环境</h1><h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><h3 id="准备三台虚机并保证能相互ping通"><a href="#准备三台虚机并保证能相互ping通" class="headerlink" title="准备三台虚机并保证能相互ping通"></a>准备三台虚机并保证能相互ping通</h3><table>
 <thead>
 <tr>
 <th>序号</th>
@@ -558,7 +546,7 @@ export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、�
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -571,6 +559,10 @@ export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、�
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -593,7 +585,7 @@ export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、�
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -623,9 +615,9 @@ export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、�
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -779,11 +771,6 @@ export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH</code></pre><h2 id="七、�
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -115,8 +104,7 @@
   <p>本文安装主要分为两步：</p>
 <p>（1）PostgresSQL数据库安装</p>
 <p>（2）TimescaleDB插件安装编译（cmake）</p>
-<h4 id="1、系统及相关版本要求"><a href="#1、系统及相关版本要求" class="headerlink" title="1、系统及相关版本要求"></a>1、系统及相关版本要求</h4><a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">操作系统： CentOS 7 64位操作系统</span><br><span class="line"></span><br><span class="line">安装程序： postgresql-10.2.tar.gz</span><br><span class="line"></span><br><span class="line">Timescale： timescaledb 1.0（只支持pgsql9.x和10.x）</span><br><span class="line"></span><br><span class="line">Timescale release_tag： 1.0.0</span><br><span class="line"></span><br><span class="line">cmake： cmake-3.10.2.tar（Timescale要求CMake 3.4或更高版本）</span><br></pre></td></tr></table></figure>
+<h4 id="1、系统及相关版本要求"><a href="#1、系统及相关版本要求" class="headerlink" title="1、系统及相关版本要求"></a>1、系统及相关版本要求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">操作系统： CentOS 7 64位操作系统</span><br><span class="line"></span><br><span class="line">安装程序： postgresql-10.2.tar.gz</span><br><span class="line"></span><br><span class="line">Timescale： timescaledb 1.0（只支持pgsql9.x和10.x）</span><br><span class="line"></span><br><span class="line">Timescale release_tag： 1.0.0</span><br><span class="line"></span><br><span class="line">cmake： cmake-3.10.2.tar（Timescale要求CMake 3.4或更高版本）</span><br></pre></td></tr></table></figure>
 
 <h4 id="2、部署"><a href="#2、部署" class="headerlink" title="2、部署"></a>2、部署</h4><p>Timescale的安装分为两部分：</p>
 <p>（1）PostgresSQL安装部署</p>
@@ -502,7 +490,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -515,6 +503,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -537,7 +529,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -567,9 +559,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -723,11 +715,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

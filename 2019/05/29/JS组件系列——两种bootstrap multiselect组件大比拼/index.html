@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -122,7 +111,6 @@
 <h2 id="一、组件说明以及API"><a href="#一、组件说明以及API" class="headerlink" title="一、组件说明以及API"></a>一、组件说明以及API</h2><p>1、第一个组件是写bootstrap table的主人公 <a href="https://github.com/wenzhixin" target="_blank" rel="noopener"> wenzhixin </a><br>封装的一个组件——  <a href="https://github.com/wenzhixin/multiple-select" target="_blank" rel="noopener"> multiple-select </a><br>。这个组件风格简单、文档全、功能强大。但是觉得它选中的效果不太好。关于它的效果展示，我们放在后面。还是给出对应的文档API。</p>
 <p>Multiple-Select源码主页： <a href="https://github.com/wenzhixin/multiple-select" target="_blank" rel="noopener"> https://github.com/wenzhixin/multiple-select
 </a></p>
-<a id="more"></a>
 <p>Multiple-Select文档以及Demo： [ <a href="http://wenzhixin.net.cn/p/multiple-" target="_blank" rel="noopener">http://wenzhixin.net.cn/p/multiple-</a><br>select/docs/index.html?locale=zh_CN ](<a href="http://wenzhixin.net.cn/p/multiple-" target="_blank" rel="noopener">http://wenzhixin.net.cn/p/multiple-</a><br>select/docs/index.html?locale=zh_CN)</p>
 <p>2、第二个组件也是在github上面找的——  <a href="https://github.com/davidstutz/bootstrap-multiselect" target="_blank" rel="noopener"> bootstrap-multiselect
 </a> 。这个组件风格和第一个非常相似，文档也挺全面。</p>
@@ -690,7 +678,7 @@ $(function () {
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -703,6 +691,10 @@ $(function () {
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -725,7 +717,7 @@ $(function () {
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -755,9 +747,9 @@ $(function () {
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -911,11 +903,6 @@ $(function () {
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

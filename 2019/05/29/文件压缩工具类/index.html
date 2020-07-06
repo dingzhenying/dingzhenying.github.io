@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">208</span>
+            <span class="post-count">200</span>
         </span>
     </span>
 
@@ -104,15 +93,13 @@
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h3 id="将文件列表打包为zip"><a href="#将文件列表打包为zip" class="headerlink" title="将文件列表打包为zip"></a>将文件列表打包为zip</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">     * 将拉取的文件打包为zip</span><br><span class="line">     * @param filePathList 文件路径列表</span><br><span class="line">     * @param savePath 保存路径</span><br><span class="line">     * @param zipName zip名称</span><br><span class="line">     * @return zip路径</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public String generateZip(ArrayList&lt;String&gt;filePathList,String savePath,String zipName) throws IOException&#123;</span><br><span class="line">        String zipPath&#x3D;savePath+&quot;&#x2F;&quot;+zipName;</span><br><span class="line">        File zip &#x3D;new File(zipPath);</span><br><span class="line">        FileOutputStream outputStream&#x3D;new FileOutputStream(zip);</span><br><span class="line">        ZipOutputStream out &#x3D;new ZipOutputStream(outputStream);</span><br><span class="line">        filePathList.forEach(row-&gt;&#123;</span><br><span class="line">                &#x2F;&#x2F;要压缩的单个文件路径</span><br><span class="line">                String oneFilePath &#x3D; row;</span><br><span class="line">                File inputFile &#x3D; new File(oneFilePath);</span><br><span class="line">                &#x2F;&#x2F;生成zip包中的zip实体</span><br><span class="line">                ZipEntry zipEntry&#x3D;new ZipEntry(inputFile.getName());</span><br><span class="line">                try &#123;</span><br><span class="line">                    byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">                    FileInputStream fileInputStream&#x3D;new FileInputStream(oneFilePath);</span><br><span class="line">                    out.putNextEntry(zipEntry);</span><br><span class="line">                    int len;</span><br><span class="line">                    &#x2F;&#x2F;读入需要下载的文件的内容，打包到zip文件</span><br><span class="line">                    while ((len &#x3D; fileInputStream.read(buffer)) !&#x3D; -1) &#123;</span><br><span class="line">                        out.write(buffer, 0, len);</span><br><span class="line">                    &#125;</span><br><span class="line">                    fileInputStream.close();</span><br><span class="line">                &#125;catch (FileNotFoundException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; catch (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        out.closeEntry();</span><br><span class="line">        out.close();</span><br><span class="line">        return  zipPath;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">     * 将拉取的文件打包为zip</span><br><span class="line">     * @param filePathList 文件路径列表</span><br><span class="line">     * @param savePath 保存路径</span><br><span class="line">     * @param zipName zip名称</span><br><span class="line">     * @return zip路径</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public String generateZip(ArrayList&lt;String&gt;filePathList,String savePath,String zipName) throws IOException&#123;</span><br><span class="line">        String zipPath&#x3D;savePath+&quot;&#x2F;&quot;+zipName;</span><br><span class="line">        File zip &#x3D;new File(zipPath);</span><br><span class="line">        FileOutputStream outputStream&#x3D;new FileOutputStream(zip);</span><br><span class="line">        ZipOutputStream out &#x3D;new ZipOutputStream(outputStream);</span><br><span class="line">        filePathList.forEach(row-&gt;&#123;</span><br><span class="line">                &#x2F;&#x2F;要压缩的单个文件路径</span><br><span class="line">                String oneFilePath &#x3D; row;</span><br><span class="line">                File inputFile &#x3D; new File(oneFilePath);</span><br><span class="line">                &#x2F;&#x2F;生成zip包中的zip实体</span><br><span class="line">                ZipEntry zipEntry&#x3D;new ZipEntry(inputFile.getName());</span><br><span class="line">                try &#123;</span><br><span class="line">                    byte[] buffer &#x3D; new byte[1024];</span><br><span class="line">                    FileInputStream fileInputStream&#x3D;new FileInputStream(oneFilePath);</span><br><span class="line">                    out.putNextEntry(zipEntry);</span><br><span class="line">                    int len;</span><br><span class="line">                    &#x2F;&#x2F;读入需要下载的文件的内容，打包到zip文件</span><br><span class="line">                    while ((len &#x3D; fileInputStream.read(buffer)) !&#x3D; -1) &#123;</span><br><span class="line">                        out.write(buffer, 0, len);</span><br><span class="line">                    &#125;</span><br><span class="line">                    fileInputStream.close();</span><br><span class="line">                &#125;catch (FileNotFoundException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; catch (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        out.closeEntry();</span><br><span class="line">        out.close();</span><br><span class="line">        return  zipPath;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -340,7 +327,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -353,6 +340,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -375,7 +366,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -405,9 +396,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -561,11 +552,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

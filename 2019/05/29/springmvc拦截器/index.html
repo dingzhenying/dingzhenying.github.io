@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -117,8 +106,7 @@
 </blockquote>
 <p>拦截器是指通过统一拦截从浏览器发往服务器的请求来完成功能的增强</p>
 <p>使用场景：解决请求的共性问题(如：乱码问题、权限验证问题等)</p>
-<h2 id="拦截器的实现"><a href="#拦截器的实现" class="headerlink" title="拦截器的实现"></a>拦截器的实现</h2><a id="more"></a>
-<h3 id="编写拦截器类"><a href="#编写拦截器类" class="headerlink" title="编写拦截器类"></a>编写拦截器类</h3><p>在 interceptor包想创建TestInterceptor类继承HandlerInterceptor 也可以继承WebRequestInterceptor(preHandle方法里没有返回值，无法终止请求)</p>
+<h2 id="拦截器的实现"><a href="#拦截器的实现" class="headerlink" title="拦截器的实现"></a>拦截器的实现</h2><h3 id="编写拦截器类"><a href="#编写拦截器类" class="headerlink" title="编写拦截器类"></a>编写拦截器类</h3><p>在 interceptor包想创建TestInterceptor类继承HandlerInterceptor 也可以继承WebRequestInterceptor(preHandle方法里没有返回值，无法终止请求)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package com.mavenssmlr.interceptor;</span><br><span class="line"></span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> *</span><br><span class="line"> * Created by shirukai on 2017&#x2F;10&#x2F;31.</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class TestInterceptor implements HandlerInterceptor &#123;</span><br><span class="line">     private Logger logger &#x3D; LoggerFactory.getLogger(this.getClass());</span><br><span class="line">     &#x2F;&#x2F;请求之前被调用：返回值表示是否将当前请求拦截下来，如果返回false，请求被终止</span><br><span class="line">    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;_____________preHandle方法执行了哦_______________________________________&quot;);</span><br><span class="line">        &#x2F;&#x2F;解决乱码问题</span><br><span class="line">        request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">        &#x2F;&#x2F;对用户是否登录做判断 终止请求、返回登录页面 request.getRequestDispatcher().forward(req,res)</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;请求被处理之后进行调用</span><br><span class="line">    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;_____________postHandle方法执行了哦_______________________________________&quot;);</span><br><span class="line">        &#x2F;&#x2F;可以通过ModelAndView参数来改变显示的视图，或修改发往视图的方法</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;请求结束之后才进行调用</span><br><span class="line">    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;_____________afterCompletion方法执行了哦_______________________________________&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="注册拦截器"><a href="#注册拦截器" class="headerlink" title="注册拦截器"></a>注册拦截器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--注册拦截器--&gt;</span><br><span class="line">&lt;mvc:interceptors&gt;</span><br><span class="line">    &lt;mvc:interceptor&gt;</span><br><span class="line">    	&#x2F;&#x2F;要拦截的地址、可以正则</span><br><span class="line">        &lt;mvc:mapping path&#x3D;&quot;&#x2F;plugins&#x2F;upload&quot;&#x2F;&gt;</span><br><span class="line">        &#x2F;&#x2F;拦截器名</span><br><span class="line">        &lt;bean class&#x3D;&quot;com.mavenssmlr.interceptor.TestInterceptor&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mvc:interceptor&gt;</span><br><span class="line">&lt;&#x2F;mvc:interceptors&gt;</span><br></pre></td></tr></table></figure>
@@ -375,7 +363,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -388,6 +376,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -410,7 +402,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -440,9 +432,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -596,11 +588,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

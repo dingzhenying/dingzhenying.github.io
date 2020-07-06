@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -116,7 +105,6 @@
 <h3 id="spark-sql-操作数据的方式："><a href="#spark-sql-操作数据的方式：" class="headerlink" title="spark sql 操作数据的方式："></a>spark sql 操作数据的方式：</h3><pre><code>SQL 
 DataFrame API
 Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href="#DataFrame-Dataset分布式数据集-1-6" class="headerlink" title="DataFrame/Dataset分布式数据集(1.6)"></a>DataFrame/Dataset分布式数据集(1.6)</h2><p><strong>==DataFrame是一个以列（列名/列类型/列值）的形式构成分布式的数据集（dataset）==</strong></p>
-<a id="more"></a>
 <p><strong>DataFrame类似于关系型数据库的表</strong></p>
 <p>列名：和列属性</p>
 <p>通过SparkSession来创建</p>
@@ -355,7 +343,7 @@ Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -368,6 +356,10 @@ Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -390,7 +382,7 @@ Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -420,9 +412,9 @@ Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -576,11 +568,6 @@ Dataset API</code></pre><h2 id="DataFrame-Dataset分布式数据集-1-6"><a href
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -147,9 +136,11 @@ $.ajax({
             $(&quot;#jd&quot;).append(&quot;&lt;option value=&apos;&quot;+data[i]+&quot;&apos;&gt;&quot;+data[i]+&quot;&lt;/option&gt;&quot;);
         }
     }
-});</code></pre><a id="more"></a>
+});
 
-<pre><code>// 点击查询事件
+
+
+// 点击查询事件
 $(&quot;#validate&quot;).on(&quot;click&quot;,function() {                        
     var mc = $(&quot;input[name=&apos;mc&apos;]&quot;).val();
     var jd = $(&quot;#JD&quot;).val();
@@ -465,7 +456,7 @@ return oTable;</code></pre><p>}<br>//查看<br>function look(id){</p>
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -478,6 +469,10 @@ return oTable;</code></pre><p>}<br>//查看<br>function look(id){</p>
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -500,7 +495,7 @@ return oTable;</code></pre><p>}<br>//查看<br>function look(id){</p>
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -530,9 +525,9 @@ return oTable;</code></pre><p>}<br>//查看<br>function look(id){</p>
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -686,11 +681,6 @@ return oTable;</code></pre><p>}<br>//查看<br>function look(id){</p>
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

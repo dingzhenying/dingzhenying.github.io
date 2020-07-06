@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -115,7 +104,6 @@
   <p>函数包含：hsam模板文件+函数源码及依赖包</p>
 <h3 id="1-配置文件结构"><a href="#1-配置文件结构" class="headerlink" title="1.配置文件结构"></a>1.配置文件结构</h3><p>参考文档：</p>
 <p>1.<a href="http://note.youdao.com/noteshare?id=903ab654d02e3ad5496774fab9595028&amp;sub=8FA88DB421034DF196650E80AE814CC7" target="_blank" rel="noopener">http://note.youdao.com/noteshare?id=903ab654d02e3ad5496774fab9595028&amp;sub=8FA88DB421034DF196650E80AE814CC7</a></p>
-<a id="more"></a>
 <p>2.<a href="https://support.huaweicloud.com/tg-functiongraph/functiongraph_08_0380.html" target="_blank" rel="noopener">https://support.huaweicloud.com/tg-functiongraph/functiongraph_08_0380.html</a></p>
 <h5 id="python"><a href="#python" class="headerlink" title="python"></a>python</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">HcCrmTemplateVersion: v1</span><br><span class="line">Resources:</span><br><span class="line">  hello-python3:</span><br><span class="line">    Type: HC::Serverless::Function</span><br><span class="line">    Properties:</span><br><span class="line">      Handler: index.handler</span><br><span class="line">      Runtime: Python3.6</span><br><span class="line">      CodeType: zip</span><br><span class="line">      CodeFileName: index.zip</span><br><span class="line">      CodeUrl: &quot;&quot;</span><br><span class="line">      Description: &quot;&quot;</span><br><span class="line">      MemorySize: 128</span><br><span class="line">      Timeout: 3</span><br><span class="line">      Version: latest</span><br><span class="line">      Environment:</span><br><span class="line">        Variables: &#123;&#125;</span><br><span class="line">      InitializerHandler: &quot;&quot;</span><br><span class="line">      InitializerTimeout: 0</span><br></pre></td></tr></table></figure>
 
@@ -415,7 +403,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -428,6 +416,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -450,7 +442,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -480,9 +472,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -636,11 +628,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

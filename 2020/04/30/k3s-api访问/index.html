@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">127</span>
+            <span class="post-count">151</span>
         </span>
     </span>
 
@@ -104,28 +93,22 @@
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p> cat .kube/config</p>
-<p>查看登陆密码<br>cat /etc/rancher/k3s/k3s.yaml</p>
-<p>kubectl config view</p>
-<p>apiVersion: v1<br>clusters:</p>
-<ul>
-<li>cluster:<br>  certificate-authority-data: DATA+OMITTED<br>  server: <a href="https://192.168.66.193:6443" target="_blank" rel="noopener">https://192.168.66.193:6443</a><br>name: default<br>contexts:</li>
-<li>context:<br>  cluster: default<br>  user: default<br>name: default<br>current-context: default<br>kind: Config<br>preferences: {}<br>users:</li>
-<li>name: default<br>user:<br>  password: 4f02bc66e734225aab0aa10ced351c1e<br>  username: admin<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
-[root@cdh-slave2 .kube]#  kubectl get secrets<br>NAME                  TYPE                                  DATA   AGE<br>default-token-9cv6g   kubernetes.io/service-account-token   3      23h<br>[root@cdh-slave2 .kube]# kubectl describe secret default-token-9cv6g<br>Name:         default-token-9cv6g<br>Namespace:    default<br>Labels:       <none><br>Annotations:  field.cattle.io/projectId: c-ssg4g:p-wkljl<pre><code>kubernetes.io/service-account.name: default
-kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></pre></li>
-</ul>
-<p>Type:  kubernetes.io/service-account-token</p>
-<h1 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h1><p>ca.crt:     526 bytes<br>namespace:  7 bytes<br>token:      eyJhbGciOiJSUzI1NiIsImtpZCI6ImMzMko2UVlIZ240T1J4TWQtMkliaXFMTUZ3MGw0YWlsQVFLY1JKc0RfVmMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tOWN2NmciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjllZjQ2OTVkLWFhZTEtNDYyOC1hMjM0LTYzYTZkMzUxZDc3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.Hv7VT_2N2J9EDpT2S9cLgxQid7dN85TKvL7AqflsJ7KAh5fG6Bf78X_-MO3SgdUiFR12OqbYB_NqgGReqDYJ_XlydMIf50XLeQzFFuJtu2lP9sgiZJOo6cxu9AiVBiduph2oVRLIr4Z-tRaypEaPN2zJN1ApYOm7n0XYqLNyN1NCyGhl2ekSsoBm9n9mPebkvctAlLBJUVaLcfYZ8bZbXGIbXzPS1RNE7FOmrIOCpV9C42tkBaixNU3RirSJcxHFvlf_x3_hFGYXWOb6qDgtXj0mym1cfNbVwBvwaS2L8FzFGGknWwoscho5syUc9fHWa386eOM2OzjyTDMe9WjinQ</p>
-<pre><code></code></pre> 
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;root&#x2F;.kube&#x2F;config</span><br></pre></td></tr></table></figure>
+<p><strong>查看登陆密码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl config view</span><br></pre></td></tr></table></figure>
+<p>结果示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">clusters:</span><br><span class="line">- cluster:</span><br><span class="line">    certificate-authority-data: DATA+OMITTED</span><br><span class="line">    server: https:&#x2F;&#x2F;192.168.66.193:6443</span><br><span class="line">  name: default</span><br><span class="line">contexts:</span><br><span class="line">- context:</span><br><span class="line">    cluster: default</span><br><span class="line">    user: default</span><br><span class="line">  name: default</span><br><span class="line">current-context: default</span><br><span class="line">kind: Config</span><br><span class="line">preferences: &#123;&#125;</span><br><span class="line">users:</span><br><span class="line">- name: default</span><br><span class="line">  user:</span><br><span class="line">    password: 4f02bc66e734225aab0aa10ced351c1e</span><br><span class="line">    username: admin</span><br></pre></td></tr></table></figure>
+
+<p><strong>获取k3s  server token</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@cdh-slave2 .kube]#  kubectl get secrets</span><br><span class="line">NAME                  TYPE                                  DATA   AGE</span><br><span class="line">default-token-9cv6g   kubernetes.io&#x2F;service-account-token   3      23h</span><br><span class="line">[root@cdh-slave2 .kube]# kubectl describe secret default-token-9cv6g</span><br><span class="line">Name:         default-token-9cv6g</span><br><span class="line">Namespace:    default</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  field.cattle.io&#x2F;projectId: c-ssg4g:p-wkljl</span><br><span class="line">              kubernetes.io&#x2F;service-account.name: default</span><br><span class="line">              kubernetes.io&#x2F;service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</span><br><span class="line"></span><br><span class="line">Type:  kubernetes.io&#x2F;service-account-token</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">ca.crt:     526 bytes</span><br><span class="line">namespace:  7 bytes</span><br><span class="line">token:      eyJhbGciOiJSUzI1NiIsImtpZCI6ImMzMko2UVlIZ240T1J4TWQtMkliaXFMTUZ3MGw0YWlsQVFLY1JKc0RfVmMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tOWN2NmciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjllZjQ2OTVkLWFhZTEtNDYyOC1hMjM0LTYzYTZkMzUxZDc3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.Hv7VT_2N2J9EDpT2S9cLgxQid7dN85TKvL7AqflsJ7KAh5fG6Bf78X_-MO3SgdUiFR12OqbYB_NqgGReqDYJ_XlydMIf50XLeQzFFuJtu2lP9sgiZJOo6cxu9AiVBiduph2oVRLIr4Z-tRaypEaPN2zJN1ApYOm7n0XYqLNyN1NCyGhl2ekSsoBm9n9mPebkvctAlLBJUVaLcfYZ8bZbXGIbXzPS1RNE7FOmrIOCpV9C42tkBaixNU3RirSJcxHFvlf_x3_hFGYXWOb6qDgtXj0mym1cfNbVwBvwaS2L8FzFGGknWwoscho5syUc9fHWa386eOM2OzjyTDMe9WjinQ</span><br></pre></td></tr></table></figure>
+
+ 
       <!-- reward -->
       
       <div id="reward-btn">
@@ -357,7 +340,7 @@ kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -370,6 +353,10 @@ kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -392,7 +379,7 @@ kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -422,9 +409,9 @@ kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -578,11 +565,6 @@ kubernetes.io/service-account.uid: 9ef4695d-aae1-4628-a234-63a6d351d771</code></
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

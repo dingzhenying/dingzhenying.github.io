@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -125,7 +114,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.mllib.linalg.&#123;Vector,Vectors&#125; </span><br><span class="line">val dv:Vector &#x3D; Vectors.dense(1.0,0.0,3.0) </span><br><span class="line">dv: org.apache.spark.mllib.linalg.Vector &#x3D; [1.0,0.0,3.0] </span><br><span class="line">val sv1:Vector &#x3D; Vectors.sparse(3,Array(0,2),Array(1.0,3.0)) </span><br><span class="line">sv1: org.apache.spark.mllib.linalg.Vector &#x3D; (3,[0,2],[1.0,3.0]) </span><br><span class="line">val sv2:Vector &#x3D; Vectors.sparse(3,Seq((0,1.0),(2,3.0))) </span><br><span class="line">sv2: org.apache.spark.mllib.linalg.Vector &#x3D; (3,[0,2],[1.0,3.0])</span><br></pre></td></tr></table></figure>
 
 <p>ps: scala默认引入scala.collection.immutable.Vector，所以引入org.apache.spark.mllib.linalg.Vector具体使用Mlib的向量</p>
-<a id="more"></a>
 <p>2、标记点[Labeled point]<br>用于有监督学习方法，也是局部变量，通过double型标签关联每个向量。标记点乐意用于分类和回归。二分类中，标签为0 or 1，在多分类中，类标记也是从0开始，0,1,2…</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.mllib.linalg.Vectors </span><br><span class="line">import org.apache.spark.mllib.regression.LabeledPoint </span><br><span class="line">val pos &#x3D; LabeledPoint(1.0,Vectors.dense(1,0,3)) </span><br><span class="line">pos: org.apache.spark.mllib.regression.LabeledPoint &#x3D; (1.0,[1.0,0.0,3.0]) </span><br><span class="line">val neg &#x3D; LabeledPoint(0.0,Vectors.sparse(3,Array(0,2),Array(1.0,3.0))) </span><br><span class="line">neg: org.apache.spark.mllib.regression.LabeledPoint &#x3D; (0.0,(3,[0,2],[1.0,3.0]))</span><br></pre></td></tr></table></figure>
 <p>实际应用中会使用稀疏训练数据，MLlib支持读取libsvm格式的训练语料数据。libsvm是一种文本格式，每行表示一个标记的稀疏特征向量。</p>
@@ -366,7 +354,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -379,6 +367,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -401,7 +393,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -431,9 +423,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -587,11 +579,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

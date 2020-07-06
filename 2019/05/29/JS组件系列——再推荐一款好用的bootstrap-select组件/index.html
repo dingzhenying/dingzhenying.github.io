@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -134,7 +123,6 @@
 <li><a href="http://www.cnblogs.com/landeanfen/p/7457283.html#_label3" target="_blank" rel="noopener"> 四、源码下载 </a></li>
 <li><a href="http://www.cnblogs.com/landeanfen/p/7457283.html#_label4" target="_blank" rel="noopener"> 五、总结 </a></li>
 </ul>
-<a id="more"></a>
 <p>正文</p>
 <p>前言：之前分享过两篇bootstrap下拉框的组件： <a href="http://www.cnblogs.com/landeanfen/p/5013452.html" target="_blank" rel="noopener"> JS组件系列——两种bootstrap multiselect组件大比拼
 </a> 和 <a href="http://www.cnblogs.com/landeanfen/p/5099332.html" target="_blank" rel="noopener"> JS组件系列——Bootstrap<br>Select2组件使用小结 </a><br>，收到很多园友的关注和提问，最后总结这两篇里面的下拉框组件都存在一些大大小小的问题，比如两种bootstrap<br>mutiselect组件，界面渲染效果略差；再比如select2一些兼容性问题、多选的取值赋值等问题都困扰着博主以及很多园友，项目里面的下拉框很早就替换为今天介绍的这款组件，所以今天介绍给大家，让大家多一个选择也好！感谢大家的持续关注！</p>
@@ -505,9 +493,9 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
       </a>
     
     
-      <a href="/2019/05/29/Jedis-radis%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+      <a href="/2019/05/29/K8S_%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Jedis-radis常用操作</div>
+        <div class="article-nav-title">K8S_常见指令</div>
       </a>
     
   </nav>
@@ -648,7 +636,7 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -661,6 +649,10 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -683,7 +675,7 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -713,9 +705,9 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -869,11 +861,6 @@ $(&apos;.disable-example&apos;).selectpicker(&apos;refresh&apos;);</code></pre><
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

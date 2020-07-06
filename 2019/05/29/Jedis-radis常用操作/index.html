@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -88,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">336</span>
+            <span class="post-count">333</span>
         </span>
     </span>
 
@@ -112,7 +101,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="Radis（Jedis）常用操作"><a href="#Radis（Jedis）常用操作" class="headerlink" title="Radis（Jedis）常用操作"></a>Radis（Jedis）常用操作</h2><h3 id="Set-map-string-list四种存储方式"><a href="#Set-map-string-list四种存储方式" class="headerlink" title="Set/map/string/list四种存储方式"></a>Set/map/string/list四种存储方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dc.cleaningstatistics.scheduler.utils;</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Dingzhenying on 2019/1/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">radisUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 连接本地的 Redis 服务</span></span><br><span class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"192.168.66.193"</span>,<span class="number">6379</span>);</span><br><span class="line">        System.out.println(<span class="string">"连接本地的 Redis 服务成功！"</span>);</span><br><span class="line">        <span class="comment">//Stirng</span></span><br><span class="line">        jedis.set(<span class="string">"souvc"</span>, <span class="string">"http://www.cnblogs.com/liuhongfeng/"</span>);</span><br><span class="line">        <span class="comment">//Map</span></span><br><span class="line">        Map&lt;String,String&gt; dataMap=<span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        <span class="comment">//删除某个Key值</span></span><br><span class="line">        jedis.hdel(<span class="string">"user"</span>,<span class="string">"age"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"name"</span>, <span class="string">"xinxin"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"age"</span>, <span class="string">"22"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"qq"</span>, <span class="string">"123456"</span>);</span><br><span class="line">        jedis.hmset(<span class="string">"kes"</span>,dataMap);</span><br><span class="line">        List&lt;String&gt; rsmap = jedis.hmget(<span class="string">"kes"</span>, <span class="string">"name"</span>, <span class="string">"age"</span>, <span class="string">"qq"</span>);</span><br><span class="line">        <span class="comment">//  List</span></span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"spring"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"struts"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"hibernate"</span>);</span><br><span class="line">        <span class="comment">//set</span></span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"liuling"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"xinxin"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"ling"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"zhangxinxin"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"who"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//取出user中的name，执行结果:[minxr]--&gt;注意结果是一个泛型的List</span></span><br><span class="line">        <span class="comment">//第一个参数是存入redis中map对象的key，后面跟的是放入map中的对象的key，后面的key可以跟多个，是可变参数</span></span><br><span class="line">        System.out.println(<span class="string">"Map:"</span>);</span><br><span class="line">        System.out.println(rsmap);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"List:"</span>);</span><br><span class="line">        System.out.println(jedis.lrange(<span class="string">"java framework"</span>,<span class="number">0</span>,-<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//String</span></span><br><span class="line">        System.out.println(<span class="string">"String:"</span>);</span><br><span class="line">        <span class="comment">//Set</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//移除noname</span></span><br><span class="line">        jedis.srem(<span class="string">"user"</span>,<span class="string">"who"</span>);</span><br><span class="line">        System.out.println(jedis.smembers(<span class="string">"user"</span>));<span class="comment">//获取所有加入的value</span></span><br><span class="line">        System.out.println(jedis.sismember(<span class="string">"user"</span>, <span class="string">"who"</span>));<span class="comment">//判断 who 是否是user集合的元素</span></span><br><span class="line">        System.out.println(jedis.srandmember(<span class="string">"user"</span>));</span><br><span class="line">        System.out.println(jedis.scard(<span class="string">"user"</span>));<span class="comment">//返回集合的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+  <h2 id="Radis（Jedis）常用操作"><a href="#Radis（Jedis）常用操作" class="headerlink" title="Radis（Jedis）常用操作"></a>Radis（Jedis）常用操作</h2><h3 id="Set-map-string-list四种存储方式"><a href="#Set-map-string-list四种存储方式" class="headerlink" title="Set/map/string/list四种存储方式"></a>Set/map/string/list四种存储方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dc.cleaningstatistics.scheduler.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Dingzhenying on 2019/1/3</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">radisUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 连接本地的 Redis 服务</span></span><br><span class="line">        Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"192.168.66.193"</span>,<span class="number">6379</span>);</span><br><span class="line">        System.out.println(<span class="string">"连接本地的 Redis 服务成功！"</span>);</span><br><span class="line">        <span class="comment">//Stirng</span></span><br><span class="line">        jedis.set(<span class="string">"souvc"</span>, <span class="string">"http://www.cnblogs.com/liuhongfeng/"</span>);</span><br><span class="line">        <span class="comment">//Map</span></span><br><span class="line">        Map&lt;String,String&gt; dataMap=<span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        <span class="comment">//删除某个Key值</span></span><br><span class="line">        jedis.hdel(<span class="string">"user"</span>,<span class="string">"age"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"name"</span>, <span class="string">"xinxin"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"age"</span>, <span class="string">"22"</span>);</span><br><span class="line">        dataMap.put(<span class="string">"qq"</span>, <span class="string">"123456"</span>);</span><br><span class="line">        jedis.hmset(<span class="string">"kes"</span>,dataMap);</span><br><span class="line">        List&lt;String&gt; rsmap = jedis.hmget(<span class="string">"kes"</span>, <span class="string">"name"</span>, <span class="string">"age"</span>, <span class="string">"qq"</span>);</span><br><span class="line">        <span class="comment">//  List</span></span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"spring"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"struts"</span>);</span><br><span class="line">        jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"hibernate"</span>);</span><br><span class="line">        <span class="comment">//set</span></span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"liuling"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"xinxin"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"ling"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"zhangxinxin"</span>);</span><br><span class="line">        jedis.sadd(<span class="string">"user"</span>,<span class="string">"who"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//取出user中的name，执行结果:[minxr]--&gt;注意结果是一个泛型的List</span></span><br><span class="line">        <span class="comment">//第一个参数是存入redis中map对象的key，后面跟的是放入map中的对象的key，后面的key可以跟多个，是可变参数</span></span><br><span class="line">        System.out.println(<span class="string">"Map:"</span>);</span><br><span class="line">        System.out.println(rsmap);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"List:"</span>);</span><br><span class="line">        System.out.println(jedis.lrange(<span class="string">"java framework"</span>,<span class="number">0</span>,-<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//String</span></span><br><span class="line">        System.out.println(<span class="string">"String:"</span>);</span><br><span class="line">        <span class="comment">//Set</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//移除noname</span></span><br><span class="line">        jedis.srem(<span class="string">"user"</span>,<span class="string">"who"</span>);</span><br><span class="line">        System.out.println(jedis.smembers(<span class="string">"user"</span>));<span class="comment">//获取所有加入的value</span></span><br><span class="line">        System.out.println(jedis.sismember(<span class="string">"user"</span>, <span class="string">"who"</span>));<span class="comment">//判断 who 是否是user集合的元素</span></span><br><span class="line">        System.out.println(jedis.srandmember(<span class="string">"user"</span>));</span><br><span class="line">        System.out.println(jedis.scard(<span class="string">"user"</span>));<span class="comment">//返回集合的元素个数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
       <div id="reward-btn">
@@ -191,19 +180,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2019/05/29/JS%E7%BB%84%E4%BB%B6%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%86%8D%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E5%A5%BD%E7%94%A8%E7%9A%84bootstrap-select%E7%BB%84%E4%BB%B6/" class="article-nav-link">
+      <a href="/2019/05/29/K8S_%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            JS组件系列——再推荐一款好用的bootstrap-select组件
+            K8S_常见指令
           
         </div>
       </a>
     
     
-      <a href="/2019/05/29/K8S_%E5%B8%B8%E8%A7%81%E6%8C%87%E4%BB%A4/" class="article-nav-link">
+      <a href="/2019/05/29/LINUX%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8C%87%E4%BB%A4%E7%89%88%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">K8S_常见指令</div>
+        <div class="article-nav-title">LINUX虚拟机指令版搭建教程</div>
       </a>
     
   </nav>
@@ -344,7 +333,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -357,6 +346,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -379,7 +372,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -409,9 +402,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -565,11 +558,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

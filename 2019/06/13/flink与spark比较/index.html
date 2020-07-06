@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -116,7 +105,6 @@
 <p>首发个人公众号spark技术分享，同步个人网站coolplayer.net，未经本人同意，禁止一切转载</p>
 <p><img src="https://raw.githubusercontent.com/dingzhenying/MDGif/master/img/20190629120830.png" alt=""></p>
 <p>我第一次接触到Flink的时候，就在想我们女人的真真需要它，大数据世界中有数不清的框架，但是我们缺少一个可以一统江湖的生态，spark现在就充当这样一个角色，那么为什么我们还需要另外一个类似的东西。</p>
-<a id="more"></a>
 <p>好奇之下，我们开始接触Flink，开始的时候，我发现它的一些demo看起来极其类似spark，我把它当做spark的一个模仿者，但是在我了解的足够多之后，我发现两者还是有很大区别的，Flink里面有很多自己独特的东西，我对它就充满兴趣了。</p>
 <p>Flink的一些特性，比如实现了自己的内存管理，已经在spark中得到证明的数据集API，所以理解flink有助于我们把握大数据的未来</p>
 <p>我这里说下我作为一个spark开发者对flink的第一印象，当然我使用spark已经两年，而使用flink只有两周，所以有可能会偏颇。</p>
@@ -386,7 +374,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -399,6 +387,10 @@
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -421,7 +413,7 @@
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -451,9 +443,9 @@
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -607,11 +599,6 @@
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 

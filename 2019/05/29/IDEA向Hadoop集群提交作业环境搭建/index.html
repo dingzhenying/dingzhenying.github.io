@@ -43,17 +43,6 @@
 <body>
   <div id="app">
     
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      
       
     <main class="content on">
       <section class="outer">
@@ -118,8 +107,7 @@
 </ul>
 <hr>
 <h1 id="IDEA向Hadoop集群提交作业环境搭建"><a href="#IDEA向Hadoop集群提交作业环境搭建" class="headerlink" title=" IDEA向Hadoop集群提交作业环境搭建 "></a><a href="/qq_37279279/article/details/78502018"> IDEA向Hadoop集群提交作业环境搭建 </a></h1><h1 id="IDEA向Hadoop集群提交作业环境搭建-1"><a href="#IDEA向Hadoop集群提交作业环境搭建-1" class="headerlink" title="IDEA向Hadoop集群提交作业环境搭建"></a>IDEA向Hadoop集群提交作业环境搭建</h1><p>windows环境：IntelliJ IDEA 2017.2.3、JRE: 1.8.0_152-release-915-b11<br>、hadoop-2.7.4.tar.gz、hadoop-common-2.2.0-bin-master.rar</p>
-<h2 id="一、windows下配置hadoop环境"><a href="#一、windows下配置hadoop环境" class="headerlink" title="一、windows下配置hadoop环境"></a>一、windows下配置hadoop环境</h2><h3 id="1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录"><a href="#1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录" class="headerlink" title="1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)"></a>1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)</h3><a id="more"></a>
-<p>解压hadoop-2.7.4.tar.gz到C盘，路径为：C:\hadoop-2.7.4</p>
+<h2 id="一、windows下配置hadoop环境"><a href="#一、windows下配置hadoop环境" class="headerlink" title="一、windows下配置hadoop环境"></a>一、windows下配置hadoop环境</h2><h3 id="1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录"><a href="#1-解压hadoop-2-7-4-tar-gz到c盘-或者任意目录" class="headerlink" title="1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)"></a>1.解压hadoop-2.7.4.tar.gz到c盘(或者任意目录)</h3><p>解压hadoop-2.7.4.tar.gz到C盘，路径为：C:\hadoop-2.7.4</p>
 <p>解压 hadoop-common-2.2.0-bin-master.rar 并复制bin目录下所有的文件到 C:\hadoop-2.7.4\bin目录下</p>
 <p>hadoop-common-2.2.0-bin-master.rar的下载链接：<a href="http://pan.baidu.com/s/1jHHPElg" target="_blank" rel="noopener">http://pan.baidu.com/s/1jHHPElg</a><br>密码：aufd</p>
 <h3 id="2-配置hadoop的环境变量"><a href="#2-配置hadoop的环境变量" class="headerlink" title="2.配置hadoop的环境变量"></a>2.配置hadoop的环境变量</h3><p><img src="http://ov1a6etyz.bkt.clouddn.com//1510112190836ZTGONK2UJN_2~_~GXQFXBOB.png" alt="http://ov1a6etyz.bkt.clouddn.com//1510112190836ZTGONK2UJN_2~_~GXQFXBOB.png"></p>
@@ -861,7 +849,7 @@ public class RunHadoop {
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
@@ -874,6 +862,10 @@ public class RunHadoop {
         <i class="ri-search-line"></i>
       </a>
       
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
       
     </li>
   </ul>
@@ -896,7 +888,7 @@ public class RunHadoop {
 <!-- #reward -->
 <div id="reward">
   <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <p class="reward-p"><i class="ri-cup-line"></i>你的每一分支持，是我努力下去的最大的力量 ٩(๑❛ᴗ❛๑)۶</p>
   <div class="reward-box">
     
     <div class="reward-item">
@@ -926,9 +918,9 @@ public class RunHadoop {
       strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
       startDelay: 0,
       typeSpeed: 200,
-      loop: true,
+      loop: false,
       backSpeed: 50,
-      showCursor: true
+      showCursor: false
     });
   } catch (err) {
     console.log(err)
@@ -1082,11 +1074,6 @@ public class RunHadoop {
 <!-- ClickLove -->
 
 <!-- ClickBoom1 -->
-
-<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
-
-<script src="/js/clickBoom1.js"></script>
-
 
 <!-- ClickBoom2 -->
 
